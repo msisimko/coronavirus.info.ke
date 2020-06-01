@@ -10,8 +10,10 @@ const config = {
   appId: process.env.REACT_APP_APP_ID
 };
 
-class firebase {
+class Firebase {
   constructor() {
     app.initializeApp(config);
   }
 }
+
+export default Firebase;
