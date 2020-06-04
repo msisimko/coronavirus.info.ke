@@ -16,37 +16,15 @@ import PasswordForget from '../../pages/PasswordForget';
 import SignIn from '../../pages/SignIn';
 import SignUp from '../../pages/SignUp';
 
-import { withFirebase } from '../../firebase';
+import { withAuthentication } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null,
-    };
-  }
-
-  componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      authUser 
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
-    });
-  }
-
-  componentWillUnmount() {
-    this.listener();
-  }
-
   render() {
-    const { authUser } = this.state;
-
     return(
       <Router>
-        <Navigation authUser={authUser} />
+        <Navigation />
         <hr />
         <Route path={ROUTES.ACCOUNT} component={Account} />
         <Route path={ROUTES.ADMINISTRATOR} component={Administrator} />
@@ -60,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default withFirebase(App);
+export default withAuthentication(App);

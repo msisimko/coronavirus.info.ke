@@ -5,16 +5,18 @@ import {
 
 import SignOut from '../SignOut';
 
+import { AuthUserContext } from '../../session';
+
 import * as ROUTES from '../../constants/routes';
 
 class Navigation extends Component {
   render() {
-    const { authUser } = this.props;
-
     return(
-      <div>
-        {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
-      </div>
+      <AuthUserContext.Consumer>
+        {authUser => 
+          authUser ? <NavigationAuth /> : <NavigationNonAuth />
+        }
+      </AuthUserContext.Consumer>
     );
   }
 }
