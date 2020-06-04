@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class PasswordForget extends Component {
+import PasswordForgetForm from './passwordForgetForm';
+import PasswordForgetLink from './passwordForgetLink';
+
+class PasswordForget extends React.Component {
   render() {
     return(
       <React.Fragment>
         <h1>Password Forget</h1>
+        <PasswordForgetForm />
       </React.Fragment>
-    );
+    )
   }
 }
-
+ 
 export default PasswordForget;
+
+export { PasswordForgetForm, PasswordForgetLink };

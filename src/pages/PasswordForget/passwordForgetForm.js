@@ -1,53 +1,50 @@
-import React from 'react';
- 
+import React, { Component } from 'react';
+
 import { withFirebase } from '../../firebase';
 
 const INITIAL_STATE = {
-  passwordOne: '',
-  passwordTwo: '',
+  email: '',
   error: null,
 };
 
-class PasswordChange extends React.Component {
+class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
- 
+  
     this.state = { ...INITIAL_STATE };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
- 
+  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
+  
   onSubmit = event => {
-    const { passwordOne } = this.state;
- 
+    const { email } = this.state;
+  
     this.props.firebase
-      .doUpdatePassword(passwordOne)
+      .doSendPasswordResetEmail(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
       })
       .catch(error => {
         this.setState({ error });
       });
- 
+  
     event.preventDefault();
   };
-
+  
   render() {
-    const { passwordOne, passwordTwo, error } = this.state;
- 
-    const isInvalid = passwordOne !== passwordTwo || 
-                      passwordOne === '';
- 
+    const { email, error } = this.state;
+
+    const isInvalid = email === '';
+  
     return (
       <React.Fragment>
         <form onSubmit={this.onSubmit}>
-          <input name="passwordOne" value={passwordOne} onChange={this.onChange} type="password" placeholder="New Password" />
-          <input name="passwordTwo" value={passwordTwo} onChange={this.onChange} type="password" placeholder="Confirm New Password" />
+          <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
           <button disabled={isInvalid} type="submit">Reset My Password</button>
         </form>
 
@@ -57,4 +54,4 @@ class PasswordChange extends React.Component {
   }
 }
  
-export default withFirebase(PasswordChange);
+export default withFirebase(PasswordForgetForm);

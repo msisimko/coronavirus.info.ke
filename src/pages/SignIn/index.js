@@ -4,6 +4,8 @@ import SignInForm from './signInForm';
 import SignInLink from './signInLink';
 import { SignUpLink } from '../SignUp';
 
+import { PasswordForgetLink } from '../PasswordForget';
+
 class SignIn extends Component {
   render() {
     return(
@@ -11,6 +13,7 @@ class SignIn extends Component {
         <h1>Sign In</h1>
         <SignInForm />
         <SignUpLink />
+        <PasswordForgetLink />
       </React.Fragment>
     )
   }
