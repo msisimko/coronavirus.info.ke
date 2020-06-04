@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SignUp extends Component {
+import SignUpForm from './signUpForm';
+import SignUpLink from './signUpLink';
+
+class SignUp extends React.Component {
   render() {
     return(
       <React.Fragment>
         <h1>Sign Up</h1>
+        <SignUpForm />
       </React.Fragment>
-    );
+    )
   }
 }
-
+ 
 export default SignUp;
+
+export { SignUpForm, SignUpLink };
