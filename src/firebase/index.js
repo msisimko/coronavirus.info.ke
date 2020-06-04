@@ -1,13 +1,6 @@
-import React, { Component } from 'react';
-
-class Firebase extends Component {
-  render() {
-    return(
-      <React.Fragment>
-        <h1>Firebase</h1>
-      </React.Fragment>
-    );
-  }
-}
+import FirebaseContext from './context';
+import Firebase from './firebase';
 
 export default Firebase;
+
+export { FirebaseContext };
