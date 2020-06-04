@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class SignInFormBase extends React.Component {
+class SignInFormBase extends Component {
   constructor(props) {
     super(props);
  

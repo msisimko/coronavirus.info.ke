@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import SignInForm from './signInForm';
 import SignInLink from './signInLink';
 import { SignUpLink } from '../SignUp';
 
-class SignIn extends React.Component {
+class SignIn extends Component {
   render() {
     return(
       <React.Fragment>
