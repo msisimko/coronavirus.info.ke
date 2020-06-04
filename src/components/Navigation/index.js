@@ -3,6 +3,8 @@ import {
   Link // renders <a> tag with href
 } from 'react-router-dom';
 
+import SignOut from '../SignOut';
+
 import * as ROUTES from '../../constants/routes';
 
 class Navigation extends Component {
@@ -23,6 +25,9 @@ class Navigation extends Component {
         </li>
         <li>
           <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+        </li>
+        <li>
+          <SignOut />
         </li>
       </ul>
     );
