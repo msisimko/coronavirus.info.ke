@@ -64,7 +64,7 @@ firebase init
 # For more: https://create-react-app.dev/docs/advanced-configuration/
 BROWSER=none
 
-# firebase config details
+# firebaseConfig details
 # NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
 REACT_APP_API_KEY=xxxxxXXXXXxxxxx
 REACT_APP_AUTH_DOMAIN=xxxxxXXXXXxxxxx
