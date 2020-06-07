@@ -60,13 +60,12 @@ firebase init
 7. Create a .env file. Copy & paste the settings below into the file. 
 
 ```
-NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
-
 # Create React App development settings
 # For more: https://create-react-app.dev/docs/advanced-configuration/
 BROWSER=none
 
 # firebase config details
+# NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
 REACT_APP_API_KEY=xxxxxXXXXXxxxxx
 REACT_APP_AUTH_DOMAIN=xxxxxXXXXXxxxxx
 REACT_APP_DATABASE_URL=xxxxxXXXXXxxxxx
