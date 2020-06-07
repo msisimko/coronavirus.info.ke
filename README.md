@@ -1,5 +1,5 @@
 # boilerplate
-A boilerplate (template) for Progressive Web App projects built with ReactJS + Firebase + Material-UI.
+A boilerplate (template) for Progressive Web Apps built with ReactJS + Firebase + Material-UI.
 
 ### Setup on Dev machine
 
