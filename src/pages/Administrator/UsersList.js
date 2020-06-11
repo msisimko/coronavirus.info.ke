@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class UserList extends Component {
+class UsersList extends Component {
   render() {
     const { users } = this.props;
 
@@ -15,7 +15,7 @@ class UserList extends Component {
               <strong>E-Mail:</strong> {user.email}
             </span>
             <span>
-              <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.displayName}
             </span>
           </li>
         ))}
@@ -24,4 +24,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList;
+export default UsersList;
