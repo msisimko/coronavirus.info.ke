@@ -18,6 +18,9 @@ class NavigationAuth extends Component {
           <Link to={ROUTES.ACCOUNT}>Account</Link>
         </li>
         <li>
+          <Link to={ROUTES.ADMINISTRATOR}>Administrator</Link>
+        </li>
+        <li>
           <SignOut />
         </li>
       </ul>
