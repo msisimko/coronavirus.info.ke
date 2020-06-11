@@ -36,7 +36,7 @@ class SignUpFormBase extends Component {
       .then(authUser => {
         // create a user in Firestore
         return this.props.firebase 
-          .user(authUser.user.id)
+          .user(authUser.user.uid)
           .set({
             displayName,
             email,
