@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import UserList from './UserList';
+import UsersList from './UsersList';
 
 import { withFirebase  } from '../../firebase';
 import { withAuthorization } from '../../session';
@@ -21,21 +21,21 @@ class AdministratorBase extends Component {
     this.setState({ loading: true });
 
     // set users state with data from database
-    this.listener = this.props.firebase.users().onSnapshot(function(doc) {
-      const usersObject = doc.data();
+    this.listener = this.props.firebase.users()
+      .onSnapshot((querySnapshot) => {
+        let usersList = []; // array usersList: initialize
 
-      console.log(usersObject);
-
-      // const userList = Object.keys(usersObject).map(key => ({
-      //   ...usersObject[key],
-      //   uid: key,
-      // }));
-
-      // this.setState({
-      //   users: userList,
-      //   loading: false,
-      // });
-    });
+        querySnapshot.forEach((doc) => {
+          let userObject = doc.data();    // object userObject: initialize with doc.data()
+          userObject.uid = doc.id;        // object userObject: add doc.id => uid
+          usersList.push(userObject);     // array usersList: add userObject
+        });
+        
+        this.setState({
+          users: usersList,
+          loading: false,
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -51,7 +51,7 @@ class AdministratorBase extends Component {
 
         { loading && <div>Loading...</div> }
 
-        <UserList users={users} />
+        <UsersList users={users} />
 
         <p>This page is only accessible to logged in users.</p>
       </React.Fragment>
