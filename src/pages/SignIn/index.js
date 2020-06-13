@@ -6,18 +6,17 @@ import { SignUpLink } from '../SignUp';
 
 import { PasswordForgetLink } from '../PasswordForget';
 
-import { withFirebase } from '../../firebase';
+import { AuthUserContext } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
 
 class SignIn extends Component {
+  static contextType = AuthUserContext;
+  
   componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(
-      authUser => {
-        // if signed in, redirect to HOME page
-        authUser && this.props.history.push(ROUTES.HOME);
-      },
-    );
+    let authUser = this.context;
+    // if signed in, redirect to HOME page
+    authUser && this.props.history.push(ROUTES.HOME);
   }
 
   render() {
@@ -32,6 +31,6 @@ class SignIn extends Component {
   }
 }
  
-export default withFirebase(SignIn);
+export default SignIn;
 
 export { SignInForm, SignInLink };
