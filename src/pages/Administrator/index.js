@@ -23,16 +23,16 @@ class AdministratorBase extends Component {
     // set users state with data from database
     this.listener = this.props.firebase.users()
       .onSnapshot((querySnapshot) => {
-        let usersList = []; // array usersList: initialize
+        let users = []; // array users: initialize
 
         querySnapshot.forEach((doc) => {
           let userObject = doc.data();    // object userObject: initialize with doc.data()
           userObject.uid = doc.id;        // object userObject: add doc.id => uid
-          usersList.push(userObject);     // array usersList: add userObject
+          users.push(userObject);         // array users: add userObject
         });
         
         this.setState({
-          users: usersList,
+          users: users,
           loading: false,
         });
       });
