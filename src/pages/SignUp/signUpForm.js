@@ -5,12 +5,14 @@ import { compose } from 'recompose';
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 
 const INITIAL_STATE = {
   displayName: '',
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  roles: {},
   error: null,
 };
 
@@ -23,14 +25,26 @@ class SignUpFormBase extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
+
+  componentDidMount() {
+    // set up roles
+    const roles = {};
+
+    // some examples of roles
+    roles[ROLES.CONTRIBUTOR] = ROLES.CONTRIBUTOR;
+    // roles[ROLES.EDITOR] = ROLES.EDITOR;
+    // roles[ROLES.ADMINISTRATOR] = ROLES.ADMINISTRATOR;
+
+    this.setState({ roles });
+  }
  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   onSubmit = event => {
-    const { displayName, email, passwordOne } = this.state;
- 
+    const { displayName, email, passwordOne, roles } = this.state;
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
@@ -40,6 +54,7 @@ class SignUpFormBase extends Component {
           .set({
             displayName,
             email,
+            roles,
           });
       })
       .then(() => {
