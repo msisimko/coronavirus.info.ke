@@ -3,7 +3,7 @@ A boilerplate (template) for Progressive Web Apps built with ReactJS + Firebase 
 
 ### Setup on Dev machine
 
-NB: This tutorial was tested on Ubuntu Server 20.04 LTS.
+This tutorial was tested on Ubuntu 20.04 LTS.
 
 Open your terminal and follow the instructions below.
 
@@ -30,7 +30,7 @@ nvm install node
   - To log in, run
 
   ```sh
-  firebase login --no-localhost
+  firebase login
   ```
 
 4. Clone this repository.
@@ -62,7 +62,7 @@ firebase init
 ```
 # Create React App development settings
 # For more: https://create-react-app.dev/docs/advanced-configuration/
-BROWSER=none
+# BROWSER=none
 
 # firebaseConfig details
 # NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
