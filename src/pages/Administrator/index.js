@@ -6,6 +6,8 @@ import UsersList from './UsersList';
 import { withFirebase  } from '../../firebase';
 import { withAuthorization } from '../../session';
 
+import * as ROLES from '../../constants/roles';
+
 class AdministratorBase extends Component {
   constructor(props) {
     super(props);
@@ -53,13 +55,14 @@ class AdministratorBase extends Component {
 
         <UsersList users={users} />
 
-        <p>This page is only accessible to logged in users.</p>
+        <p>This page is only accessible to logged in users, who are administrators.</p>
       </React.Fragment>
     );
   }
 }
 
-const condition = authUser => !!authUser;
+const condition = authUser => 
+  authUser && !!authUser.roles[ROLES.ADMINISTRATOR];
 
 const Administrator = compose(
   withFirebase,

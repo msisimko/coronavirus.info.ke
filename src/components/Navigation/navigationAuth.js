@@ -6,9 +6,12 @@ import {
 import SignOut from '../SignOut';
 
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 
 class NavigationAuth extends Component {
   render() {
+    const { authUser } = this.props;
+
     return(
       <ul>
         <li>
@@ -17,9 +20,11 @@ class NavigationAuth extends Component {
         <li>
           <Link to={ROUTES.ACCOUNT}>Account</Link>
         </li>
-        <li>
-          <Link to={ROUTES.ADMINISTRATOR}>Administrator</Link>
-        </li>
+        {!!authUser.roles[ROLES.ADMINISTRATOR] && (
+          <li>
+            <Link to={ROUTES.ADMINISTRATOR}>Administrator</Link>
+          </li>
+        )}
         <li>
           <SignOut />
         </li>
