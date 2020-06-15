@@ -1,5 +1,5 @@
 # boilerplate
-A boilerplate (template) for Progressive Web Apps built with ReactJS + Firebase + Material-UI.
+A boilerplate (template) for Progressive Web Apps built with [ReactJS](https://reactjs.org/) + [Firebase](https://firebase.google.com/) + [Material-UI](https://material-ui.com/).
 
 ### Setup on Dev machine
 
@@ -73,6 +73,9 @@ REACT_APP_PROJECT_ID=xxxxxXXXXXxxxxx
 REACT_APP_STORAGE_BUCKET=xxxxxXXXXXxxxxx
 REACT_APP_MESSAGING_SENDER_ID=xxxxxXXXXXxxxxx
 REACT_APP_APP_ID=xxxxxXXXXXxxxxx
+
+# email verification redirect e.g. localhost for local development
+REACT_APP_CONFIRM_EMAIL_REDIRECT=http://localhost:3000
 
 ```
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
-import { withAuthorization } from '../../session';
+import { withAuthorization, withEmailVerification } from '../../session';
 
-class Home extends Component {
+class HomeBase extends Component {
   render() {
     return(
       <React.Fragment>
@@ -15,4 +16,9 @@ class Home extends Component {
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(Home);
+const Home = compose(
+  withAuthorization(condition),
+  withEmailVerification,
+)(HomeBase);
+
+export default Home;
