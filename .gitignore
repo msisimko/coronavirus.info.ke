@@ -23,7 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # .env
+# See https://create-react-app.dev/docs/adding-custom-environment-variables/#what-other-env-files-can-be-used
 .env
+.env.production
 
 # firebase
 .firebaserc

@@ -74,6 +74,9 @@ REACT_APP_STORAGE_BUCKET=xxxxxXXXXXxxxxx
 REACT_APP_MESSAGING_SENDER_ID=xxxxxXXXXXxxxxx
 REACT_APP_APP_ID=xxxxxXXXXXxxxxx
 
+# email verification redirect e.g. localhost for local development
+REACT_APP_CONFIRM_EMAIL_REDIRECT=http://localhost:3000
+
 ```
 
 8. Happy coding!
