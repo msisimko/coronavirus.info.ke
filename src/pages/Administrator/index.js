@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import UsersList from './UsersList';
 
 import { withFirebase  } from '../../firebase';
-import { withAuthorization } from '../../session';
+import { withAuthorization, withEmailVerification } from '../../session';
 
 import * as ROLES from '../../constants/roles';
 
@@ -67,6 +67,7 @@ const condition = authUser =>
 const Administrator = compose(
   withFirebase,
   withAuthorization(condition),
+  withEmailVerification,
 )(AdministratorBase);
 
 export default Administrator;

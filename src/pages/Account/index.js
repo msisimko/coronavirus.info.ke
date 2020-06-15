@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
 import PasswordChange from '../../components/PasswordChange';
 
-import { withAuthorization } from '../../session';
+import { withAuthorization, withEmailVerification } from '../../session';
 
-class Account extends Component {
+class AccountBase extends Component {
   render() {
     return(
       <React.Fragment>
@@ -18,4 +19,9 @@ class Account extends Component {
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(Account);
+const Account = compose(
+  withAuthorization(condition),
+  withEmailVerification,
+)(AccountBase);
+
+export default Account;
