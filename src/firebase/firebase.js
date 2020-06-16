@@ -28,7 +28,10 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
   
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => 
+    this.auth.signOut()
+    // hack to reload page on sign out
+    .then(() => { window.location.reload(); });
 
   doSendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
 
