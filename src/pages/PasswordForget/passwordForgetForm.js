@@ -4,6 +4,7 @@ import { withFirebase } from '../../firebase';
 
 const INITIAL_STATE = {
   email: '',
+  success: '',
   error: null,
 };
 
@@ -27,7 +28,8 @@ class PasswordForgetForm extends Component {
     this.props.firebase
       .doSendPasswordResetEmail(email)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        let success = { code: 200, message: "Please check your inbox for a password reset email." };
+        this.setState({ success });
       })
       .catch(error => {
         this.setState({ error });
@@ -37,7 +39,7 @@ class PasswordForgetForm extends Component {
   };
   
   render() {
-    const { email, error } = this.state;
+    const { email, success, error } = this.state;
 
     const isInvalid = email === '';
   
@@ -47,6 +49,8 @@ class PasswordForgetForm extends Component {
           <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
           <button disabled={isInvalid} type="submit">Reset My Password</button>
         </form>
+
+        {success && success.message}
 
         {error && error.message}
       </React.Fragment>

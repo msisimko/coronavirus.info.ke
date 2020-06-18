@@ -22,25 +22,30 @@ class SignUpFormBase extends Component {
 
     this.state = { ...INITIAL_STATE };
 
-    this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
-    // set up roles
-    const roles = {};
+    const roles = {}; // initialize empty roles object
 
-    // some examples of roles
+    /**
+     * Some examples of roles are:
+     * -  roles[ROLES.EDITOR] = ROLES.EDITOR;
+     * -  roles[ROLES.ADMINISTRATOR] = ROLES.ADMINISTRATOR;
+     * 
+     * Make sure these roles are defined in the constants/roles.js file.
+     * 
+     * Below we implement the CONTRIBUTOR role only, sort of like the default role.
+     */
     roles[ROLES.CONTRIBUTOR] = ROLES.CONTRIBUTOR;
-    // roles[ROLES.EDITOR] = ROLES.EDITOR;
-    // roles[ROLES.ADMINISTRATOR] = ROLES.ADMINISTRATOR;
 
     this.setState({ roles });
   }
  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }
 
   onSubmit = event => {
     const { displayName, email, passwordOne, roles } = this.state;
@@ -65,6 +70,7 @@ class SignUpFormBase extends Component {
           });
       })
       .then(() => {
+        // send email verification
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {

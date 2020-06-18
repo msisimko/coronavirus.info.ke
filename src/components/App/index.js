@@ -9,6 +9,7 @@ import Navigation from '../Navigation';
 
 // import pages
 import Account from '../../pages/Account';
+import Action from '../../pages/Action';
 import Administrator from '../../pages/Administrator';
 import Home from '../../pages/Home';
 import Landing from '../../pages/Landing';
@@ -27,6 +28,7 @@ class App extends Component {
         <Navigation />
         <hr />
         <Route path={ROUTES.ACCOUNT} component={Account} />
+        <Route path={ROUTES.ACTION} component={Action} />
         <Route path={ROUTES.ADMINISTRATOR} component={Administrator} />
         <Route path={ROUTES.HOME} component={Home} />
         <Route exact path={ROUTES.LANDING} component={Landing} />

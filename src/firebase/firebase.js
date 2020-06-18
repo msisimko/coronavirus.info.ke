@@ -74,6 +74,15 @@ class Firebase {
       }
     });
   
+  // *** Email Action Handler API ***
+  doCheckActionCode = actionCode => this.auth.checkActionCode(actionCode);
+
+  doApplyActionCode = actionCode => this.auth.applyActionCode(actionCode);
+
+  doVerifyPasswordResetCode = actionCode => this.auth.verifyPasswordResetCode(actionCode);
+
+  doConfirmPasswordReset = (actionCode, password) => this.auth.confirmPasswordReset(actionCode, password);
+  
   // *** User API ***
   user = uid => this.db.collection('users').doc(uid);
   users = () => this.db.collection('users');
