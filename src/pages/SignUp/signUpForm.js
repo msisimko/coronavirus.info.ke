@@ -45,7 +45,7 @@ class SignUpFormBase extends Component {
  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }
 
   onSubmit = event => {
     const { displayName, email, passwordOne, roles } = this.state;
