@@ -5,6 +5,7 @@ import { withFirebase } from '../../firebase';
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
+  success: null,
   error: null,
 };
 
@@ -28,7 +29,8 @@ class PasswordChange extends React.Component {
     this.props.firebase
       .doUpdatePassword(passwordOne)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        let success = { code: 200, message: "Your password has successfully been updated." };
+        this.setState({ success });
       })
       .catch(error => {
         this.setState({ error });
@@ -38,7 +40,7 @@ class PasswordChange extends React.Component {
   };
 
   render() {
-    const { passwordOne, passwordTwo, error } = this.state;
+    const { passwordOne, passwordTwo, success, error } = this.state;
  
     const isInvalid = passwordOne !== passwordTwo || 
                       passwordOne === '';
@@ -50,6 +52,8 @@ class PasswordChange extends React.Component {
           <input name="passwordTwo" value={passwordTwo} onChange={this.onChange} type="password" placeholder="Confirm New Password" />
           <button disabled={isInvalid} type="submit">Reset My Password</button>
         </form>
+
+        {success && success.message}
 
         {error && error.message}
       </React.Fragment>

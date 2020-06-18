@@ -1,4 +1,5 @@
 export const ACCOUNT = '/account';
+export const ACTION = '/action';
 export const ADMINISTRATOR = '/administrator';
 export const HOME = '/home';
 export const LANDING = '/';
