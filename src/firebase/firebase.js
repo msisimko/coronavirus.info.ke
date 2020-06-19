@@ -29,11 +29,12 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
   
   doSignOut = () => 
-    this.auth.signOut()
-    // hack to reload page on sign out
-    .then(() => { window.location.reload(); });
+    this.auth.signOut();
 
   doSendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
+
+  doUpdateEmail = email =>
+    this.auth.currentUser.updateEmail(email);
 
   doUpdatePassword = password =>
     this.auth.currentUser.updatePassword(password);
@@ -50,24 +51,26 @@ class Firebase {
         this.user(authUser.uid)
           .get()
           .then(doc => {
-            const dbUser = doc.data();
-
-            // if no roles, default to empty roles
-            if (!dbUser.roles) {
-              dbUser.roles = {};
+            if (!doc.exists) {
+              console.log('No such document!');
+            } else {
+              // initialize dbUser with document data
+              const dbUser = doc.data();
+              // if no roles, default to empty roles
+              if (!dbUser.roles) {
+                dbUser.roles = {};
+              }
+              // merge authUser & dbUser
+              authUser = {
+                uid: authUser.uid,
+                email: authUser.email,
+                displayName: authUser.displayName,
+                emailVerified: authUser.emailVerified,
+                providerData: authUser.providerData,
+                ...dbUser,
+              };
+              next(authUser);
             }
-
-            // merge authUser & dbUser
-            authUser = {
-              uid: authUser.uid,
-              email: authUser.email,
-              displayName: authUser.displayName,
-              emailVerified: authUser.emailVerified,
-              providerData: authUser.providerData,
-              ...dbUser,
-            };
-
-            next(authUser);
           });
       } else {
         fallback();
