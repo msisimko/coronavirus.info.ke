@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
+import EmailChange from '../../components/EmailChange';
 import PasswordChange from '../../components/PasswordChange';
 
 import { withAuthorization, withEmailVerification } from '../../session';
@@ -10,6 +11,7 @@ class AccountBase extends Component {
     return(
       <React.Fragment>
         <h1>Account</h1>
+        <EmailChange />
         <PasswordChange />
         <p>This page is only accessible to logged in users.</p>
       </React.Fragment>
