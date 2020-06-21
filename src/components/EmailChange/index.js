@@ -26,15 +26,8 @@ class EmailChange extends React.Component {
     const { email } = this.state;
  
     this.props.firebase
-      .doUpdateEmail(email)         // update authUser email
-      .then(() => {                 // update dbUser email
-        let uid = this.props.firebase.auth.currentUser.uid;
-
-        return this.props.firebase
-          .user(uid)
-          .update({ email });
-      })
-      .then(() => {                 // send verification email
+      .doUpdateEmail(email) // update authUser email
+      .then(() => { // send verification email
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
