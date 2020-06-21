@@ -60,19 +60,35 @@ class Firebase {
             } else {
               // initialize dbUser with document data
               const dbUser = doc.data();
+
               // if no roles, default to empty roles
               if (!dbUser.roles) {
                 dbUser.roles = {};
               }
+
               // merge authUser & dbUser
               authUser = {
-                uid: authUser.uid,
-                email: authUser.email,
+                
                 displayName: authUser.displayName,
+                email: authUser.email,
                 emailVerified: authUser.emailVerified,
+                isAnonymous: authUser.isAnonymous,
+
+                creationTime: authUser.metadata.creationTime,
+                lastSignInTime: authUser.metadata.lastSignInTime,
+
+                phoneNumber: authUser.phoneNumber,
+                photoURL: authUser.photoURL,
+                uid: authUser.uid,
+
+                token: authUser.getIdToken().toString(),
+                
                 providerData: authUser.providerData,
                 ...dbUser,
               };
+              
+              console.log(authUser);
+              
               next(authUser);
             }
           });
