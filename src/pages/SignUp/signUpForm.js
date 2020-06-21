@@ -56,10 +56,7 @@ class SignUpFormBase extends Component {
         // create a record of this user in Firestore
         return this.props.firebase 
           .user(authUser.user.uid)
-          .set({
-            roles,
-            createdAt: this.props.firebase.getServerTimestamp(),
-          });
+          .set({ roles });
       })
       .then(() => {
         // update user profile with displayName
