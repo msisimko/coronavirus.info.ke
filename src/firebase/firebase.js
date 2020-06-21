@@ -55,9 +55,7 @@ class Firebase {
         this.user(authUser.uid)
           .get()
           .then(doc => {
-            if (!doc.exists) {
-              console.log('No such document!');
-            } else {
+            if (doc.exists) {
               // initialize dbUser with document data
               const dbUser = doc.data();
 
@@ -72,20 +70,18 @@ class Firebase {
                 email: authUser.email,
                 emailVerified: authUser.emailVerified,
                 isAnonymous: authUser.isAnonymous,
+                phoneNumber: authUser.phoneNumber,
+                photoURL: authUser.photoURL,
+                uid: authUser.uid,
 
                 // account metadata information
                 creationTime: authUser.metadata.creationTime,
                 lastSignInTime: authUser.metadata.lastSignInTime,
-
-                phoneNumber: authUser.phoneNumber,
-                photoURL: authUser.photoURL,
-                uid: authUser.uid,
                 
+                // provider information
                 providerData: authUser.providerData,
                 ...dbUser,
               };
-              
-              console.log(authUser);
               
               next(authUser);
             }
