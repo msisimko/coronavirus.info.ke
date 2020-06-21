@@ -53,13 +53,12 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        // create a user in Firestore
+        // create a record of this user in Firestore
         return this.props.firebase 
           .user(authUser.user.uid)
           .set({
-            displayName,
-            email,
             roles,
+            createdAt: this.props.firebase.getServerTimestamp(),
           });
       })
       .then(() => {

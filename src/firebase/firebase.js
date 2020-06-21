@@ -20,6 +20,10 @@ class Firebase {
     this.db = app.firestore();
   }
 
+  // *** App API ***
+
+  getServerTimestamp = () => app.firestore.FieldValue.serverTimestamp();
+  
   // *** Auth API ***
  
   doCreateUserWithEmailAndPassword = (email, password) =>
