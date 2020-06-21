@@ -68,20 +68,18 @@ class Firebase {
 
               // merge authUser & dbUser
               authUser = {
-                
                 displayName: authUser.displayName,
                 email: authUser.email,
                 emailVerified: authUser.emailVerified,
                 isAnonymous: authUser.isAnonymous,
 
+                // account metadata information
                 creationTime: authUser.metadata.creationTime,
                 lastSignInTime: authUser.metadata.lastSignInTime,
 
                 phoneNumber: authUser.phoneNumber,
                 photoURL: authUser.photoURL,
                 uid: authUser.uid,
-
-                token: authUser.getIdToken().toString(),
                 
                 providerData: authUser.providerData,
                 ...dbUser,
