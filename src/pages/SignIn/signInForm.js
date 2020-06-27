@@ -45,8 +45,8 @@ class SignInFormBase extends Component {
   render() {
     const { email, password, error } = this.state;
     
-    const isInvalid = password === '' ||
-                      email === '';
+    const isInvalid = email === '' ||
+                      password === '';
  
     return (
       <React.Fragment>

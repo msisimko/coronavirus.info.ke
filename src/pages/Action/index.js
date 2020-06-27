@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import mode specific components
 import RecoverEmail from './recoverEmail';
 import ResetPassword from './resetPassword';
 import VerifyEmail from './verifyEmail';

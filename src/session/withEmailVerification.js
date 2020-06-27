@@ -4,7 +4,6 @@ import AuthUserContext from './context';
 
 import { withFirebase } from '../firebase';
 
-// checks whether user needs to verify their email
 const needsEmailVerification = authUser =>
   authUser &&
   !authUser.emailVerified &&
@@ -38,7 +37,7 @@ const withEmailVerification = Component => {
               <React.Fragment>
                 <div>
                   {isSent ? (
-                    <p>E-Mail confirmation sent: Check you E-Mails (Spam folder included) for a confirmation E-Mail. Refresh this page once you confirmed your E-Mail.</p>
+                    <p>E-Mail confirmation sent: Check you E-Mails (Spam folder included) for a confirmation E-Mail. Refresh this page once you confirm your E-Mail.</p>
                     ) : (
                     <p>Verify your E-Mail: Check you E-Mails (Spam folder included) for a confirmation E-Mail or send another confirmation E-Mail.</p>
                   )}

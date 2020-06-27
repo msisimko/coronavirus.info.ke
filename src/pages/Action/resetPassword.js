@@ -56,7 +56,6 @@ class ResetPasswordBase extends Component {
         this.setState({ error });
       });
     
-    
     event.preventDefault();
   }
 

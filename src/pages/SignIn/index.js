@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import SignInForm from './signInForm';
 import SignInLink from './signInLink';
-import { SignUpLink } from '../SignUp';
 
+import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 
 import { AuthUserContext } from '../../session';
@@ -15,7 +15,7 @@ class SignIn extends Component {
   
   componentDidMount() {
     let authUser = this.context;
-    // if signed in, redirect to HOME page
+    
     authUser && this.props.history.push(ROUTES.HOME);
   }
 
