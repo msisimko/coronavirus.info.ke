@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { 
-  BrowserRouter as Router,
-  Route // the route to component
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// import navigation
 import Navigation from '../Navigation';
 
-// import pages
 import Account from '../../pages/Account';
 import Action from '../../pages/Action';
 import Administrator from '../../pages/Administrator';

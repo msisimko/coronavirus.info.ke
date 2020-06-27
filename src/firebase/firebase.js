@@ -20,6 +20,10 @@ class Firebase {
     this.db = app.firestore();
   }
 
+  // *** App API ***
+
+  getServerTimestamp = () => app.firestore.FieldValue.serverTimestamp();
+  
   // *** Auth API ***
  
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -31,7 +35,8 @@ class Firebase {
   doSignOut = () => 
     this.auth.signOut();
 
-  doSendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
+  doSendPasswordResetEmail = email => 
+    this.auth.sendPasswordResetEmail(email);
 
   doUpdateEmail = email =>
     this.auth.currentUser.updateEmail(email);
@@ -45,30 +50,34 @@ class Firebase {
     });
 
   // *** Merge authUser & dbUser API ***
+
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if(authUser) {
         this.user(authUser.uid)
           .get()
           .then(doc => {
-            if (!doc.exists) {
-              console.log('No such document!');
-            } else {
-              // initialize dbUser with document data
+            if (doc.exists) {
               const dbUser = doc.data();
-              // if no roles, default to empty roles
+              
               if (!dbUser.roles) {
                 dbUser.roles = {};
               }
-              // merge authUser & dbUser
+              
               authUser = {
-                uid: authUser.uid,
-                email: authUser.email,
                 displayName: authUser.displayName,
+                email: authUser.email,
                 emailVerified: authUser.emailVerified,
+                isAnonymous: authUser.isAnonymous,
+                phoneNumber: authUser.phoneNumber,
+                photoURL: authUser.photoURL,
+                uid: authUser.uid,
+                creationTime: authUser.metadata.creationTime,
+                lastSignInTime: authUser.metadata.lastSignInTime,
                 providerData: authUser.providerData,
                 ...dbUser,
               };
+              
               next(authUser);
             }
           });
@@ -78,17 +87,26 @@ class Firebase {
     });
   
   // *** Email Action Handler API ***
-  doCheckActionCode = actionCode => this.auth.checkActionCode(actionCode);
 
-  doApplyActionCode = actionCode => this.auth.applyActionCode(actionCode);
+  doCheckActionCode = actionCode => 
+    this.auth.checkActionCode(actionCode);
 
-  doVerifyPasswordResetCode = actionCode => this.auth.verifyPasswordResetCode(actionCode);
+  doApplyActionCode = actionCode => 
+    this.auth.applyActionCode(actionCode);
 
-  doConfirmPasswordReset = (actionCode, password) => this.auth.confirmPasswordReset(actionCode, password);
+  doVerifyPasswordResetCode = actionCode => 
+    this.auth.verifyPasswordResetCode(actionCode);
+
+  doConfirmPasswordReset = (actionCode, password) => 
+    this.auth.confirmPasswordReset(actionCode, password);
   
   // *** User API ***
-  user = uid => this.db.collection('users').doc(uid);
-  users = () => this.db.collection('users');
+
+  user = uid => 
+    this.db.collection('users').doc(uid);
+
+  users = () => 
+    this.db.collection('users');
 }
 
 export default Firebase;

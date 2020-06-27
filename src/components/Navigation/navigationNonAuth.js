@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { 
-  Link // renders <a> tag with href
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as ROUTES from '../../constants/routes';
 

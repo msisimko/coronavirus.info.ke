@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
  
 import { withFirebase } from '../../firebase';
 
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class EmailChange extends React.Component {
+class EmailChange extends Component {
   constructor(props) {
     super(props);
  
@@ -26,15 +26,8 @@ class EmailChange extends React.Component {
     const { email } = this.state;
  
     this.props.firebase
-      .doUpdateEmail(email)         // update authUser email
-      .then(() => {                 // update dbUser email
-        let uid = this.props.firebase.auth.currentUser.uid;
-
-        return this.props.firebase
-          .user(uid)
-          .update({ email });
-      })
-      .then(() => {                 // send verification email
+      .doUpdateEmail(email)
+      .then(() => {
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {

@@ -27,17 +27,8 @@ class SignUpFormBase extends Component {
   }
 
   componentDidMount() {
-    const roles = {}; // initialize empty roles object
-
-    /**
-     * Some examples of roles are:
-     * -  roles[ROLES.EDITOR] = ROLES.EDITOR;
-     * -  roles[ROLES.ADMINISTRATOR] = ROLES.ADMINISTRATOR;
-     * 
-     * Make sure these roles are defined in the constants/roles.js file.
-     * 
-     * Below we implement the CONTRIBUTOR role only, sort of like the default role.
-     */
+    const roles = {};
+    
     roles[ROLES.CONTRIBUTOR] = ROLES.CONTRIBUTOR;
 
     this.setState({ roles });
@@ -53,24 +44,17 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        // create a user in Firestore
         return this.props.firebase 
-          .user(authUser.user.uid)
-          .set({
-            displayName,
-            email,
-            roles,
-          });
+                .user(authUser.user.uid)
+                .set({ roles });
       })
       .then(() => {
-        // update user profile with displayName
         return this.props.firebase.auth.currentUser
-          .updateProfile({
-            displayName,
-          });
+                .updateProfile({
+                  displayName,
+                });
       })
       .then(() => {
-        // send email verification
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
@@ -87,10 +71,10 @@ class SignUpFormBase extends Component {
   render() {
     const { displayName, email, passwordOne, passwordTwo, error } = this.state;
 
-    const isInvalid = passwordOne !== passwordTwo ||
-                      passwordOne === '' ||
+    const isInvalid = displayName === '' ||
                       email === '' ||
-                      displayName === '';
+                      passwordOne !== passwordTwo ||
+                      passwordOne === '';
 
     return (
       <React.Fragment>
