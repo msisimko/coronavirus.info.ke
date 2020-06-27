@@ -12,7 +12,7 @@ class PasswordForget extends React.Component {
   
   componentDidMount() {
     let authUser = this.context;
-    // if signed in, redirect to HOME page
+    
     authUser && this.props.history.push(ROUTES.HOME);
   }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
  
 import { withFirebase } from '../../firebase';
 
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class PasswordChange extends React.Component {
+class PasswordChange extends Component {
   constructor(props) {
     super(props);
  
