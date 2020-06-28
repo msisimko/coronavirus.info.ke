@@ -21,7 +21,7 @@ class App extends Component {
     return(
       <Router>
         <Navigation />
-        <hr />
+        
         <Route path={ROUTES.ACCOUNT} component={Account} />
         <Route path={ROUTES.ACTION} component={Action} />
         <Route path={ROUTES.ADMINISTRATOR} component={Administrator} />
