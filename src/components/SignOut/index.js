@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { withFirebase } from '../../firebase';
 
 class SignOut extends Component {
@@ -7,9 +10,9 @@ class SignOut extends Component {
     const { firebase } = this.props;
     
     return(
-      <button type="button" onClick={firebase.doSignOut}>
-        Sign Out
-      </button>
+      <ListItem button onClick={firebase.doSignOut} aria-label="Sign Out">
+        <ListItemText primary="Sign Out" />
+      </ListItem>
     );
   }
 }
