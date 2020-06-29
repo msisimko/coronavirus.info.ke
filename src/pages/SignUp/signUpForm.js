@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
@@ -24,6 +27,7 @@ class SignUpFormBase extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +72,14 @@ class SignUpFormBase extends Component {
     event.preventDefault();
   }
 
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ ...INITIAL_STATE });
+  }
+
   render() {
     const { displayName, email, passwordOne, passwordTwo, error } = this.state;
 
@@ -76,6 +88,10 @@ class SignUpFormBase extends Component {
                       passwordOne !== passwordTwo ||
                       passwordOne === '';
 
+    const isError = error !== null;
+
+    const isDisabled = isInvalid || isError;
+
     return (
       <React.Fragment>
         <form onSubmit={this.onSubmit}>
@@ -83,10 +99,16 @@ class SignUpFormBase extends Component {
           <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
           <input name="passwordOne" value={passwordOne} onChange={this.onChange} type="password" placeholder="Password" />
           <input name="passwordTwo" value={passwordTwo} onChange={this.onChange} type="password" placeholder="Confirm Password" />
-          <button disabled={isInvalid} type="submit">Sign Up</button>
+          <button disabled={isDisabled} type="submit">Sign Up</button>
         </form>
-        
-        {error && error.message}
+
+        {error &&
+          <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
+            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+              {error.message}
+            </Alert>
+          </Snackbar>
+        }
       </React.Fragment>
     );
   }
