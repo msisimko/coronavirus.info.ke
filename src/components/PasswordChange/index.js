@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
+import { withStyles } from '@material-ui/core/styles';
  
 import { withFirebase } from '../../firebase';
+
+const styles = theme => ({
+  form: {
+    width: '100%', // Fix IE 11 issue
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const INITIAL_STATE = {
   passwordOne: '',
@@ -12,7 +30,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class PasswordChange extends Component {
+class PasswordChangeBase extends Component {
   constructor(props) {
     super(props);
  
@@ -32,12 +50,12 @@ class PasswordChange extends Component {
  
     this.props.firebase
       .doUpdatePassword(passwordOne)
+      .catch(error => {
+        this.setState({ error });
+      })
       .then(() => {
         let success = { code: 200, message: "Your password has been updated." };
         this.setState({ success });
-      })
-      .catch(error => {
-        this.setState({ error });
       });
  
     event.preventDefault();
@@ -52,6 +70,8 @@ class PasswordChange extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     const { passwordOne, passwordTwo, success, error } = this.state;
 
     const isInvalid = passwordOne !== passwordTwo ||
@@ -65,11 +85,57 @@ class PasswordChange extends Component {
  
     return (
       <React.Fragment>
-        <form onSubmit={this.onSubmit}>
-          <input name="passwordOne" value={passwordOne} onChange={this.onChange} type="password" placeholder="New Password" />
-          <input name="passwordTwo" value={passwordTwo} onChange={this.onChange} type="password" placeholder="Confirm New Password" />
-          <button disabled={isDisabled} type="submit">Reset My Password</button>
-        </form>
+        <Container maxWidth="sm">
+          <Box py={3}>
+            <Paper elevation={0}>
+              <Box px={3} pt={3}>
+                <Typography align="center" variant="h4">    
+                  <strong>Manage Password</strong>
+                </Typography>
+              </Box>
+
+              <Box p={3}>
+                <form className={classes.form} onSubmit={this.onSubmit}>
+                  <TextField
+                    error={isError}
+                    fullWidth
+                    label="Password"
+                    margin="normal"
+                    name="passwordOne"
+                    onChange={this.onChange}
+                    required
+                    type="password"
+                    value={passwordOne}
+                    variant="filled"
+                  />
+                  <TextField
+                    error={isError}
+                    fullWidth
+                    label="Confirm Password"
+                    margin="normal"
+                    name="passwordTwo"
+                    onChange={this.onChange}
+                    required
+                    type="password"
+                    value={passwordTwo}
+                    variant="filled"
+                  />
+                  <Button
+                    className={classes.submit}
+                    color="primary"
+                    disabled={isDisabled}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Update My Password
+                  </Button>
+                </form>
+              </Box>
+            </Paper>
+          </Box>
+        </Container>
 
         {success &&
           <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
@@ -90,5 +156,10 @@ class PasswordChange extends Component {
     );
   }
 }
+
+const PasswordChange = compose(
+  withStyles(styles, { withTheme: true }),
+  withFirebase,
+)(PasswordChangeBase);
  
 export default withFirebase(PasswordChange);

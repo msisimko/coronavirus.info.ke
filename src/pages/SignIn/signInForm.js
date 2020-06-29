@@ -3,11 +3,24 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+
+import { withStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
+
+const styles = theme => ({
+  form: {
+    width: '100%', // Fix IE 11 issue
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const INITIAL_STATE = {
   email: '',
@@ -51,10 +64,12 @@ class SignInFormBase extends Component {
       return;
     }
 
-    this.setState({ ...INITIAL_STATE });
+    this.setState({  ...INITIAL_STATE  });
   }
  
   render() {
+    const { classes } = this.props;
+
     const { email, password, error } = this.state;
     
     const isInvalid = email === '' ||
@@ -66,10 +81,41 @@ class SignInFormBase extends Component {
  
     return (
       <React.Fragment>
-        <form onSubmit={this.onSubmit}>
-          <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-          <input name="password" value={password} onChange={this.onChange} type="password" placeholder="Password" />
-          <button disabled={isDisabled} type="submit">Sign In</button>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          <TextField
+            error={isError}
+            fullWidth
+            label="Email Address"
+            margin="normal"
+            name="email"
+            onChange={this.onChange}
+            required
+            value={email}
+            variant="filled"
+          />
+          <TextField
+            error={isError}
+            fullWidth
+            label="Password"
+            margin="normal"
+            name="password"
+            onChange={this.onChange}
+            required
+            type="password"
+            value={password}
+            variant="filled"
+          />
+          <Button
+            className={classes.submit}
+            color="primary"
+            disabled={isDisabled}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Sign In
+          </Button>
         </form>
 
         {error &&
@@ -86,6 +132,7 @@ class SignInFormBase extends Component {
 
 const SignInForm = compose(
   withRouter,
+  withStyles(styles, { withTheme: true }),
   withFirebase,
 )(SignInFormBase);
  
