@@ -3,12 +3,25 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+
+import { withStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+
+const styles = theme => ({
+  form: {
+    width: '100%', // Fix IE 11 issue
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const INITIAL_STATE = {
   displayName: '',
@@ -81,6 +94,8 @@ class SignUpFormBase extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     const { displayName, email, passwordOne, passwordTwo, error } = this.state;
 
     const isInvalid = displayName === '' ||
@@ -94,17 +109,71 @@ class SignUpFormBase extends Component {
 
     return (
       <React.Fragment>
-        <form onSubmit={this.onSubmit}>
-          <input name="displayName" value={displayName} onChange={this.onChange} type="text" placeholder="Display Name" />
-          <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-          <input name="passwordOne" value={passwordOne} onChange={this.onChange} type="password" placeholder="Password" />
-          <input name="passwordTwo" value={passwordTwo} onChange={this.onChange} type="password" placeholder="Confirm Password" />
-          <button disabled={isDisabled} type="submit">Sign Up</button>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          <TextField
+            error={isError}
+            fullWidth
+            label="Display Name"
+            margin="normal"
+            name="displayName"
+            onChange={this.onChange}
+            required
+            value={displayName}
+            variant="filled"
+          />
+          <TextField
+            error={isError}
+            fullWidth
+            helperText="You'll need to confirm that this email belongs to you."
+            label="Email Address"
+            margin="normal"
+            name="email"
+            onChange={this.onChange}
+            required
+            value={email}
+            variant="filled"
+          />
+          <TextField
+            error={isError}
+            fullWidth
+            helperText="Use 6 or more characters with a mix of letters, numbers &amp; symbols."
+            label="Password"
+            margin="normal"
+            name="passwordOne"
+            onChange={this.onChange}
+            required
+            type="password"
+            value={passwordOne}
+            variant="filled"
+          />
+          <TextField
+            error={isError}
+            fullWidth
+            label="Confirm Password"
+            margin="normal"
+            name="passwordTwo"
+            onChange={this.onChange}
+            required
+            type="password"
+            value={passwordTwo}
+            variant="filled"
+          />
+          <Button
+            className={classes.submit}
+            color="primary"
+            disabled={isDisabled}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Sign Up
+          </Button>
         </form>
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+          <Snackbar autoHideDuration={6000} onClose={this.handleClose} open={isError}>
+            <Alert elevation={6} onClose={this.handleClose} severity="error" variant="filled">
               {error.message}
             </Alert>
           </Snackbar>
@@ -116,6 +185,7 @@ class SignUpFormBase extends Component {
 
 const SignUpForm = compose(
   withRouter,
+  withStyles(styles, { withTheme: true }),
   withFirebase,
 )(SignUpFormBase);
 

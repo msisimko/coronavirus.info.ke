@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+
+import { withStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../../firebase';
+
+const styles = theme => ({
+  form: {
+    width: '100%', // Fix IE 11 issue
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const INITIAL_STATE = {
   email: '',
@@ -11,7 +25,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class PasswordForgetForm extends Component {
+class PasswordForgetFormBase extends Component {
   constructor(props) {
     super(props);
   
@@ -51,6 +65,8 @@ class PasswordForgetForm extends Component {
   }
   
   render() {
+    const { classes } = this.props;
+    
     const { email, success, error } = this.state;
 
     const isInvalid = email === '';
@@ -63,9 +79,29 @@ class PasswordForgetForm extends Component {
   
     return (
       <React.Fragment>
-        <form onSubmit={this.onSubmit}>
-          <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-          <button disabled={isDisabled} type="submit">Reset My Password</button>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          <TextField
+            error={isError}
+            fullWidth
+            label="Email Address"
+            margin="normal"
+            name="email"
+            onChange={this.onChange}
+            required
+            value={email}
+            variant="filled"
+          />
+          <Button
+            className={classes.submit}
+            color="primary"
+            disabled={isDisabled}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Reset My Password
+          </Button>
         </form>
 
         {success &&
@@ -87,5 +123,10 @@ class PasswordForgetForm extends Component {
     );
   }
 }
+
+const PasswordForgetForm = compose(
+  withStyles(styles, { withTheme: true }),
+  withFirebase,
+)(PasswordForgetFormBase);
  
-export default withFirebase(PasswordForgetForm);
+export default PasswordForgetForm;

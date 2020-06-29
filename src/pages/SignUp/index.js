@@ -5,6 +5,11 @@ import SignUpLink from './signUpLink';
 
 import { SignInLink } from '../SignIn';
 
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 import { AuthUserContext } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
@@ -20,11 +25,25 @@ class SignUp extends Component {
 
   render() {
     return(
-      <React.Fragment>
-        <h1>Sign Up</h1>
-        <SignUpForm />
-        <SignInLink />
-      </React.Fragment>
+      <Container maxWidth="sm">
+        <Box py={3}>
+          <Paper elevation={0}>
+            <Box px={3} pt={3}>
+              <Typography align="center" variant="h4">    
+                <strong>Sign Up</strong>
+              </Typography>
+            </Box>
+
+            <Box p={3}>
+              <SignUpForm />
+            </Box>
+
+            <Box px={3} pb={3}>
+              <SignInLink />
+            </Box>
+          </Paper>
+        </Box>
+      </Container>
     )
   }
 }

@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { compose } from 'recompose';
+
+import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import Snackbar from '@material-ui/core/Snackbar';
+import Typography from '@material-ui/core/Typography';
+
+import { withStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const INITIAL_STATE = {
   isLoading: true,
   error: null,
 };
 
-class RecoverEmail extends Component {
+class RecoverEmailBase extends Component {
   constructor(props) {
     super(props);
 
@@ -22,11 +40,14 @@ class RecoverEmail extends Component {
 
     this.props.firebase
       .doCheckActionCode(actionCode)
-      .then(() => {
-        return this.props.firebase.doApplyActionCode(actionCode);
-      })
       .catch(error => {
         this.setState({ error });
+      })
+      .then(() => {
+        return this.props.firebase.doApplyActionCode(actionCode)
+                .catch(error => {
+                  this.setState({ error });
+                });
       })
       .then(() => {
         this.setState({ isLoading: false });
@@ -34,31 +55,75 @@ class RecoverEmail extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     const { isLoading, error } = this.state;
 
+    const isError = error !== null;
+
     return(
-      <React.Fragment>
-        <h1>Recover Email</h1>
-        
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <React.Fragment>
-            {error ? (
-              <p>{error.message}</p>
+      <Container maxWidth="sm">
+        <Box py={3}>
+          <Paper elevation={0}>
+            <Box px={3} pt={3}>
+              <Typography align="center" variant="h4">    
+                <strong>Email Recovery</strong>
+              </Typography>
+            </Box>
+
+            {isLoading ? (
+              <Box p={3}>
+                <LinearProgress color="primary" />
+              </Box>
             ) : (
               <React.Fragment>
-                <p>The request to change your email address has been successfully revoked.</p>
-                <p>Please change your password if you suspect that your account has been compromised.</p>
+                {error ? (
+                  <React.Fragment>
+                    <Box p={3}>
+                      <Typography align="center" variant="body2" gutterBottom>
+                        There was an error revoking the request to change your email address.
+                      </Typography>
+                    </Box>
+                    <Snackbar open={isError}>
+                      <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+                        {error.message}
+                      </Alert>
+                    </Snackbar>
+                  </React.Fragment>
+                ) : (
+                  <Box p={3}>
+                    <Typography align="center" variant="body2" gutterBottom>
+                      The request to change your email address has been revoked.
+                    </Typography>
+                    <Typography align="center" variant="body2" gutterBottom>
+                      Please change your password if you suspect that your account has been compromised.
+                    </Typography>
+                    <Button
+                      className={classes.button}
+                      color="primary"
+                      component={RouterLink}
+                      fullWidth
+                      size="large"
+                      to={ROUTES.LANDING}
+                      type="button"
+                      variant="contained"
+                    >
+                      Continue
+                    </Button>
+                  </Box>
+                )}
               </React.Fragment>
             )}
-          </React.Fragment>
-        )}
-
-        <Link to={ROUTES.LANDING}>Continue</Link>
-      </React.Fragment>
+          </Paper>
+        </Box>
+      </Container>
     );
   }
 }
 
-export default withFirebase(RecoverEmail);
+const RecoverEmail = compose(
+  withStyles(styles, { withTheme: true }),
+  withFirebase,
+)(RecoverEmailBase);
+
+export default RecoverEmail;

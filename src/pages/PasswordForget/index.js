@@ -3,6 +3,11 @@ import React from 'react';
 import PasswordForgetForm from './passwordForgetForm';
 import PasswordForgetLink from './passwordForgetLink';
 
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 import { AuthUserContext } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
@@ -18,10 +23,21 @@ class PasswordForget extends React.Component {
 
   render() {
     return(
-      <React.Fragment>
-        <h1>Password Forget</h1>
-        <PasswordForgetForm />
-      </React.Fragment>
+      <Container maxWidth="sm">
+        <Box py={3}>
+          <Paper elevation={0}>
+            <Box px={3} pt={3}>
+              <Typography align="center" variant="h4">    
+                <strong>Forgot Password?</strong>
+              </Typography>
+            </Box>
+
+            <Box p={3}>
+              <PasswordForgetForm />
+            </Box>
+          </Paper>
+        </Box>
+      </Container>
     )
   }
 }
