@@ -26,6 +26,14 @@ const theme = createMuiTheme({
       default: '#e6ecf0',
     },
   },
+  overrides: {
+    MuiFormHelperText: {
+      contained: {
+        marginLeft: 0,
+        marginRight: 0,
+      },
+    }
+  }
 });
 
 ReactDOM.render(
