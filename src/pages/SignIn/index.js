@@ -14,8 +14,8 @@ class SignIn extends Component {
   static contextType = AuthUserContext;
   
   componentDidMount() {
+    // If signed in, redirect to Home
     let authUser = this.context;
-    
     authUser && this.props.history.push(ROUTES.HOME);
   }
 
