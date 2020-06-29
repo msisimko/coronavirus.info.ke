@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import { withFirebase } from '../../firebase';
 
 const INITIAL_STATE = {
   email: '',
-  success: '',
+  success: null,
   error: null,
 };
 
@@ -16,11 +19,12 @@ class PasswordForgetForm extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }
   
   onSubmit = event => {
     const { email } = this.state;
@@ -36,23 +40,49 @@ class PasswordForgetForm extends Component {
       });
   
     event.preventDefault();
-  };
+  }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ ...INITIAL_STATE });
+  }
   
   render() {
     const { email, success, error } = this.state;
 
     const isInvalid = email === '';
+
+    const isSuccess = success !== null;
+
+    const isError = error !== null;
+
+    const isDisabled = isInvalid || isSuccess || isError;
   
     return (
       <React.Fragment>
         <form onSubmit={this.onSubmit}>
           <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-          <button disabled={isInvalid} type="submit">Reset My Password</button>
+          <button disabled={isDisabled} type="submit">Reset My Password</button>
         </form>
 
-        {success && success.message}
+        {success &&
+          <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
+            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
+              {success.message}
+            </Alert>
+          </Snackbar>
+        }
 
-        {error && error.message}
+        {error &&
+          <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
+            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+              {error.message}
+            </Alert>
+          </Snackbar>
+        }
       </React.Fragment>
     );
   }
