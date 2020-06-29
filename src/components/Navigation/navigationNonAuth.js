@@ -100,4 +100,4 @@ class NavigationNonAuth extends Component {
   }
 }
 
-export default  withStyles(styles, { withTheme: true })(NavigationNonAuth);
+export default withStyles(styles, { withTheme: true })(NavigationNonAuth);
