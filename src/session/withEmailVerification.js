@@ -2,6 +2,9 @@ import React from 'react';
 
 import AuthUserContext from './context';
 
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import { withFirebase } from '../firebase';
 
 const needsEmailVerification = authUser =>
@@ -16,19 +19,33 @@ const withEmailVerification = Component => {
     constructor(props) {
       super(props);
 
-      this.state = { isSent: false };
+      this.state = { isSent: false, error: null };
   
       this.onSendEmailVerification = this.onSendEmailVerification.bind(this);
+      this.handleClose = this.handleClose.bind(this);
     }
 
     onSendEmailVerification = () => {
       this.props.firebase
         .doSendEmailVerification()
-        .then(() => this.setState({ isSent: true }));
+        .then(() => this.setState({ isSent: true }))
+        .catch(error => {
+          this.setState({ error });
+        });
+    }
+
+    handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+
+      this.setState({ error: null });
     }
 
     render() {
-      const { isSent } = this.state;
+      const { isSent, error } = this.state;
+
+      const isError = error !== null;
 
       return(
         <AuthUserContext.Consumer>
@@ -41,6 +58,15 @@ const withEmailVerification = Component => {
                     ) : (
                     <p>Verify your E-Mail: Check you E-Mails (Spam folder included) for a confirmation E-Mail or send another confirmation E-Mail.</p>
                   )}
+
+                  {error &&
+                    <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
+                      <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+                        {error.message}
+                      </Alert>
+                    </Snackbar>
+                  }
+
                   <button type="button" onClick={this.onSendEmailVerification} disabled={isSent}>Send confirmation E-Mail</button>
                 </div>
               </React.Fragment>
