@@ -132,6 +132,7 @@ const withEmailVerification = Component => {
       );
     }
   }
+  
   return compose(
     withStyles(styles, { withTheme: true }),
     withFirebase,
