@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 import { AuthUserContext } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
@@ -15,9 +20,17 @@ class Landing extends Component {
 
   render() {
     return(
-      <React.Fragment>
-        <h1>Landing</h1>
-      </React.Fragment>
+      <Container maxWidth="sm">
+        <Box py={3}>
+          <Paper elevation={0}>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>
+                <strong>Landing</strong>
+              </Typography>
+            </Box>
+          </Paper>
+        </Box>
+      </Container>
     );
   }
 }
