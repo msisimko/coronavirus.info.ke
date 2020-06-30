@@ -50,12 +50,12 @@ class PasswordChangeBase extends Component {
  
     this.props.firebase
       .doUpdatePassword(passwordOne)
-      .catch(error => {
-        this.setState({ error });
-      })
       .then(() => {
         let success = { code: 200, message: "Your password has been updated." };
         this.setState({ success });
+      })
+      .catch(error => {
+        this.setState({ error });
       });
  
     event.preventDefault();

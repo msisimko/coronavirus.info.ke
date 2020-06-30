@@ -40,14 +40,11 @@ class RecoverEmailBase extends Component {
 
     this.props.firebase
       .doCheckActionCode(actionCode)
+      .then(() => {
+        return this.props.firebase.doApplyActionCode(actionCode);
+      })
       .catch(error => {
         this.setState({ error });
-      })
-      .then(() => {
-        return this.props.firebase.doApplyActionCode(actionCode)
-                .catch(error => {
-                  this.setState({ error });
-                });
       })
       .then(() => {
         this.setState({ isLoading: false });
