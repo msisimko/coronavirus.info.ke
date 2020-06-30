@@ -1,8 +1,21 @@
 import React from 'react';
+import { compose } from 'recompose';
+
+import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { withStyles } from '@material-ui/core/styles';
 
 import AuthUserContext from './context';
 
 import { withFirebase } from '../firebase';
+
+const styles = theme => ({
+  loading: {
+    position: 'absolute', 
+    top: '50%', 
+    transform: 'translateY(-50%)',
+  },
+});
 
 const withAUthentication = Component => {
   class WithAUthentication extends React.Component {
@@ -10,18 +23,16 @@ const withAUthentication = Component => {
       super(props);
   
       this.state = {
-        authUser: JSON.parse(localStorage.getItem('authUser')),
+        authUser: 'loading',
       };
     }
 
     componentDidMount() {
       this.listener = this.props.firebase.onAuthUserListener(
         authUser => {
-          localStorage.setItem('authUser', JSON.stringify(authUser));
           this.setState({ authUser });
         },
         () => {
-          localStorage.removeItem('authUser');
           this.setState({ authUser: null });
         },
       );
@@ -32,17 +43,30 @@ const withAUthentication = Component => {
     }
 
     render() {
+      const { classes } = this.props;
+
       const { authUser } = this.state;
 
       return (
-        <AuthUserContext.Provider value={authUser}>
-          <Component {...this.props} />
-        </AuthUserContext.Provider>
+        <React.Fragment>
+          { authUser === 'loading' ? (
+            <Container className={classes.loading} disableGutters={true} maxWidth={false}>
+              <LinearProgress color="primary" />
+            </Container>
+          ): (
+            <AuthUserContext.Provider value={authUser}>
+              <Component {...this.props} />
+            </AuthUserContext.Provider>
+          )}
+        </React.Fragment>
       );
     }
   }
 
-  return withFirebase(WithAUthentication);
+  return compose(
+    withStyles(styles, { withTheme: true }),
+    withFirebase,
+  )(WithAUthentication);
 }
 
 export default withAUthentication;
