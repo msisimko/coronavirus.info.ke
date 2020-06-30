@@ -85,9 +85,6 @@ const withEmailVerification = Component => {
                           <Typography align="center" variant="body2" gutterBottom>
                             Check you E-Mails (Spam folder included) for a confirmation E-Mail.
                           </Typography>
-                          <Typography align="center" variant="body2" gutterBottom>
-                            Refresh this page once you confirm your E-Mail.
-                          </Typography>
                         </Box>
                       ) : (
                         <Box p={3}>
@@ -96,6 +93,9 @@ const withEmailVerification = Component => {
                           </Typography>
                           <Typography align="center" variant="body2" gutterBottom>
                             Check you E-Mails (Spam folder included) for a confirmation E-Mail.
+                          </Typography>
+                          <Typography align="center" variant="body2" gutterBottom>
+                            Refresh this page if you have already confirmed your E-Mail.
                           </Typography>
                           <Button
                             className={classes.button}
