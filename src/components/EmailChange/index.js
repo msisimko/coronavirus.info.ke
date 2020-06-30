@@ -49,18 +49,15 @@ class EmailChangeBase extends Component {
  
     this.props.firebase
       .doUpdateEmail(email)
-      .catch(error => {
-        this.setState({ error });
-      })
       .then(() => {
-        return this.props.firebase.doSendEmailVerification()
-                .catch(error => {
-                  this.setState({ error });
-                });
+        return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
         let success = { code: 200, message: "Your email has been updated." };
         this.setState({ success });
+      })
+      .catch(error => {
+        this.setState({ error });
       });
  
     event.preventDefault();
