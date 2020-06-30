@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import RecoverEmail from './recoverEmail';
 import ResetPassword from './resetPassword';
 import VerifyEmail from './verifyEmail';
 
-import * as ROUTES from '../../constants/routes';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const INITIAL_STATE = {
   mode: null,
@@ -40,11 +42,20 @@ class Action extends Component {
         return <VerifyEmail actionCode={oobCode} />;
       default:
         return(
-          <React.Fragment>
-            <h1>Action</h1>
-            <p>Invalid action.</p>
-            <Link to={ROUTES.LANDING}>Continue</Link>
-          </React.Fragment>
+          <Container maxWidth="sm">
+            <Box py={3}>
+              <Paper elevation={0}>
+                <Box p={3}>
+                  <Typography align="center" variant="h4" gutterBottom>
+                    <strong>Action</strong>
+                  </Typography>
+                  <Typography align="center" variant="body2" gutterBottom>
+                    Invalid action.
+                  </Typography>
+                </Box>
+              </Paper>
+            </Box>
+          </Container>
         );
     }
   }
