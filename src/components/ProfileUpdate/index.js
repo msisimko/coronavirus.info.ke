@@ -24,12 +24,12 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  email: '',
+  displayName: '',
   success: null,
   error: null,
 };
 
-class EmailChangeBase extends Component {
+class ProfileUpdateBase extends Component {
   constructor(props) {
     super(props);
  
@@ -45,15 +45,12 @@ class EmailChangeBase extends Component {
   }
 
   onSubmit = event => {
-    const { email } = this.state;
+    const { displayName } = this.state;
  
     this.props.firebase
-      .doUpdateEmail(email)
+      .doUpdateProfile(displayName)
       .then(() => {
-        return this.props.firebase.doSendEmailVerification();
-      })
-      .then(() => {
-        let success = { code: 200, message: "Your email has been updated." };
+        let success = { code: 200, message: "Your display name has been updated." };
         this.setState({ success });
       })
       .catch(error => {
@@ -74,9 +71,9 @@ class EmailChangeBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { email, success, error } = this.state;
+    const { displayName, success, error } = this.state;
  
-    const isInvalid = email === '';
+    const isInvalid = displayName === '';
 
     const isSuccess = success !== null;
 
@@ -91,7 +88,7 @@ class EmailChangeBase extends Component {
             <Paper elevation={0}>
               <Box px={3} pt={3}>
                 <Typography align="center" variant="h4">    
-                  <strong>Manage Email</strong>
+                  <strong>Manage Profile</strong>
                 </Typography>
               </Box>
 
@@ -100,13 +97,12 @@ class EmailChangeBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
-                    helperText="You'll need to confirm that this email belongs to you."
-                    label="Email Address"
+                    label="Display Name"
                     margin="normal"
-                    name="email"
+                    name="displayName"
                     onChange={this.onChange}
                     required
-                    value={email}
+                    value={displayName}
                     variant="filled"
                   />
                   <Button
@@ -118,7 +114,7 @@ class EmailChangeBase extends Component {
                     type="submit"
                     variant="contained"
                   >
-                    Update My Email
+                    Update My Profile
                   </Button>
                 </form>
               </Box>
@@ -146,9 +142,9 @@ class EmailChangeBase extends Component {
   }
 }
 
-const EmailChange = compose(
+const ProfileUpdate = compose(
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(EmailChangeBase);
+)(ProfileUpdateBase);
  
-export default EmailChange;
+export default ProfileUpdate;
