@@ -57,7 +57,7 @@ firebase init
     - `What do you want to use as your public directory? (public) build`.
     - `Configure as a single-page app (rewrite all urls to /index.html)? yes`.
 
-7. Create a .env file. Copy & paste the settings below into the file. 
+7. Create a .env file. Copy & paste the settings below into the file.
 
 ```
 # Create React App development settings
@@ -79,4 +79,23 @@ REACT_APP_CONFIRM_EMAIL_REDIRECT=http://localhost:3000
 
 ```
 
-8. Happy coding!
+8. Create a .env.production file. Copy & paste the settings below into the file.
+
+```
+# firebaseConfig details
+# NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
+REACT_APP_API_KEY=xxxxxXXXXXxxxxx
+REACT_APP_AUTH_DOMAIN=xxxxxXXXXXxxxxx
+REACT_APP_DATABASE_URL=xxxxxXXXXXxxxxx
+REACT_APP_PROJECT_ID=xxxxxXXXXXxxxxx
+REACT_APP_STORAGE_BUCKET=xxxxxXXXXXxxxxx
+REACT_APP_MESSAGING_SENDER_ID=xxxxxXXXXXxxxxx
+REACT_APP_APP_ID=xxxxxXXXXXxxxxx
+
+# email verification redirect e.g. localhost for local development
+# NOTE: Remember to replace `https://yourliveproductionwebsite.url` with your actual live production website URL.
+REACT_APP_CONFIRM_EMAIL_REDIRECT=https://yourliveproductionwebsite.url
+
+```
+
+9. Happy coding!
