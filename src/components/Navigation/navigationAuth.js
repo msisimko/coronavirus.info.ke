@@ -87,9 +87,6 @@ class NavigationAuth extends Component {
               <ListItem button component={NavLink} exact={true} to={ROUTES.ACCOUNT} activeClassName="Mui-selected" aria-label="Account">
                 <ListItemText primary="Account" />
               </ListItem>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.ADMINISTRATOR} activeClassName="Mui-selected" aria-label="Administrator">
-                <ListItemText primary="Administrator" />
-              </ListItem>
             </List>
           </div>
         </Drawer>
