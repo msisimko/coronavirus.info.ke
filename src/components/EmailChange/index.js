@@ -53,7 +53,7 @@ class EmailChangeBase extends Component {
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
-        let success = { code: 200, message: "Your email has been updated." };
+        let success = { code: 200, message: "Your email has been updated. Check inbox for verification email." };
         this.setState({ success });
       })
       .catch(error => {
