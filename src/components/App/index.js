@@ -5,7 +5,6 @@ import Navigation from '../Navigation';
 
 import Account from '../../pages/Account';
 import Action from '../../pages/Action';
-import Administrator from '../../pages/Administrator';
 import Home from '../../pages/Home';
 import Landing from '../../pages/Landing';
 import PasswordForget from '../../pages/PasswordForget';
@@ -24,7 +23,6 @@ class App extends Component {
         
         <Route path={ROUTES.ACCOUNT} component={Account} />
         <Route path={ROUTES.ACTION} component={Action} />
-        <Route path={ROUTES.ADMINISTRATOR} component={Administrator} />
         <Route path={ROUTES.HOME} component={Home} />
         <Route exact path={ROUTES.LANDING} component={Landing} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
