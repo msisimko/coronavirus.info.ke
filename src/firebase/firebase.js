@@ -57,33 +57,7 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if(authUser) {
-        this.user(authUser.uid)
-          .get()
-          .then(doc => {
-            if (doc.exists) {
-              const dbUser = doc.data();
-              
-              if (!dbUser.roles) {
-                dbUser.roles = {};
-              }
-              
-              authUser = {
-                displayName: authUser.displayName,
-                email: authUser.email,
-                emailVerified: authUser.emailVerified,
-                isAnonymous: authUser.isAnonymous,
-                phoneNumber: authUser.phoneNumber,
-                photoURL: authUser.photoURL,
-                uid: authUser.uid,
-                creationTime: authUser.metadata.creationTime,
-                lastSignInTime: authUser.metadata.lastSignInTime,
-                providerData: authUser.providerData,
-                ...dbUser,
-              };
-              
-              next(authUser);
-            }
-          });
+        next(authUser);
       } else {
         fallback();
       }

@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { withAuthorization, withEmailVerification } from '../../session';
 
-import * as ROLES from '../../constants/roles';
-
 class AdministratorBase extends Component {
   render() {
     return(
@@ -31,8 +29,7 @@ class AdministratorBase extends Component {
   }
 }
 
-const condition = authUser => 
-  authUser && !!authUser.roles[ROLES.ADMINISTRATOR];
+const condition = authUser => !!authUser;
 
 const Administrator = compose(
   withAuthorization(condition),
