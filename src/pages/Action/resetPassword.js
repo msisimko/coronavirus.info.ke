@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
@@ -33,6 +32,7 @@ const styles = theme => ({
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
+  loadingError: null,
   success: null,
   error: null,
 };
@@ -55,14 +55,14 @@ class ResetPasswordBase extends Component {
     
     if (authUser) {
       // If signed in, redirect to Home
-      this.props.history.push(ROUTES.HOME);
+      this.props.history.push(ROUTES.ACCOUNT);
     } else {
       const { actionCode } = this.props;
 
       this.props.firebase
         .doVerifyPasswordResetCode(actionCode)
-        .catch(error => {
-          this.setState({ error });
+        .catch(loadingError => {
+          this.setState({ loadingError });
         })
         .then(() => {
           this.setState({ isLoading: false });
@@ -82,7 +82,7 @@ class ResetPasswordBase extends Component {
     this.props.firebase
       .doConfirmPasswordReset(actionCode, passwordOne)
       .then(() => {
-        let success = { code: 200, message: "Your password has successfully been changed." };
+        let success = { code: 200, message: "Your password has been reset." };
         this.setState({ success });
       })
       .catch(error => {
@@ -103,7 +103,7 @@ class ResetPasswordBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { isLoading, passwordOne, passwordTwo, success, error } = this.state;
+    const { isLoading, passwordOne, passwordTwo, success, loadingError, error } = this.state;
 
     const isInvalid = passwordOne !== passwordTwo || 
                       passwordOne === '';
@@ -125,70 +125,93 @@ class ResetPasswordBase extends Component {
                 </Typography>
               </Box>
 
-              {isLoading ? (
-                <Box p={3}>
+              <Box p={3}>
+                {isLoading ? (
                   <LinearProgress color="primary" />
+                ) : (
+                  <React.Fragment>
+                    {loadingError ? (
+                      <Typography align="center" variant="body2">
+                        {loadingError.message}
+                      </Typography>
+                    ) : (
+                      <form className={classes.form} onSubmit={this.onSubmit}>
+                        <TextField
+                          error={isError}
+                          fullWidth
+                          label="Password"
+                          margin="normal"
+                          name="passwordOne"
+                          onChange={this.onChange}
+                          required
+                          type="password"
+                          value={passwordOne}
+                          variant="filled"
+                        />
+                        <TextField
+                          error={isError}
+                          fullWidth
+                          label="Confirm Password"
+                          margin="normal"
+                          name="passwordTwo"
+                          onChange={this.onChange}
+                          required
+                          type="password"
+                          value={passwordTwo}
+                          variant="filled"
+                        />
+                        <Button
+                          className={classes.submit}
+                          color="primary"
+                          disabled={isDisabled}
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          variant="contained"
+                        >
+                          Change Password
+                        </Button>
+                      </form>
+                    )}
+                  </React.Fragment>
+                )}
+              </Box>
+              
+              {(isSuccess || loadingError) &&
+                <Box px={3} pb={3}>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    component={RouterLink}
+                    fullWidth
+                    size="large"
+                    to={ROUTES.LANDING}
+                    type="button"
+                    variant="contained"
+                  >
+                    Continue
+                  </Button>
                 </Box>
-              ) : (
-                <Box p={3}>
-                  <form className={classes.form} onSubmit={this.onSubmit}>
-                    <TextField
-                      error={isError}
-                      fullWidth
-                      label="Password"
-                      margin="normal"
-                      name="passwordOne"
-                      onChange={this.onChange}
-                      required
-                      type="password"
-                      value={passwordOne}
-                      variant="filled"
-                    />
-                    <TextField
-                      error={isError}
-                      fullWidth
-                      label="Confirm Password"
-                      margin="normal"
-                      name="passwordTwo"
-                      onChange={this.onChange}
-                      required
-                      type="password"
-                      value={passwordTwo}
-                      variant="filled"
-                    />
-                    <Button
-                      className={classes.submit}
-                      color="primary"
-                      disabled={isDisabled}
-                      fullWidth
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                    >
-                      Change Password
-                    </Button>
-                  </form>
-                </Box>
-              )}
+              }
+
+              {success &&
+                <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
+                  <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
+                    {success.message}
+                  </Alert>
+                </Snackbar>
+              }
+
+              {error &&
+                <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
+                  <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+                    {error.message}
+                  </Alert>
+                </Snackbar>
+              }
             </Paper>
           </Box>
         </Container>
-
-        {success &&
-          <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
-              {success.message} <Link component={RouterLink} to={ROUTES.SIGN_IN}>Sign In</Link>
-            </Alert>
-          </Snackbar>
-        }
-
-        {error &&
-          <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
-              {error.message}
-            </Alert>
-          </Snackbar>
-        }
       </React.Fragment>
     );
   }
