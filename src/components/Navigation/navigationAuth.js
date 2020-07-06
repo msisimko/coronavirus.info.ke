@@ -21,7 +21,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
 
 const styles = theme => ({
   menuButton: {
@@ -88,11 +87,6 @@ class NavigationAuth extends Component {
               <ListItem button component={NavLink} exact={true} to={ROUTES.ACCOUNT} activeClassName="Mui-selected" aria-label="Account">
                 <ListItemText primary="Account" />
               </ListItem>
-              {!!authUser.roles[ROLES.ADMINISTRATOR] && (
-                <ListItem button component={NavLink} exact={true} to={ROUTES.ADMINISTRATOR} activeClassName="Mui-selected" aria-label="Administrator">
-                  <ListItemText primary="Administrator" />
-                </ListItem>
-              )}
             </List>
           </div>
         </Drawer>

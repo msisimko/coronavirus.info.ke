@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -25,7 +23,7 @@ const styles = theme => ({
 
 const INITIAL_STATE = {
   isLoading: true,
-  error: null,
+  loadingError: null,
 };
 
 class VerifyEmailBase extends Component {
@@ -40,8 +38,8 @@ class VerifyEmailBase extends Component {
 
     this.props.firebase
       .doApplyActionCode(actionCode)
-      .catch(error => {
-        this.setState({ error });
+      .catch(loadingError => {
+        this.setState({ loadingError });
       })
       .then(() => {
         this.setState({ isLoading: false });
@@ -51,9 +49,7 @@ class VerifyEmailBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { isLoading, error } = this.state;
-
-    const isError = error !== null;
+    const { isLoading, loadingError } = this.state;
 
     return(
       <Container maxWidth="sm">
@@ -65,46 +61,38 @@ class VerifyEmailBase extends Component {
               </Typography>
             </Box>
 
-            {isLoading ? (
-              <Box p={3}>
+            <Box p={3}>
+              {isLoading ? (
                 <LinearProgress color="primary" />
-              </Box>
-            ) : (
-              <React.Fragment>
-                {error ? (
-                  <React.Fragment>
-                    <Box p={3}>
-                      <Typography align="center" variant="body2" gutterBottom>
-                        There was an error verifying your email.
-                      </Typography>
-                    </Box>
-                    <Snackbar open={isError}>
-                      <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
-                        {error.message}
-                      </Alert>
-                    </Snackbar>
-                  </React.Fragment>
-                ) : (
-                  <Box p={3}>
-                    <Typography align="center" variant="body2" gutterBottom>
+              ) : (
+                <React.Fragment>
+                  {loadingError ? (
+                    <Typography align="center" variant="body2">
+                      {loadingError.message}
+                    </Typography>
+                  ) : (
+                    <Typography align="center" variant="body2">
                       Your email has been verified.
                     </Typography>
-                    <Button
-                      className={classes.button}
-                      color="primary"
-                      component={RouterLink}
-                      fullWidth
-                      size="large"
-                      to={ROUTES.LANDING}
-                      type="button"
-                      variant="contained"
-                    >
-                      Continue
-                    </Button>
-                  </Box>
-                )}
-              </React.Fragment>
-            )}
+                  )}
+                </React.Fragment>
+              )}
+            </Box>
+
+            <Box px={3} pb={3}>
+              <Button
+                className={classes.button}
+                color="primary"
+                component={RouterLink}
+                fullWidth
+                size="large"
+                to={ROUTES.LANDING}
+                type="button"
+                variant="contained"
+              >
+                Continue
+              </Button>
+            </Box>
           </Paper>
         </Box>
       </Container>

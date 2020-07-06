@@ -47,7 +47,7 @@ class Action extends Component {
               <Paper elevation={0}>
                 <Box p={3}>
                   <Typography align="center" variant="h4" gutterBottom>
-                    <strong>Action</strong>
+                    <strong>Oops...</strong>
                   </Typography>
                   <Typography align="center" variant="body2" gutterBottom>
                     Invalid action.

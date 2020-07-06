@@ -12,7 +12,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { withFirebase } from '../../firebase';
 
 import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
 
 const styles = theme => ({
   form: {
@@ -28,7 +27,6 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
-  roles: {},
   error: null,
 };
 
@@ -42,29 +40,16 @@ class SignUpFormBase extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-
-  componentDidMount() {
-    const roles = {};
-    
-    roles[ROLES.CONTRIBUTOR] = ROLES.CONTRIBUTOR;
-
-    this.setState({ roles });
-  }
  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   onSubmit = event => {
-    const { displayName, email, passwordOne, roles } = this.state;
+    const { displayName, email, passwordOne } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        return this.props.firebase 
-                .user(authUser.user.uid)
-                .set({ roles });
-      })
       .then(() => {
         return this.props.firebase.auth.currentUser
                 .updateProfile({
