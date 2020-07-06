@@ -51,17 +51,6 @@ class Firebase {
     this.auth.currentUser.sendEmailVerification({
       url: process.env.REACT_APP_CONFIRM_EMAIL_REDIRECT,
     });
-
-  // *** Merge authUser & dbUser API ***
-
-  onAuthUserListener = (next, fallback) =>
-    this.auth.onAuthStateChanged(authUser => {
-      if(authUser) {
-        next(authUser);
-      } else {
-        fallback();
-      }
-    });
   
   // *** Email Action Handler API ***
 
