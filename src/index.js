@@ -22,8 +22,26 @@ import * as serviceWorker from './serviceWorker';
 // Using the createMuiTheme() method, we can override the default theme
 const theme = createMuiTheme({
   palette: {
+    primary: {
+      main: '#000000',
+    },
+    secondary: {
+      main: '#14213d',
+    },
+    error: {
+      main: '#470021',
+    },
+    warning: {
+      main: '#fca311',
+    },
+    info: {
+      main: '#e5e5e5',
+    },
+    success: {
+      main: '#004726',
+    },
     background: {
-      default: '#e6ecf0',
+      default: '#f1faee',
     },
   },
   overrides: {
@@ -50,4 +68,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
