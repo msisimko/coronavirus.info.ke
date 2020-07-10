@@ -108,7 +108,7 @@ class EmailChangeBase extends Component {
                     onChange={this.onChange}
                     required
                     value={email}
-                    variant="filled"
+                    variant="outlined"
                   />
                   <Button
                     className={classes.submit}

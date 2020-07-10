@@ -92,7 +92,7 @@ class SignInFormBase extends Component {
             onChange={this.onChange}
             required
             value={email}
-            variant="filled"
+            variant="outlined"
           />
           <TextField
             error={isError}
@@ -105,7 +105,7 @@ class SignInFormBase extends Component {
             required
             type="password"
             value={password}
-            variant="filled"
+            variant="outlined"
           />
           <Button
             className={classes.submit}
