@@ -10,7 +10,7 @@ class Navigation extends Component {
     return(
       <AuthUserContext.Consumer>
         {authUser => 
-          authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
+          authUser ? <NavigationAuth /> : <NavigationNonAuth />
         }
       </AuthUserContext.Consumer>
     );
