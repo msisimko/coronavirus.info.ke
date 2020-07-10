@@ -105,7 +105,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             required
             value={displayName}
-            variant="outlined"
+            variant="filled"
           />
           <TextField
             error={isError}
@@ -118,7 +118,7 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             required
             value={email}
-            variant="outlined"
+            variant="filled"
           />
           <TextField
             error={isError}
@@ -132,7 +132,7 @@ class SignUpFormBase extends Component {
             required
             type="password"
             value={passwordOne}
-            variant="outlined"
+            variant="filled"
           />
           <TextField
             error={isError}
@@ -145,7 +145,7 @@ class SignUpFormBase extends Component {
             required
             type="password"
             value={passwordTwo}
-            variant="outlined"
+            variant="filled"
           />
           <Button
             className={classes.submit}
