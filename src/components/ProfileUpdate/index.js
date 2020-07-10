@@ -104,7 +104,7 @@ class ProfileUpdateBase extends Component {
                     onChange={this.onChange}
                     required
                     value={displayName}
-                    variant="outlined"
+                    variant="filled"
                   />
                   <Button
                     className={classes.submit}

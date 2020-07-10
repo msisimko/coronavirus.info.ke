@@ -90,7 +90,7 @@ class PasswordForgetFormBase extends Component {
             onChange={this.onChange}
             required
             value={email}
-            variant="outlined"
+            variant="filled"
           />
           <Button
             className={classes.submit}

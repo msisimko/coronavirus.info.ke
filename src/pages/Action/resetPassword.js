@@ -147,7 +147,7 @@ class ResetPasswordBase extends Component {
                           required
                           type="password"
                           value={passwordOne}
-                          variant="outlined"
+                          variant="filled"
                         />
                         <TextField
                           error={isError}
@@ -160,7 +160,7 @@ class ResetPasswordBase extends Component {
                           required
                           type="password"
                           value={passwordTwo}
-                          variant="outlined"
+                          variant="filled"
                         />
                         <Button
                           className={classes.submit}
