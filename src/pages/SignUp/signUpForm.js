@@ -98,6 +98,7 @@ class SignUpFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="displayName"
             label="Display Name"
             margin="normal"
             name="displayName"
@@ -109,6 +110,7 @@ class SignUpFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="email"
             helperText="You'll need to confirm that this email belongs to you."
             label="Email Address"
             margin="normal"
@@ -121,6 +123,7 @@ class SignUpFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="passwordOne"
             helperText="Use 6 or more characters with a mix of letters, numbers &amp; symbols."
             label="Password"
             margin="normal"
@@ -134,6 +137,7 @@ class SignUpFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="passwordTwo"
             label="Confirm Password"
             margin="normal"
             name="passwordTwo"

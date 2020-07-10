@@ -83,6 +83,7 @@ class PasswordForgetFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="email"
             label="Email Address"
             margin="normal"
             name="email"
