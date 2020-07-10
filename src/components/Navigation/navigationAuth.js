@@ -20,6 +20,8 @@ import FaceIcon from '@material-ui/icons/Face';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import { AuthUserContext } from '../../session';
+
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
@@ -58,7 +60,7 @@ class NavigationAuth extends Component {
   };
 
   render() {
-    const { classes, authUser } = this.props;
+    const { classes } = this.props;
 
     const { left, bottom } = this.state;
     
@@ -95,12 +97,16 @@ class NavigationAuth extends Component {
         <Drawer anchor="bottom" open={bottom} onClose={this.toggleDrawer('bottom', false)}>
           <div className={classes.bottomDrawer} role="presentation" onClick={this.toggleDrawer('bottom', false)} onKeyDown={this.toggleDrawer('bottom', false)}>
             <List component="nav" subheader={<ListSubheader color="primary">You are signed in to your account.</ListSubheader>}>
-              <ListItem divider>
-                <ListItemIcon>
-                  <FaceIcon />
-                </ListItemIcon>
-                <ListItemText primary={authUser.email} secondary={authUser.uid} />
-              </ListItem>
+              <AuthUserContext.Consumer>
+                { authUser => authUser &&
+                  <ListItem divider>
+                    <ListItemIcon>
+                      <FaceIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={authUser.email} secondary={authUser.uid} />
+                  </ListItem>
+                }
+              </AuthUserContext.Consumer>
               <SignOut />
             </List>
           </div>
