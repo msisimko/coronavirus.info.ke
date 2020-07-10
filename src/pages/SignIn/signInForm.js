@@ -85,6 +85,7 @@ class SignInFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="email"
             label="Email Address"
             margin="normal"
             name="email"
@@ -96,6 +97,7 @@ class SignInFormBase extends Component {
           <TextField
             error={isError}
             fullWidth
+            id="password"
             label="Password"
             margin="normal"
             name="password"

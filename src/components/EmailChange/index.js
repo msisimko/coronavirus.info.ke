@@ -100,6 +100,7 @@ class EmailChangeBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
+                    id="email"
                     helperText="You'll need to confirm that this email belongs to you."
                     label="Email Address"
                     margin="normal"

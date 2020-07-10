@@ -99,6 +99,7 @@ class PasswordChangeBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
+                    id="passwordOne"
                     label="Password"
                     margin="normal"
                     name="passwordOne"
@@ -111,6 +112,7 @@ class PasswordChangeBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
+                    id="passwordTwo"
                     label="Confirm Password"
                     margin="normal"
                     name="passwordTwo"
