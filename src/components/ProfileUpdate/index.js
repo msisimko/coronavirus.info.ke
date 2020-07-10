@@ -97,6 +97,7 @@ class ProfileUpdateBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
+                    id="displayName"
                     label="Display Name"
                     margin="normal"
                     name="displayName"
