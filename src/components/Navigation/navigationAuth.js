@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import SignOut from '../SignOut';
 
 import AppBar from '@material-ui/core/AppBar';
+import Collapse from '@material-ui/core/Collapse';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -16,6 +17,8 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import FaceIcon from '@material-ui/icons/Face';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -37,6 +40,9 @@ const styles = theme => ({
   bottomDrawer: {
     width: 'auto',
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 });
 
 class NavigationAuth extends Component {
@@ -46,9 +52,11 @@ class NavigationAuth extends Component {
     this.state = {
       left: false,
       bottom: false,
+      account: false,
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   toggleDrawer = (anchor, open) => (event) => {
@@ -59,10 +67,18 @@ class NavigationAuth extends Component {
     this.setState({ [anchor]: open });
   };
 
+  toggleMenu = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    
+    this.setState({ [anchor]: !open });
+  };
+
   render() {
     const { classes } = this.props;
 
-    const { left, bottom } = this.state;
+    const { left, bottom, account } = this.state;
     
     return(
       <React.Fragment>
@@ -81,14 +97,25 @@ class NavigationAuth extends Component {
 
         {/* Left drawer */}
         <Drawer anchor="left" open={left} onClose={this.toggleDrawer('left', false)}>
-          <div className={classes.leftDrawer} role="presentation" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
+          <div className={classes.leftDrawer} role="presentation" onKeyDown={this.toggleDrawer('left', false)}>
             <List component="nav" subheader={<ListSubheader color="primary" disableSticky={true}>Menu</ListSubheader>}>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.HOME} activeClassName="Mui-selected" aria-label="Home">
+              <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.HOME} activeClassName="Mui-selected" aria-label="Home">
                 <ListItemText primary="Home" />
               </ListItem>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.ACCOUNT} activeClassName="Mui-selected" aria-label="Account">
+              <ListItem button onClick={this.toggleMenu('account', account)} aria-label="Account">
                 <ListItemText primary="Account" />
+                {account ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+              <Collapse in={account} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItem button onClick={this.toggleDrawer('left', false)} className={classes.nested} component={NavLink} exact={true} to={ROUTES.ACCOUNT_VIEW} activeClassName="Mui-selected" aria-label="View Account">
+                    <ListItemText primary="View Account" />
+                  </ListItem>
+                  <ListItem button onClick={this.toggleDrawer('left', false)} className={classes.nested} component={NavLink} exact={true} to={ROUTES.ACCOUNT_MANAGE} activeClassName="Mui-selected" aria-label="Manage Account">
+                    <ListItemText primary="Manage Account" />
+                  </ListItem>
+                </List>
+              </Collapse>
             </List>
           </div>
         </Drawer>

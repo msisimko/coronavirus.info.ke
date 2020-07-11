@@ -1,4 +1,6 @@
 export const ACCOUNT = '/account';
+export const ACCOUNT_VIEW = '/account/view';
+export const ACCOUNT_MANAGE = '/account/manage'
 export const ACTION = '/action';
 export const HOME = '/home';
 export const LANDING = '/';
