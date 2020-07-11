@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -14,7 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import PersonIcon from '@material-ui/icons/Person';
 
-import { AuthUserContext } from '../../session';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -25,7 +26,7 @@ const styles = theme => ({
   },
 });
 
-class AccountView extends Component {
+class AccountViewBase extends Component {
   render() {
     const { classes } = this.props;
 
@@ -110,5 +111,12 @@ class AccountView extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser;
+
+const AccountView = compose(
+  withAuthorization(condition),
+  withEmailVerification,
+)(AccountViewBase);
 
 export default withStyles(styles, { withTheme: true })(AccountView);
