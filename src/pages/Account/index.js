@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import EmailChange from '../../components/EmailChange';
-import PasswordChange from '../../components/PasswordChange';
-import ProfileUpdate from '../../components/ProfileUpdate';
+import AccountManage from './accountManage';
+import AccountView from './accountView';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -16,7 +15,7 @@ class AccountBase extends Component {
   render() {
     return(
       <React.Fragment>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" disableGutters>
           <Box py={3}>
             <Paper elevation={0}>
               <Box p={3}>
@@ -30,10 +29,6 @@ class AccountBase extends Component {
             </Paper>
           </Box>
         </Container>
-
-        <ProfileUpdate />
-        <EmailChange />
-        <PasswordChange />
       </React.Fragment>
     );
   }
@@ -47,3 +42,5 @@ const Account = compose(
 )(AccountBase);
 
 export default Account;
+
+export { AccountView, AccountManage };

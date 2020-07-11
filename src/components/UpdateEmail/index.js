@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-class EmailChangeBase extends Component {
+class UpdateEmailBase extends Component {
   constructor(props) {
     super(props);
  
@@ -86,7 +86,7 @@ class EmailChangeBase extends Component {
  
     return (
       <React.Fragment>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" disableGutters>
           <Box py={3}>
             <Paper elevation={0}>
               <Box px={3} pt={3}>
@@ -147,9 +147,9 @@ class EmailChangeBase extends Component {
   }
 }
 
-const EmailChange = compose(
+const UpdateEmail = compose(
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(EmailChangeBase);
+)(UpdateEmailBase);
  
-export default EmailChange;
+export default UpdateEmail;

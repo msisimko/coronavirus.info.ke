@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation';
 
-import Account from '../../pages/Account';
+import Account, { AccountView, AccountManage } from '../../pages/Account';
 import Action from '../../pages/Action';
 import Home from '../../pages/Home';
 import Landing from '../../pages/Landing';
@@ -22,6 +22,8 @@ class App extends Component {
         <Navigation />
         
         <Route path={ROUTES.ACCOUNT} component={Account} />
+        <Route path={ROUTES.ACCOUNT_VIEW} component={AccountView} />
+        <Route path={ROUTES.ACCOUNT_MANAGE} component={AccountManage} />
         <Route path={ROUTES.ACTION} component={Action} />
         <Route path={ROUTES.HOME} component={Home} />
         <Route exact path={ROUTES.LANDING} component={Landing} />

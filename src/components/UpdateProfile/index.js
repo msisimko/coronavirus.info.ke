@@ -24,13 +24,12 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  passwordOne: '',
-  passwordTwo: '',
+  displayName: '',
   success: null,
   error: null,
 };
 
-class PasswordChangeBase extends Component {
+class UpdateProfileBase extends Component {
   constructor(props) {
     super(props);
  
@@ -46,12 +45,12 @@ class PasswordChangeBase extends Component {
   }
 
   onSubmit = event => {
-    const { passwordOne } = this.state;
+    const { displayName } = this.state;
  
     this.props.firebase
-      .doUpdatePassword(passwordOne)
+      .doUpdateProfile(displayName)
       .then(() => {
-        let success = { code: 200, message: "Your password has been updated." };
+        let success = { code: 200, message: "Your profile has been updated." };
         this.setState({ success });
       })
       .catch(error => {
@@ -72,10 +71,9 @@ class PasswordChangeBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { passwordOne, passwordTwo, success, error } = this.state;
-
-    const isInvalid = passwordOne !== passwordTwo ||
-                      passwordOne === '';
+    const { displayName, success, error } = this.state;
+ 
+    const isInvalid = displayName === '';
 
     const isSuccess = success !== null;
 
@@ -85,12 +83,12 @@ class PasswordChangeBase extends Component {
  
     return (
       <React.Fragment>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" disableGutters>
           <Box py={3}>
             <Paper elevation={0}>
               <Box px={3} pt={3}>
                 <Typography align="center" variant="h4">    
-                  <strong>Manage Password</strong>
+                  <strong>Manage Profile</strong>
                 </Typography>
               </Box>
 
@@ -99,27 +97,13 @@ class PasswordChangeBase extends Component {
                   <TextField
                     error={isError}
                     fullWidth
-                    id="passwordOne"
-                    label="Password"
+                    id="displayName"
+                    label="Display Name"
                     margin="normal"
-                    name="passwordOne"
+                    name="displayName"
                     onChange={this.onChange}
                     required
-                    type="password"
-                    value={passwordOne}
-                    variant="filled"
-                  />
-                  <TextField
-                    error={isError}
-                    fullWidth
-                    id="passwordTwo"
-                    label="Confirm Password"
-                    margin="normal"
-                    name="passwordTwo"
-                    onChange={this.onChange}
-                    required
-                    type="password"
-                    value={passwordTwo}
+                    value={displayName}
                     variant="filled"
                   />
                   <Button
@@ -131,7 +115,7 @@ class PasswordChangeBase extends Component {
                     type="submit"
                     variant="contained"
                   >
-                    Update My Password
+                    Update My Profile
                   </Button>
                 </form>
               </Box>
@@ -159,9 +143,9 @@ class PasswordChangeBase extends Component {
   }
 }
 
-const PasswordChange = compose(
+const UpdateProfile = compose(
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(PasswordChangeBase);
+)(UpdateProfileBase);
  
-export default withFirebase(PasswordChange);
+export default UpdateProfile;
