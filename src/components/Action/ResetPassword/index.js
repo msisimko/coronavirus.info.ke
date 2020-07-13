@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -93,6 +94,8 @@ class ResetPasswordBase extends Component {
 
     const { isLoading, passwordOne, passwordTwo, success, loadingError, error } = this.state;
 
+    const isLoaded = !isLoading && !loadingError;
+
     const isInvalid = passwordOne !== passwordTwo || 
                       passwordOne === '';
 
@@ -103,85 +106,68 @@ class ResetPasswordBase extends Component {
     const isDisabled = isInvalid || isSuccess || isError;
 
     return(
-      <React.Fragment>
-        <Paper elevation={0}>
-          <Box px={3} pt={3}>
-            <Typography align="center" variant="h4">    
-              <strong>Password Reset</strong>
-            </Typography>
-          </Box>
+      <Container maxWidth="sm">
+        <Box pt={2}>
+          <Paper elevation={0}>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Password Reset</strong>
+              </Typography>
+            
+              {isLoading &&
+                <LinearProgress color="primary" />
+              }
 
-          <Box p={3}>
-            {isLoading ? (
-              <LinearProgress color="primary" />
-            ) : (
-              <React.Fragment>
-                {loadingError ? (
-                  <Typography align="center" variant="body2">
-                    {loadingError.message}
-                  </Typography>
-                ) : (
-                  <form className={classes.form} onSubmit={this.onSubmit}>
-                    <TextField
-                      error={isError}
-                      fullWidth
-                      id="passwordOne"
-                      label="Password"
-                      margin="normal"
-                      name="passwordOne"
-                      onChange={this.onChange}
-                      required
-                      type="password"
-                      value={passwordOne}
-                      variant="filled"
-                    />
-                    <TextField
-                      error={isError}
-                      fullWidth
-                      id="passwordTwo"
-                      label="Confirm Password"
-                      margin="normal"
-                      name="passwordTwo"
-                      onChange={this.onChange}
-                      required
-                      type="password"
-                      value={passwordTwo}
-                      variant="filled"
-                    />
-                    <Button
-                      className={classes.submit}
-                      color="primary"
-                      disabled={isDisabled}
-                      fullWidth
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                    >
-                      Change Password
-                    </Button>
-                  </form>
-                )}
-              </React.Fragment>
-            )}
-          </Box>
-          
-          {isSuccess &&
-            <Box px={3} pb={3}>
-              <Button
-                className={classes.button}
-                color="primary"
-                component={RouterLink}
-                fullWidth
-                size="large"
-                to={ROUTES.LANDING}
-                type="button"
-                variant="contained"
-              >
-                Continue
-              </Button>
+              {loadingError &&
+                <Typography align="center" variant="body2" gutterBottom>
+                  {loadingError.message}
+                </Typography>
+              }
+
+              {isLoaded &&
+                <form className={classes.form} onSubmit={this.onSubmit}>
+                  <TextField
+                    error={isError}
+                    fullWidth
+                    id="passwordOne"
+                    label="Password"
+                    margin="normal"
+                    name="passwordOne"
+                    onChange={this.onChange}
+                    required
+                    type="password"
+                    value={passwordOne}
+                    variant="filled"
+                  />
+                  <TextField
+                    error={isError}
+                    fullWidth
+                    id="passwordTwo"
+                    label="Confirm Password"
+                    margin="normal"
+                    name="passwordTwo"
+                    onChange={this.onChange}
+                    required
+                    type="password"
+                    value={passwordTwo}
+                    variant="filled"
+                  />
+                  <Button
+                    className={classes.submit}
+                    color="primary"
+                    disabled={isDisabled}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Change Password
+                  </Button>
+                </form>
+              }
             </Box>
-          }
-        </Paper>
+          </Paper>
+        </Box>
 
         {success &&
           <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
@@ -198,7 +184,19 @@ class ResetPasswordBase extends Component {
             </Alert>
           </Snackbar>
         }
-      </React.Fragment>
+            
+        {isSuccess &&
+          <Box pt={2}>
+            <Paper elevation={0}>
+              <Box p={3}>
+                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+                  Continue
+                </Button>
+              </Box>
+            </Paper>
+          </Box>
+        }
+      </Container>
     );
   }
 }

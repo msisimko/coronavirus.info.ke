@@ -33,33 +33,15 @@ class Action extends Component {
 
     switch (mode) {
       case 'recoverEmail':
-        return (
-          <Container maxWidth="sm">
-            <Box py={3}>
-              <RecoverEmail actionCode={oobCode} />
-            </Box>
-          </Container>
-        );
+        return <RecoverEmail actionCode={oobCode} />;
       case 'resetPassword':
-        return (
-          <Container maxWidth="sm">
-            <Box py={3}>
-              <ResetPassword actionCode={oobCode} />
-            </Box>
-          </Container>
-        );
+        return <ResetPassword actionCode={oobCode} />;
       case 'verifyEmail':
-        return (
-          <Container maxWidth="sm">
-            <Box py={3}>
-              <VerifyEmail actionCode={oobCode} />
-            </Box>
-          </Container>
-        );
+        return <VerifyEmail actionCode={oobCode} />;
       default:
         return(
           <Container maxWidth="sm">
-            <Box py={3}>
+            <Box pt={2}>
               <Paper elevation={0}>
                 <Box p={3}>
                   <Typography align="center" variant="h4" gutterBottom>
