@@ -31,7 +31,7 @@ class AccountViewBase extends Component {
     const { classes } = this.props;
 
     return(
-      <Container maxWidth="sm" disableGutters>
+      <Container maxWidth="sm">
         <Box py={3}>
           <Paper elevation={0}>
             <Box p={3}>
