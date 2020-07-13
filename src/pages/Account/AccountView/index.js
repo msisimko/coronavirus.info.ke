@@ -11,58 +11,37 @@ import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import { withStyles } from '@material-ui/core/styles';
-
 import PersonIcon from '@material-ui/icons/Person';
 
-import { AuthUserContext, withAuthorization, withEmailVerification } from '../../session';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../../../session';
 
-import * as ROUTES from '../../constants/routes';
-
-const styles = theme => ({
-  avatar: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
-  },
-});
+import * as ROUTES from '../../../constants/routes';
 
 class AccountViewBase extends Component {
   render() {
-    const { classes } = this.props;
-
     return(
       <Container maxWidth="sm">
-        <Box py={3}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.ACCOUNT_MANAGE}>
-                Manage Account
-              </Button>
-            </Box>
-          </Paper>
-        </Box>
-
-        <Box py={3}>
+        <Box pt={2}>
           <Paper elevation={0}>
             <Box p={3}>
               <AuthUserContext.Consumer>
                 { authUser => authUser &&
                   <React.Fragment>
                     <Grid container spacing={2}>
-                      <Grid item sm={3} xs={12}>
+                      <Grid item sm={4} xs={12}>
                         <Box display="flex" justifyContent="center">
                           <Box>
                             {authUser.photoURL ? (
-                              <Avatar className={classes.avatar} alt={authUser.displayName} src="/static/images/avatar/1.jpg" />
+                              <Avatar style={{ width: '100px', height: '100px'}} alt={authUser.displayName} src={authUser.photoURL} />
                             ) : (
-                              <Avatar className={classes.avatar}>
+                              <Avatar style={{ width: '100px', height: '100px'}}>
                                 <PersonIcon style={{ fontSize: 60 }} />
                               </Avatar>
                             )}
                           </Box>
                         </Box>
                       </Grid>
-                      <Grid item sm={9} xs={12}>
+                      <Grid item sm={8} xs={12}>
                         {/* Visible on screen sizes SM, MD, LG & XL */}
                         <Hidden xsDown>
                           <Typography variant="h4" gutterBottom>
@@ -107,6 +86,16 @@ class AccountViewBase extends Component {
             </Box>
           </Paper>
         </Box>
+
+        <Box pt={2}>
+          <Paper elevation={0}>
+            <Box p={3}>
+              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.ACCOUNT_MANAGE}>
+                Manage Account
+              </Button>
+            </Box>
+          </Paper>
+        </Box>
       </Container>
     );
   }
@@ -119,4 +108,4 @@ const AccountView = compose(
   withEmailVerification,
 )(AccountViewBase);
 
-export default withStyles(styles, { withTheme: true })(AccountView);
+export default AccountView;

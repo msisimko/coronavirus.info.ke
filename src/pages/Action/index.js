@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import RecoverEmail from './recoverEmail';
-import ResetPassword from './resetPassword';
-import VerifyEmail from './verifyEmail';
+import { RecoverEmail, ResetPassword, VerifyEmail } from '../../components/Action';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -35,11 +33,29 @@ class Action extends Component {
 
     switch (mode) {
       case 'recoverEmail':
-        return <RecoverEmail actionCode={oobCode} />;
+        return (
+          <Container maxWidth="sm">
+            <Box py={3}>
+              <RecoverEmail actionCode={oobCode} />
+            </Box>
+          </Container>
+        );
       case 'resetPassword':
-        return <ResetPassword actionCode={oobCode} />;
+        return (
+          <Container maxWidth="sm">
+            <Box py={3}>
+              <ResetPassword actionCode={oobCode} />
+            </Box>
+          </Container>
+        );
       case 'verifyEmail':
-        return <VerifyEmail actionCode={oobCode} />;
+        return (
+          <Container maxWidth="sm">
+            <Box py={3}>
+              <VerifyEmail actionCode={oobCode} />
+            </Box>
+          </Container>
+        );
       default:
         return(
           <Container maxWidth="sm">

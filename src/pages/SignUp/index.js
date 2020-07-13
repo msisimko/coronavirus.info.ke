@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-import SignUpForm from './signUpForm';
-import SignUpLink from './signUpLink';
-
-import { SignInLink } from '../SignIn';
+import { SignUpForm, SignUpLink } from '../../components/SignUp';
+import { SignInLink } from '../../components/SignIn';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -26,19 +24,15 @@ class SignUp extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box py={3}>
+        <Box pt={2}>
           <Paper elevation={0}>
-            <Box px={3} pt={3}>
-              <Typography align="center" variant="h4">    
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
                 <strong>Sign Up</strong>
               </Typography>
-            </Box>
-
-            <Box p={3}>
+              
               <SignUpForm />
-            </Box>
-
-            <Box px={3} pb={3}>
+              
               <SignInLink />
             </Box>
           </Paper>
