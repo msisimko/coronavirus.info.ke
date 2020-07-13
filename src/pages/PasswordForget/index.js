@@ -1,7 +1,6 @@
 import React from 'react';
 
-import PasswordForgetForm from './passwordForgetForm';
-import PasswordForgetLink from './passwordForgetLink';
+import { PasswordForgetForm, PasswordForgetLink } from '../../components/PasswordForget';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -24,15 +23,13 @@ class PasswordForget extends React.Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box py={3}>
+        <Box pt={2}>
           <Paper elevation={0}>
-            <Box px={3} pt={3}>
-              <Typography align="center" variant="h4">    
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
                 <strong>Forgot Password?</strong>
               </Typography>
-            </Box>
 
-            <Box p={3}>
               <PasswordForgetForm />
             </Box>
           </Paper>

@@ -21,7 +21,7 @@ class Landing extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box py={3}>
+        <Box pt={2}>
           <Paper elevation={0}>
             <Box p={3}>
               <Typography align="center" variant="h4" gutterBottom>

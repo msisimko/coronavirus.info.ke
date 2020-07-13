@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import RecoverEmail from './recoverEmail';
-import ResetPassword from './resetPassword';
-import VerifyEmail from './verifyEmail';
+import { RecoverEmail, ResetPassword, VerifyEmail } from '../../components/Action';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -43,7 +41,7 @@ class Action extends Component {
       default:
         return(
           <Container maxWidth="sm">
-            <Box py={3}>
+            <Box pt={2}>
               <Paper elevation={0}>
                 <Box p={3}>
                   <Typography align="center" variant="h4" gutterBottom>

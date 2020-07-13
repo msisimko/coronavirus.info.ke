@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
- 
-import { withFirebase } from '../../firebase';
+
+import { withFirebase } from '../../../firebase';
+
+import * as ROUTES from '../../../constants/routes';
 
 const styles = theme => ({
   form: {
@@ -26,19 +30,33 @@ const styles = theme => ({
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
+  loadingError: null,
   success: null,
   error: null,
 };
 
-class PasswordChangeBase extends Component {
+class ResetPasswordBase extends Component {
   constructor(props) {
     super(props);
- 
-    this.state = { ...INITIAL_STATE };
+
+    this.state = { isLoading: true, ...INITIAL_STATE };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    const { actionCode } = this.props;
+
+    this.props.firebase
+      .doVerifyPasswordResetCode(actionCode)
+      .catch(loadingError => {
+        this.setState({ loadingError });
+      })
+      .then(() => {
+        this.setState({ isLoading: false });
+      });
   }
  
   onChange = event => {
@@ -46,18 +64,20 @@ class PasswordChangeBase extends Component {
   }
 
   onSubmit = event => {
+    const { actionCode } = this.props;
+
     const { passwordOne } = this.state;
- 
+
     this.props.firebase
-      .doUpdatePassword(passwordOne)
+      .doConfirmPasswordReset(actionCode, passwordOne)
       .then(() => {
-        let success = { code: 200, message: "Your password has been updated." };
+        let success = { code: 200, message: "Your password has been reset." };
         this.setState({ success });
       })
       .catch(error => {
         this.setState({ error });
       });
- 
+    
     event.preventDefault();
   }
 
@@ -72,9 +92,11 @@ class PasswordChangeBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { passwordOne, passwordTwo, success, error } = this.state;
+    const { isLoading, passwordOne, passwordTwo, success, loadingError, error } = this.state;
 
-    const isInvalid = passwordOne !== passwordTwo ||
+    const isLoaded = !isLoading && !loadingError;
+
+    const isInvalid = passwordOne !== passwordTwo || 
                       passwordOne === '';
 
     const isSuccess = success !== null;
@@ -82,19 +104,27 @@ class PasswordChangeBase extends Component {
     const isError = error !== null;
 
     const isDisabled = isInvalid || isSuccess || isError;
- 
-    return (
-      <React.Fragment>
-        <Container maxWidth="sm">
-          <Box py={3}>
-            <Paper elevation={0}>
-              <Box px={3} pt={3}>
-                <Typography align="center" variant="h4">    
-                  <strong>Manage Password</strong>
-                </Typography>
-              </Box>
 
-              <Box p={3}>
+    return(
+      <Container maxWidth="sm">
+        <Box pt={2}>
+          <Paper elevation={0}>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Password Reset</strong>
+              </Typography>
+            
+              {isLoading &&
+                <LinearProgress color="primary" />
+              }
+
+              {loadingError &&
+                <Typography align="center" variant="body2" gutterBottom>
+                  {loadingError.message}
+                </Typography>
+              }
+
+              {isLoaded &&
                 <form className={classes.form} onSubmit={this.onSubmit}>
                   <TextField
                     error={isError}
@@ -131,13 +161,13 @@ class PasswordChangeBase extends Component {
                     type="submit"
                     variant="contained"
                   >
-                    Update My Password
+                    Change Password
                   </Button>
                 </form>
-              </Box>
-            </Paper>
-          </Box>
-        </Container>
+              }
+            </Box>
+          </Paper>
+        </Box>
 
         {success &&
           <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
@@ -154,14 +184,27 @@ class PasswordChangeBase extends Component {
             </Alert>
           </Snackbar>
         }
-      </React.Fragment>
+            
+        {isSuccess &&
+          <Box pt={2}>
+            <Paper elevation={0}>
+              <Box p={3}>
+                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+                  Continue
+                </Button>
+              </Box>
+            </Paper>
+          </Box>
+        }
+      </Container>
     );
   }
 }
 
-const PasswordChange = compose(
+const ResetPassword = compose(
+  withRouter,
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(PasswordChangeBase);
- 
-export default withFirebase(PasswordChange);
+)(ResetPasswordBase);
+
+export default ResetPassword;

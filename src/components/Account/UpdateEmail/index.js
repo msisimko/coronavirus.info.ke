@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
  
-import { withFirebase } from '../../firebase';
+import { withFirebase } from '../../../firebase';
 
 const styles = theme => ({
   form: {
@@ -24,12 +23,12 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  displayName: '',
+  email: '',
   success: null,
   error: null,
 };
 
-class ProfileUpdateBase extends Component {
+class UpdateEmailBase extends Component {
   constructor(props) {
     super(props);
  
@@ -45,12 +44,15 @@ class ProfileUpdateBase extends Component {
   }
 
   onSubmit = event => {
-    const { displayName } = this.state;
+    const { email } = this.state;
  
     this.props.firebase
-      .doUpdateProfile(displayName)
+      .doUpdateEmail(email)
       .then(() => {
-        let success = { code: 200, message: "Your display name has been updated." };
+        return this.props.firebase.doSendEmailVerification();
+      })
+      .then(() => {
+        let success = { code: 200, message: "Your email has been updated. Check inbox for verification email." };
         this.setState({ success });
       })
       .catch(error => {
@@ -71,9 +73,9 @@ class ProfileUpdateBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { displayName, success, error } = this.state;
+    const { email, success, error } = this.state;
  
-    const isInvalid = displayName === '';
+    const isInvalid = email === '';
 
     const isSuccess = success !== null;
 
@@ -83,45 +85,40 @@ class ProfileUpdateBase extends Component {
  
     return (
       <React.Fragment>
-        <Container maxWidth="sm">
-          <Box py={3}>
-            <Paper elevation={0}>
-              <Box px={3} pt={3}>
-                <Typography align="center" variant="h4">    
-                  <strong>Manage Profile</strong>
-                </Typography>
-              </Box>
+        <Paper elevation={0}>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>    
+              <strong>Manage Email</strong>
+            </Typography>
 
-              <Box p={3}>
-                <form className={classes.form} onSubmit={this.onSubmit}>
-                  <TextField
-                    error={isError}
-                    fullWidth
-                    id="displayName"
-                    label="Display Name"
-                    margin="normal"
-                    name="displayName"
-                    onChange={this.onChange}
-                    required
-                    value={displayName}
-                    variant="filled"
-                  />
-                  <Button
-                    className={classes.submit}
-                    color="primary"
-                    disabled={isDisabled}
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                  >
-                    Update My Profile
-                  </Button>
-                </form>
-              </Box>
-            </Paper>
+            <form className={classes.form} onSubmit={this.onSubmit}>
+              <TextField
+                error={isError}
+                fullWidth
+                id="email"
+                helperText="You'll need to confirm that this email belongs to you."
+                label="Email Address"
+                margin="normal"
+                name="email"
+                onChange={this.onChange}
+                required
+                value={email}
+                variant="filled"
+              />
+              <Button
+                className={classes.submit}
+                color="primary"
+                disabled={isDisabled}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+              >
+                Update My Email
+              </Button>
+            </form>
           </Box>
-        </Container>
+        </Paper>
 
         {success &&
           <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
@@ -143,9 +140,9 @@ class ProfileUpdateBase extends Component {
   }
 }
 
-const ProfileUpdate = compose(
+const UpdateEmail = compose(
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(ProfileUpdateBase);
+)(UpdateEmailBase);
  
-export default ProfileUpdate;
+export default UpdateEmail;

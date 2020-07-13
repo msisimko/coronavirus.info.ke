@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-import SignInForm from './signInForm';
-import SignInLink from './signInLink';
-
-import { SignUpLink } from '../SignUp';
-import { PasswordForgetLink } from '../PasswordForget';
+import { SignInForm, SignInLink } from '../../components/SignIn';
+import { SignUpLink } from '../../components/SignUp';
+import { PasswordForgetLink } from '../../components/PasswordForget';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -27,23 +25,17 @@ class SignIn extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box py={3}>
+        <Box pt={2}>
           <Paper elevation={0}>
-            <Box px={3} pt={3}>
-              <Typography align="center" variant="h4">    
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
                 <strong>Log In</strong>
               </Typography>
-            </Box>
 
-            <Box p={3}>
               <SignInForm />
-            </Box>
-
-            <Box px={3} pb={1}>
+              
               <SignUpLink />
-            </Box>
-
-            <Box px={3} pb={3}>
+              
               <PasswordForgetLink />
             </Box>
           </Paper>
