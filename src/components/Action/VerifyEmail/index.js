@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { compose } from 'recompose';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import { withStyles } from '@material-ui/core/styles';
-
 import { withFirebase } from '../../../firebase';
 
 import * as ROUTES from '../../../constants/routes';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing(3, 0, 2),
-  },
-});
 
 const INITIAL_STATE = {
   isLoading: true,
   loadingError: null,
 };
 
-class VerifyEmailBase extends Component {
+class VerifyEmail extends Component {
   constructor(props) {
     super(props);
 
@@ -46,57 +38,52 @@ class VerifyEmailBase extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     const { isLoading, loadingError } = this.state;
 
-    return(
-      <Paper elevation={0}>
-        <Box px={3} pt={3}>
-          <Typography align="center" variant="h4">    
-            <strong>Email Verification</strong>
-          </Typography>
-        </Box>
+    const isLoaded = !isLoading && !loadingError;
 
-        <Box p={3}>
-          {isLoading ? (
-            <LinearProgress color="primary" />
-          ) : (
-            <React.Fragment>
-              {loadingError ? (
-                <Typography align="center" variant="body2">
+    return(
+      <Container maxWidth="sm">
+        <Box pt={2}>
+          <Paper elevation={0}>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Email Verification</strong>
+              </Typography>
+              
+              {isLoading &&
+                <LinearProgress color="primary" />
+              }
+
+              {loadingError &&
+                <Typography align="center" variant="body2" gutterBottom>
                   {loadingError.message}
                 </Typography>
-              ) : (
-                <React.Fragment>
-                  <Typography align="center" variant="body2">
-                    Your email has been verified.
-                  </Typography>
-                  <Button
-                    className={classes.button}
-                    color="primary"
-                    component={RouterLink}
-                    fullWidth
-                    size="large"
-                    to={ROUTES.LANDING}
-                    type="button"
-                    variant="contained"
-                  >
-                    Continue
-                  </Button>
-                </React.Fragment>
-              )}
-            </React.Fragment>
-          )}
+              }
+
+              {isLoaded &&
+                <Typography align="center" variant="body2" gutterBottom>
+                  Your email has successfully been verified.
+                </Typography>
+              }
+            </Box>
+          </Paper>
         </Box>
-      </Paper>
+        
+        {isLoaded &&
+          <Box pt={2}>
+            <Paper elevation={0}>
+              <Box p={3}>
+                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+                  Continue
+                </Button>
+              </Box>
+            </Paper>
+          </Box>
+        }
+      </Container>
     );
   }
 }
 
-const VerifyEmail = compose(
-  withStyles(styles, { withTheme: true }),
-  withFirebase,
-)(VerifyEmailBase);
-
-export default VerifyEmail;
+export default withFirebase(VerifyEmail);
