@@ -19,7 +19,7 @@ class AccountManageBase extends Component {
   render() {
     return(
       <React.Fragment>
-        <Container maxWidth="sm" disableGutters>
+        <Container maxWidth="sm">
           <Box py={3}>
             <Paper elevation={0}>
               <Box p={3}>
