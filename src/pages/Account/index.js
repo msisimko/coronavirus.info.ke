@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import AccountManage from './accountManage';
-import AccountView from './accountView';
+import AccountManage from './AccountManage';
+import AccountView from './AccountView';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -16,7 +16,7 @@ class AccountBase extends Component {
     return(
       <React.Fragment>
         <Container maxWidth="sm">
-          <Box py={3}>
+          <Box pt={2}>
             <Paper elevation={0}>
               <Box p={3}>
                 <Typography align="center" variant="h4" gutterBottom>

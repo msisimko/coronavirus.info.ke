@@ -11,6 +11,8 @@ import PasswordForget from '../../pages/PasswordForget';
 import SignIn from '../../pages/SignIn';
 import SignUp from '../../pages/SignUp';
 
+import Box from '@material-ui/core/Box';
+
 import { withAuthentication } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
@@ -20,16 +22,18 @@ class App extends Component {
     return(
       <Router>
         <Navigation />
-        
-        <Route path={ROUTES.ACCOUNT} component={Account} />
-        <Route path={ROUTES.ACCOUNT_VIEW} component={AccountView} />
-        <Route path={ROUTES.ACCOUNT_MANAGE} component={AccountManage} />
-        <Route path={ROUTES.ACTION} component={Action} />
-        <Route path={ROUTES.HOME} component={Home} />
-        <Route exact path={ROUTES.LANDING} component={Landing} />
-        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-        <Route path={ROUTES.SIGN_IN} component={SignIn} />
-        <Route path={ROUTES.SIGN_UP} component={SignUp} />
+
+        <Box pb={2}>
+          <Route path={ROUTES.ACCOUNT} component={Account} />
+          <Route path={ROUTES.ACCOUNT_VIEW} component={AccountView} />
+          <Route path={ROUTES.ACCOUNT_MANAGE} component={AccountManage} />
+          <Route path={ROUTES.ACTION} component={Action} />
+          <Route path={ROUTES.HOME} component={Home} />
+          <Route exact path={ROUTES.LANDING} component={Landing} />
+          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
+          <Route path={ROUTES.SIGN_IN} component={SignIn} />
+          <Route path={ROUTES.SIGN_UP} component={SignUp} />
+        </Box>
       </Router>
     );
   }

@@ -4,16 +4,15 @@ import { compose } from 'recompose';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { withFirebase } from '../../firebase';
+import { withFirebase } from '../../../firebase';
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../../../constants/routes';
 
 const styles = theme => ({
   button: {
@@ -55,50 +54,45 @@ class RecoverEmailBase extends Component {
     const { isLoading, loadingError } = this.state;
 
     return(
-      <Container maxWidth="sm">
-        <Box py={3}>
-          <Paper elevation={0}>
-            <Box px={3} pt={3}>
-              <Typography align="center" variant="h4">    
-                <strong>Email Recovery</strong>
-              </Typography>
-            </Box>
+      <Paper elevation={0}>
+        <Box px={3} pt={3}>
+          <Typography align="center" variant="h4">    
+            <strong>Email Recovery</strong>
+          </Typography>
+        </Box>
 
-            <Box p={3}>
-              {isLoading ? (
-                <LinearProgress color="primary" />
+        <Box p={3}>
+          {isLoading ? (
+            <LinearProgress color="primary" />
+          ) : (
+            <React.Fragment>
+              {loadingError ? (
+                <Typography align="center" variant="body2">
+                  {loadingError.message}
+                </Typography>
               ) : (
                 <React.Fragment>
-                  {loadingError ? (
-                    <Typography align="center" variant="body2">
-                      {loadingError.message}
-                    </Typography>
-                  ) : (
-                    <Typography align="center" variant="body2">
-                      The request to change your email address has been revoked.
-                    </Typography>
-                  )}
+                  <Typography align="center" variant="body2">
+                    The request to change your email address has been revoked.
+                  </Typography>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    component={RouterLink}
+                    fullWidth
+                    size="large"
+                    to={ROUTES.LANDING}
+                    type="button"
+                    variant="contained"
+                  >
+                    Continue
+                  </Button>
                 </React.Fragment>
               )}
-            </Box>
-
-            <Box px={3} pb={3}>
-              <Button
-                className={classes.button}
-                color="primary"
-                component={RouterLink}
-                fullWidth
-                size="large"
-                to={ROUTES.LANDING}
-                type="button"
-                variant="contained"
-              >
-                Continue
-              </Button>
-            </Box>
-          </Paper>
+            </React.Fragment>
+          )}
         </Box>
-      </Container>
+      </Paper>
     );
   }
 }
