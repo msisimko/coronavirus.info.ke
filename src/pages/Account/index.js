@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';
 
 import AccountManage from './AccountManage';
 import AccountView from './AccountView';
@@ -9,9 +8,9 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import { withAuthorization, withEmailVerification } from '../../session';
+import { withAuthorization } from '../../session';
 
-class AccountBase extends Component {
+class Account extends Component {
   render() {
     return(
       <React.Fragment>
@@ -36,11 +35,6 @@ class AccountBase extends Component {
 
 const condition = authUser => !!authUser;
 
-const Account = compose(
-  withAuthorization(condition),
-  withEmailVerification,
-)(AccountBase);
-
-export default Account;
+export default withAuthorization(condition)(Account);
 
 export { AccountView, AccountManage };
