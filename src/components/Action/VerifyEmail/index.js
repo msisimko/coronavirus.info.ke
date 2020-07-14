@@ -14,7 +14,7 @@ import * as ROUTES from '../../../constants/routes';
 
 const INITIAL_STATE = {
   isLoading: true,
-  loadingError: null,
+  error: null,
 };
 
 class VerifyEmail extends Component {
@@ -29,8 +29,8 @@ class VerifyEmail extends Component {
 
     this.props.firebase
       .doApplyActionCode(actionCode)
-      .catch(loadingError => {
-        this.setState({ loadingError });
+      .catch(error => {
+        this.setState({ error });
       })
       .then(() => {
         this.setState({ isLoading: false });
@@ -38,9 +38,9 @@ class VerifyEmail extends Component {
   }
 
   render() {
-    const { isLoading, loadingError } = this.state;
+    const { isLoading, error } = this.state;
 
-    const isLoaded = !isLoading && !loadingError;
+    const success = !isLoading && !error;
 
     return(
       <Container maxWidth="sm">
@@ -55,22 +55,22 @@ class VerifyEmail extends Component {
                 <LinearProgress color="primary" />
               }
 
-              {loadingError &&
+              {success &&
                 <Typography align="center" variant="body2" gutterBottom>
-                  {loadingError.message}
+                  Your email has successfully been verified.
                 </Typography>
               }
 
-              {isLoaded &&
+              {error &&
                 <Typography align="center" variant="body2" gutterBottom>
-                  Your email has successfully been verified.
+                  {error.message}
                 </Typography>
               }
             </Box>
           </Paper>
         </Box>
         
-        {isLoaded &&
+        {success &&
           <Box pt={2}>
             <Paper elevation={0}>
               <Box p={3}>
