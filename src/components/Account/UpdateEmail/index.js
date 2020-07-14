@@ -121,7 +121,7 @@ class UpdateEmailBase extends Component {
         </Paper>
 
         {success &&
-          <Snackbar open={isSuccess} autoHideDuration={6000} onClose={this.handleClose}>
+          <Snackbar open={isSuccess} autoHideDuration={3000} onClose={this.handleClose}>
             <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
               {success.message}
             </Alert>
@@ -129,7 +129,7 @@ class UpdateEmailBase extends Component {
         }
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={6000} onClose={this.handleClose}>
+          <Snackbar open={isError} autoHideDuration={3000} onClose={this.handleClose}>
             <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
               {error.message}
             </Alert>

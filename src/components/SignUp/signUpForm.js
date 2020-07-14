@@ -161,7 +161,7 @@ class SignUpFormBase extends Component {
         </form>
 
         {error &&
-          <Snackbar autoHideDuration={6000} onClose={this.handleClose} open={isError}>
+          <Snackbar autoHideDuration={3000} onClose={this.handleClose} open={isError}>
             <Alert elevation={6} onClose={this.handleClose} severity="error" variant="filled">
               {error.message}
             </Alert>
