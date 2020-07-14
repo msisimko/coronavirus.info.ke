@@ -14,7 +14,7 @@ import * as ROUTES from '../../../constants/routes';
 
 const INITIAL_STATE = {
   isLoading: true,
-  loadingError: null,
+  error: null,
 };
 
 class RecoverEmail extends Component {
@@ -32,8 +32,8 @@ class RecoverEmail extends Component {
       .then(() => {
         return this.props.firebase.doApplyActionCode(actionCode);
       })
-      .catch(loadingError => {
-        this.setState({ loadingError });
+      .catch(error => {
+        this.setState({ error });
       })
       .then(() => {
         this.setState({ isLoading: false });
@@ -41,9 +41,9 @@ class RecoverEmail extends Component {
   }
 
   render() {
-    const { isLoading, loadingError } = this.state;
+    const { isLoading, error } = this.state;
 
-    const isLoaded = !isLoading && !loadingError;
+    const success = !isLoading && !error;
 
     return(
       <Container maxWidth="sm">
@@ -58,22 +58,22 @@ class RecoverEmail extends Component {
                 <LinearProgress color="primary" />
               }
 
-              {loadingError &&
+              {success &&
                 <Typography align="center" variant="body2" gutterBottom>
-                  {loadingError.message}
+                  The request to change your email address has successfully been revoked.
                 </Typography>
               }
 
-              {isLoaded &&
+              {error &&
                 <Typography align="center" variant="body2" gutterBottom>
-                  The request to change your email address has successfully been revoked.
+                  {error.message}
                 </Typography>
               }
             </Box>
           </Paper>
         </Box>
         
-        {isLoaded &&
+        {success &&
           <Box pt={2}>
             <Paper elevation={0}>
               <Box p={3}>
