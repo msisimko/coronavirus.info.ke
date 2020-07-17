@@ -1,30 +1,49 @@
 # boilerplate
 A boilerplate (template) for Progressive Web Apps built with [ReactJS](https://reactjs.org/) + [Create React App](https://create-react-app.dev/) + [Firebase](https://firebase.google.com/) + [Material-UI](https://material-ui.com/).
 
+### About
+This boilerplate implements the bare minimum of a Progressive Web Application integrated with Firebase & Material UI. 
+
+The boilerplate ONLY implements Firebase Authentication, including [Custom Email Action Handlers](https://firebase.google.com/docs/auth/custom-email-handler) i.e. 
+- Sign In
+- Sign Up
+- Email Address Verification (CEAH)
+- Email Address Update
+- Email Address Recovery (CEAH)
+- Password Forget
+- Password Reset (CEAH)
+- Password Update
+- Profile Update (Display Name only as of this version)
+
+The boilerplate also includes some strong authentication mechanisms that ensure a user is Signed In & has verified their email address before accessing restricted pages.
+
+### Upcoming Features
+Features currently being worked on include:
+- Profile Update to include updating avatar
+- Customized Authorization implementation using Firebase's [Custom Claims](https://firebase.google.com/docs/auth/admin/custom-claims)
+
 ### Setup on Dev machine
 
-This tutorial was tested on Ubuntu 20.04 LTS.
+This tutorial was developed and tested on Ubuntu Desktop 20.04 LTS.
 
-Open your terminal and follow the instructions below.
-
-1. Install NVM. Instructions can be found [here](https://github.com/nvm-sh/nvm#installing-and-updating). e.g.
+1. Install NVM, instructions can be found [here](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 ```
 
-2. Install NodeJS & NPM.
+2. Install Node.js & NPM as per the instructions above.
 
 ```sh
 nvm install node
 ```
 
-3. Setup Firebase CLI (firebase-tools) i.e. install then log in. Instructions can be found [here](https://firebase.google.com/docs/cli). e.g.
+3. Install Firebase CLI (firebase-tools) and log in, instructions can be found [here](https://firebase.google.com/docs/cli).
 
   - To install, run
 
   ```sh
-  npm install -g firebase-tools
+  curl -sL https://firebase.tools | bash
   ```
 
   - To log in, run
@@ -51,7 +70,7 @@ npm install
 firebase init
 ```
 
-  - Select the following products: Firestore & Hosting.
+  - Select Hosting product. You may select any other product you're interested in setting up.
   - Select the default project you want Firebase to use.
   - During Hosting setup, set the following:
     - `What do you want to use as your public directory? (public) build`.
