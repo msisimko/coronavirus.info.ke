@@ -75,7 +75,9 @@ class SignUpFormBase extends Component {
       return;
     }
 
-    this.setState({ ...INITIAL_STATE });
+    const { error } = this.state;
+    // IF error, only clear error, ELSE, reset to initial state
+    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
   }
 
   render() {
@@ -161,7 +163,7 @@ class SignUpFormBase extends Component {
         </form>
 
         {error &&
-          <Snackbar autoHideDuration={3000} onClose={this.handleClose} open={isError}>
+          <Snackbar autoHideDuration={2500} onClose={this.handleClose} open={isError}>
             <Alert elevation={6} onClose={this.handleClose} severity="error" variant="filled">
               {error.message}
             </Alert>
