@@ -64,7 +64,9 @@ class ResetPasswordFormBase extends Component {
       return;
     }
 
-    this.setState({ ...INITIAL_STATE });
+    const { error } = this.state;
+    // IF error, only clear error, ELSE, reset to initial state
+    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
   }
   
   render() {
@@ -124,7 +126,7 @@ class ResetPasswordFormBase extends Component {
         </form>
 
         {success &&
-          <Snackbar open={isSuccess} autoHideDuration={3000} onClose={this.handleClose}>
+          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>
             <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
               {success.message}
             </Alert>
@@ -132,7 +134,7 @@ class ResetPasswordFormBase extends Component {
         }
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={3000} onClose={this.handleClose}>
+          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
             <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
               {error.message}
             </Alert>
