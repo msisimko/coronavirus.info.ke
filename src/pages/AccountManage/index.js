@@ -2,22 +2,36 @@ import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import { UpdateEmail, UpdatePassword, UpdateProfile } from '../../../components/Account';
+import { UpdateEmail, UpdatePassword, UpdateProfile } from '../../components/Account';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-import { withAuthorization, withEmailVerification } from '../../../session';
+import { withAuthorization, withEmailVerification } from '../../session';
 
-import * as ROUTES from '../../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 
 class AccountManageBase extends Component {
   render() {
     return(
       <React.Fragment>
         <Container maxWidth="sm">
+          <Box pt={2}>
+            <Paper elevation={0}>
+              <Box p={3}>
+                <Typography align="center" variant="h4" gutterBottom>
+                  <strong>Manage Account</strong>
+                </Typography>
+                <Typography align="center" variant="body2" gutterBottom>
+                  This page is only accessible to logged in users.
+                </Typography>
+              </Box>
+            </Paper>
+          </Box>
+
           <Box pt={2}>
             <UpdateProfile />
           </Box>
@@ -33,7 +47,7 @@ class AccountManageBase extends Component {
           <Box pt={2}>
             <Paper elevation={0}>
               <Box p={3}>
-                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.ACCOUNT_VIEW}>
+                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.ACCOUNT}>
                   View Account
                 </Button>
               </Box>
