@@ -72,7 +72,7 @@ class NavigationAuth extends Component {
             <IconButton edge="start" className={classes.menuButton} onClick={this.toggleDrawer('left', true)} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>Marekia</Typography>
+            <Typography variant="h6" className={classes.title}>React App</Typography>
             <IconButton onClick={this.toggleDrawer('bottom', true)} color="inherit" aria-label="Sign In">
               <MoreVertIcon />
             </IconButton>

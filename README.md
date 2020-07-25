@@ -1,4 +1,4 @@
-# boilerplate
+# Boilerplate
 A boilerplate (template) for Progressive Web Apps built with [ReactJS](https://reactjs.org/) + [Create React App](https://create-react-app.dev/) + [Firebase](https://firebase.google.com/) + [Material-UI](https://material-ui.com/).
 
 ### About
