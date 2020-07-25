@@ -22,6 +22,13 @@ Features currently being worked on include:
 - Profile Update to include updating avatar
 - Customized Authorization implementation using Firebase's [Custom Claims](https://firebase.google.com/docs/auth/admin/custom-claims)
 
+### Setup on Firebase
+1. Create a new Firebase project.
+2. Add a Web App to your project; enable Hosting for the app.
+3. Setup the following under Authentication:
+  - Enable Email/Password Sign-in method.
+  - In the Templates tab, set Action URL to https:://{your-domain}/action
+
 ### Setup on Dev machine
 
 This tutorial was developed and tested on Ubuntu Desktop 20.04 LTS.
@@ -79,10 +86,6 @@ firebase init
 7. Create a .env file. Copy & paste the settings below into the file.
 
 ```
-# Create React App development settings
-# For more: https://create-react-app.dev/docs/advanced-configuration/
-# BROWSER=none
-
 # firebaseConfig details
 # NOTE: Remember to replace `xxxxxXXXXXxxxxx` with your actual Firebase config details, available in the Firebase project settings.
 REACT_APP_API_KEY=xxxxxXXXXXxxxxx
@@ -96,6 +99,9 @@ REACT_APP_APP_ID=xxxxxXXXXXxxxxx
 # email verification redirect e.g. localhost for local development
 REACT_APP_CONFIRM_EMAIL_REDIRECT=http://localhost:3000
 
+# Create React App development settings
+# For more: https://create-react-app.dev/docs/advanced-configuration/
+# BROWSER=none
 ```
 
 8. Create a .env.production file. Copy & paste the settings below into the file.
@@ -112,9 +118,8 @@ REACT_APP_MESSAGING_SENDER_ID=xxxxxXXXXXxxxxx
 REACT_APP_APP_ID=xxxxxXXXXXxxxxx
 
 # email verification redirect e.g. localhost for local development
-# NOTE: Remember to replace `https://yourliveproductionwebsite.url` with your actual live production website URL.
-REACT_APP_CONFIRM_EMAIL_REDIRECT=https://yourliveproductionwebsite.url
-
+# NOTE: Remember to replace `https://{your-domain}` with your actual live production website URL.
+REACT_APP_CONFIRM_EMAIL_REDIRECT=https://{your-domain}
 ```
 
 9. Happy coding!
