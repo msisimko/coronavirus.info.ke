@@ -7,6 +7,7 @@ import UpdateProfile from './UpdateProfile';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -15,34 +16,39 @@ import { withAuthorization, withEmailVerification } from '../../session';
 class SettingsBase extends Component {
   render() {
     return(
-      <React.Fragment>
-        <Container maxWidth="sm">
-          <Box pt={2}>
-            <Paper elevation={0}>
-              <Box p={3}>
-                <Typography align="center" variant="h4" gutterBottom>
-                  <strong>Settings</strong>
-                </Typography>
-                <Typography align="center" variant="body2" gutterBottom>
-                  This page is only accessible to logged in users.
-                </Typography>
-              </Box>
-            </Paper>
+      <Container maxWidth="sm">
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>
+              <strong>Settings</strong>
+            </Typography>
+            <Typography align="center" variant="body2" gutterBottom>
+              This page is only accessible to logged in users.
+            </Typography>
           </Box>
 
-          <Box pt={2}>
+          <Divider variant="middle" />
+          
+          {/* Update profile form */}
+          <Box p={3}>
             <UpdateProfile />
           </Box>
 
-          <Box pt={2}>
+          <Divider variant="middle" />
+
+          {/* Update email form */}
+          <Box p={3}>
             <UpdateEmail />
           </Box>
-
-          <Box pt={2}>
+          
+          <Divider variant="middle" />
+          
+          {/* Update password form */}
+          <Box p={3}>
             <UpdatePassword />
           </Box>
-        </Container>
-      </React.Fragment>
+        </Paper>
+      </Container>
     );
   }
 }

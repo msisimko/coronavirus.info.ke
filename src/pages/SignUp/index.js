@@ -26,19 +26,19 @@ class SignUp extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Typography align="center" variant="h4" gutterBottom>    
-                <strong>Sign Up</strong>
-              </Typography>
-              
-              <SignUpForm />
-              
-              <SignInLink />
-            </Box>
-          </Paper>
-        </Box>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>    
+              <strong>Sign Up</strong>
+            </Typography>
+            
+            {/* Sign up form */}
+            <SignUpForm />
+            
+            {/* Sign in link */}
+            <SignInLink />
+          </Box>
+        </Paper>
       </Container>
     )
   }

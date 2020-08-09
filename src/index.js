@@ -41,7 +41,7 @@ const theme = createMuiTheme({
       main: '#004726',
     },
     background: {
-      default: '#f1faee',
+      default: '#e6ecf0',
     },
   },
   overrides: {

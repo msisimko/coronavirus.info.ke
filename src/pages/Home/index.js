@@ -12,18 +12,16 @@ class HomeBase extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Typography align="center" variant="h4" gutterBottom>
-                <strong>Home</strong>
-              </Typography>
-              <Typography align="center" variant="body2" gutterBottom>
-                This page is only accessible to logged in users.
-              </Typography>
-            </Box>
-          </Paper>
-        </Box>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>
+              <strong>Home</strong>
+            </Typography>
+            <Typography align="center" variant="body2" gutterBottom>
+              This page is only accessible to logged in users.
+            </Typography>
+          </Box>
+        </Paper>
       </Container>
     );
   }
