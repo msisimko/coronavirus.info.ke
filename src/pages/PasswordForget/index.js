@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { PasswordForgetForm, PasswordForgetLink } from '../../components/PasswordForget';
+import PasswordForgetForm from './passwordForgetForm';
+import PasswordForgetLink from './passwordForgetLink';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';

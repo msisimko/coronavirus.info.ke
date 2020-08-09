@@ -90,7 +90,7 @@ class UpdateEmailBase extends Component {
         <Paper elevation={0}>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Manage Email</strong>
+              <strong>Email</strong>
             </Typography>
 
             <form className={classes.form} onSubmit={this.onSubmit}>

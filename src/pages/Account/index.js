@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
-
-import AccountManage from '../AccountManage';
 
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -16,8 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../../session';
-
-import * as ROUTES from '../../constants/routes';
 
 class AccountBase extends Component {
   render() {
@@ -101,16 +95,6 @@ class AccountBase extends Component {
             </Box>
           </Paper>
         </Box>
-
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.ACCOUNT_MANAGE}>
-                Manage Account
-              </Button>
-            </Box>
-          </Paper>
-        </Box>
       </Container>
     );
   }
@@ -124,5 +108,3 @@ const Account = compose(
 )(AccountBase);
 
 export default Account;
-
-export { AccountManage };

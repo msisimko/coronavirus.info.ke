@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
-import SignOut from '../SignOut';
+import { compose } from 'recompose';
 
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,9 +19,11 @@ import FaceIcon from '@material-ui/icons/Face';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { AuthUserContext } from '../../session';
+import { withFirebase } from '../firebase';
 
-import * as ROUTES from '../../constants/routes';
+import { AuthUserContext } from '../session';
+
+import * as ROUTES from '../constants/routes';
 
 const styles = theme => ({
   menuButton: {
@@ -39,7 +40,7 @@ const styles = theme => ({
   },
 });
 
-class NavigationAuth extends Component {
+class NavigationAuthBase extends Component {
   constructor(props) {
     super(props);
 
@@ -60,7 +61,7 @@ class NavigationAuth extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, firebase } = this.props;
 
     const { left, bottom } = this.state;
     
@@ -89,6 +90,9 @@ class NavigationAuth extends Component {
               <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.ACCOUNT} activeClassName="Mui-selected" aria-label="Account">
                 <ListItemText primary="Account" />
               </ListItem>
+              <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.SETTINGS} activeClassName="Mui-selected" aria-label="Settings">
+                <ListItemText primary="Settings" />
+              </ListItem>
             </List>
           </div>
         </Drawer>
@@ -107,7 +111,9 @@ class NavigationAuth extends Component {
                   </ListItem>
                 }
               </AuthUserContext.Consumer>
-              <SignOut />
+              <ListItem button onClick={firebase.doSignOut} aria-label="Sign Out">
+                <ListItemText primary="Sign Out" />
+              </ListItem>
             </List>
           </div>
         </Drawer>
@@ -117,4 +123,9 @@ class NavigationAuth extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NavigationAuth);
+const NavigationAuth = compose(
+  withStyles(styles, { withTheme: true }),
+  withFirebase,
+)(NavigationAuthBase);
+
+export default NavigationAuth;

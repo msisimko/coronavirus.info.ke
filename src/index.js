@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // App component that renders the rest of the application
-import App from './components/App';
+import App from './app';
 
 // CssBaseline component to kickstart an elegant,
 // consistent, and simple baseline to build upon
