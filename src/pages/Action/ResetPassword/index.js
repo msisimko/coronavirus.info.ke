@@ -7,6 +7,7 @@ import ResetPasswordForm from './resetPasswordForm';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -60,41 +61,38 @@ class ResetPasswordBase extends Component {
 
     return(
       <Container maxWidth="sm">
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Typography align="center" variant="h4" gutterBottom>    
-                <strong>Password Reset</strong>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>    
+              <strong>Password Reset</strong>
+            </Typography>
+          
+            {isLoading &&
+              <LinearProgress color="primary" />
+            }
+
+            {success &&
+              // Reset password form 
+              <ResetPasswordForm actionCode={actionCode} />
+            }
+
+            {error &&
+              <Typography align="center" variant="body2" gutterBottom>
+                {error.message}
               </Typography>
-            
-              {isLoading &&
-                <LinearProgress color="primary" />
-              }
-
-              {success &&
-                <ResetPasswordForm actionCode={actionCode} />
-              }
-
-              {error &&
-                <Typography align="center" variant="body2" gutterBottom>
-                  {error.message}
-                </Typography>
-              }
-            </Box>
-          </Paper>
-        </Box>
-            
-        {success &&
-          <Box pt={2}>
-            <Paper elevation={0}>
-              <Box p={3}>
-                <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
-                  Continue
-                </Button>
-              </Box>
-            </Paper>
+            }
           </Box>
-        }
+
+          <Divider variant="middle" />
+              
+          {success &&
+            <Box p={3}>
+              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+                Continue
+              </Button>
+            </Box>
+          }
+        </Paper>
       </Container>
     );
   }

@@ -21,15 +21,13 @@ class Landing extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Typography align="center" variant="h4" gutterBottom>
-                <strong>Landing</strong>
-              </Typography>
-            </Box>
-          </Paper>
-        </Box>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>
+              <strong>Landing</strong>
+            </Typography>
+          </Box>
+        </Paper>
       </Container>
     );
   }

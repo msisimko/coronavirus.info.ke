@@ -43,18 +43,16 @@ class Action extends Component {
       default:
         return(
           <Container maxWidth="sm">
-            <Box pt={2}>
-              <Paper elevation={0}>
-                <Box p={3}>
-                  <Typography align="center" variant="h4" gutterBottom>
-                    <strong>Oops...</strong>
-                  </Typography>
-                  <Typography align="center" variant="body2" gutterBottom>
-                    Invalid action.
-                  </Typography>
-                </Box>
-              </Paper>
-            </Box>
+            <Paper elevation={0} square>
+              <Box p={3}>
+                <Typography align="center" variant="h4" gutterBottom>
+                  <strong>Oops...</strong>
+                </Typography>
+                <Typography align="center" variant="body2" gutterBottom>
+                  Invalid action.
+                </Typography>
+              </Box>
+            </Paper>
           </Container>
         );
     }

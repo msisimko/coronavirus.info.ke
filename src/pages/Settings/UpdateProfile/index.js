@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import Alert from '@material-ui/lab/Alert';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -84,39 +82,35 @@ class UpdateProfileBase extends Component {
  
     return (
       <React.Fragment>
-        <Paper elevation={0}>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Profile</strong>
-            </Typography>
+        <Typography align="center" variant="h4" gutterBottom>    
+          <strong>Profile</strong>
+        </Typography>
 
-            <form className={classes.form} onSubmit={this.onSubmit}>
-              <TextField
-                error={isError}
-                fullWidth
-                id="displayName"
-                label="Display Name"
-                margin="normal"
-                name="displayName"
-                onChange={this.onChange}
-                required
-                value={displayName}
-                variant="filled"
-              />
-              <Button
-                className={classes.submit}
-                color="primary"
-                disabled={isDisabled}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Update My Profile
-              </Button>
-            </form>
-          </Box>
-        </Paper>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          <TextField
+            error={isError}
+            fullWidth
+            id="displayName"
+            label="Display Name"
+            margin="normal"
+            name="displayName"
+            onChange={this.onChange}
+            required
+            value={displayName}
+            variant="filled"
+          />
+          <Button
+            className={classes.submit}
+            color="primary"
+            disabled={isDisabled}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Update My Profile
+          </Button>
+        </form>
 
         {success &&
           <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>

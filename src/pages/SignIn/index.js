@@ -27,21 +27,22 @@ class SignIn extends Component {
   render() {
     return(
       <Container maxWidth="sm">
-        <Box pt={2}>
-          <Paper elevation={0}>
-            <Box p={3}>
-              <Typography align="center" variant="h4" gutterBottom>    
-                <strong>Log In</strong>
-              </Typography>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>    
+              <strong>Log In</strong>
+            </Typography>
 
-              <SignInForm />
-              
-              <SignUpLink />
-              
-              <PasswordForgetLink />
-            </Box>
-          </Paper>
-        </Box>
+            {/* Sign in form */}
+            <SignInForm />
+            
+            {/* Sign up link */}
+            <SignUpLink />
+            
+            {/* Password forget link */}
+            <PasswordForgetLink />
+          </Box>
+        </Paper>
       </Container>
     )
   }
