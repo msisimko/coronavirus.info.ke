@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
-import { SignInForm, SignInLink } from '../../components/SignIn';
-import { SignUpLink } from '../../components/SignUp';
-import { PasswordForgetLink } from '../../components/PasswordForget';
+import SignInForm from './signInForm';
+import SignInLink from './signInLink';
+
+import { SignUpLink } from '../SignUp';
+import { PasswordForgetLink } from '../PasswordForget';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';

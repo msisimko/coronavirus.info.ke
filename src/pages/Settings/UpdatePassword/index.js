@@ -23,12 +23,13 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  displayName: '',
+  passwordOne: '',
+  passwordTwo: '',
   success: null,
   error: null,
 };
 
-class UpdateProfileBase extends Component {
+class UpdatePasswordBase extends Component {
   constructor(props) {
     super(props);
  
@@ -44,12 +45,12 @@ class UpdateProfileBase extends Component {
   }
 
   onSubmit = event => {
-    const { displayName } = this.state;
+    const { passwordOne } = this.state;
  
     this.props.firebase
-      .doUpdateProfile(displayName)
+      .doUpdatePassword(passwordOne)
       .then(() => {
-        let success = { code: 200, message: "Your profile has been updated." };
+        let success = { code: 200, message: "Your password has been updated." };
         this.setState({ success });
       })
       .catch(error => {
@@ -72,9 +73,10 @@ class UpdateProfileBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { displayName, success, error } = this.state;
- 
-    const isInvalid = displayName === '';
+    const { passwordOne, passwordTwo, success, error } = this.state;
+
+    const isInvalid = passwordOne !== passwordTwo ||
+                      passwordOne === '';
 
     const isSuccess = success !== null;
 
@@ -87,20 +89,34 @@ class UpdateProfileBase extends Component {
         <Paper elevation={0}>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Manage Profile</strong>
+              <strong>Password</strong>
             </Typography>
-
+            
             <form className={classes.form} onSubmit={this.onSubmit}>
               <TextField
                 error={isError}
                 fullWidth
-                id="displayName"
-                label="Display Name"
+                id="passwordOne"
+                label="Password"
                 margin="normal"
-                name="displayName"
+                name="passwordOne"
                 onChange={this.onChange}
                 required
-                value={displayName}
+                type="password"
+                value={passwordOne}
+                variant="filled"
+              />
+              <TextField
+                error={isError}
+                fullWidth
+                id="passwordTwo"
+                label="Confirm Password"
+                margin="normal"
+                name="passwordTwo"
+                onChange={this.onChange}
+                required
+                type="password"
+                value={passwordTwo}
                 variant="filled"
               />
               <Button
@@ -112,7 +128,7 @@ class UpdateProfileBase extends Component {
                 type="submit"
                 variant="contained"
               >
-                Update My Profile
+                Update My Password
               </Button>
             </form>
           </Box>
@@ -138,9 +154,9 @@ class UpdateProfileBase extends Component {
   }
 }
 
-const UpdateProfile = compose(
+const UpdatePassword = compose(
   withStyles(styles, { withTheme: true }),
   withFirebase,
-)(UpdateProfileBase);
+)(UpdatePasswordBase);
  
-export default UpdateProfile;
+export default withFirebase(UpdatePassword);

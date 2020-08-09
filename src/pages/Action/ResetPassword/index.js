@@ -36,7 +36,7 @@ class ResetPasswordBase extends Component {
 
     if (authUser) {
       // If signed in, redirect to Account
-      this.props.history.push(ROUTES.ACCOUNT_MANAGE);
+      this.props.history.push(ROUTES.SETTINGS);
     } else {
       const { actionCode } = this.props;
   

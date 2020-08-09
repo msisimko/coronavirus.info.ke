@@ -16,7 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../constants/routes';
 
 const styles = theme => ({
   menuButton: {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import { RecoverEmail, ResetPassword, VerifyEmail } from '../../components/Action';
+import RecoverEmail from './RecoverEmail';
+import ResetPassword from './ResetPassword';
+import VerifyEmail from './VerifyEmail';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -60,3 +62,5 @@ class Action extends Component {
 }
 
 export default Action;
+
+export { RecoverEmail, ResetPassword, VerifyEmail };

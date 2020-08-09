@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
-import { SignUpForm, SignUpLink } from '../../components/SignUp';
-import { SignInLink } from '../../components/SignIn';
+import SignUpForm from './signUpForm';
+import SignUpLink from './signUpLink';
+
+import { SignInLink } from '../SignIn';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
