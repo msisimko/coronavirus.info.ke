@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import FaceIcon from '@material-ui/icons/Face';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -48,8 +50,13 @@ class NavigationAuthBase extends Component {
       left: false,
       bottom: false,
     };
+  }
 
-    this.toggleDrawer = this.toggleDrawer.bind(this);
+  // Toggle theme between light or dark
+  // on:  src/app.js
+  // via: src/navigation/index.js
+  toggleTheme = () => {
+    this.props.onHandleToggleTheme();
   }
 
   toggleDrawer = (anchor, open) => (event) => {
@@ -61,7 +68,7 @@ class NavigationAuthBase extends Component {
   };
 
   render() {
-    const { classes, firebase } = this.props;
+    const { classes, firebase, theme } = this.props;
 
     const { left, bottom } = this.state;
     
@@ -74,6 +81,9 @@ class NavigationAuthBase extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>React App</Typography>
+            <IconButton onClick={this.toggleTheme} color="inherit" aria-label="Toggle Theme">
+              {theme === 'light' ? <Brightness4Icon /> : <BrightnessHighIcon />}
+            </IconButton>
             <IconButton onClick={this.toggleDrawer('bottom', true)} color="inherit" aria-label="Sign In">
               <MoreVertIcon />
             </IconButton>

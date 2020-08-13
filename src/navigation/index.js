@@ -6,13 +6,34 @@ import NavigationNonAuth from './navigationNonAuth';
 import { AuthUserContext } from '../session';
 
 class Navigation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleToggleTheme = this.handleToggleTheme.bind(this);
+  }
+
+  // Using Lifting State Up technique this function is to be
+  // called by a NavigationAuth / NavigationNonAuth element
+  handleToggleTheme() {
+   this.props.onToggleTheme();
+  } 
+
   render() {
+    const { theme } = this.props;
+
     return(
-      <AuthUserContext.Consumer>
-        {authUser => 
-          authUser ? <NavigationAuth /> : <NavigationNonAuth />
-        }
-      </AuthUserContext.Consumer>
+      <React.Fragment>
+        <AuthUserContext.Consumer>
+          {authUser => 
+            authUser ?
+              // Pass handleToggleTheme() function as prop, i.e. Lifting State Up technique
+              <NavigationAuth theme={theme} onHandleToggleTheme={this.handleToggleTheme} /> 
+            :
+              // Pass handleToggleTheme() function as prop i.e. Lifting State Up technique
+              <NavigationNonAuth theme={theme} onHandleToggleTheme={this.handleToggleTheme} />
+          }
+        </AuthUserContext.Consumer>
+      </React.Fragment>
     );
   }
 }
