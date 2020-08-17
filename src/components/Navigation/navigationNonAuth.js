@@ -86,7 +86,7 @@ class NavigationNonAuth extends Component {
         {/* Left drawer */}
         <Drawer anchor="left" open={left} onClose={this.toggleDrawer('left', false)}>
           <div className={classes.leftDrawer} role="presentation" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
-            <List component="nav" subheader={<ListSubheader color="primary" disableSticky={true}>Menu</ListSubheader>}>
+            <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
               <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
                 <ListItemText primary="Home" />
               </ListItem>
@@ -97,7 +97,7 @@ class NavigationNonAuth extends Component {
         {/* Bottom drawer */}
         <Drawer anchor="bottom" open={bottom} onClose={this.toggleDrawer('bottom', false)}>
           <div className={classes.bottomDrawer} role="presentation" onClick={this.toggleDrawer('bottom', false)} onKeyDown={this.toggleDrawer('bottom', false)}>
-            <List component="nav" subheader={<ListSubheader color="primary">Sign in to your account.</ListSubheader>}>
+            <List component="nav" subheader={<ListSubheader color="inherit">Sign in to your account.</ListSubheader>}>
               <ListItem button component={NavLink} exact={true} to={ROUTES.SIGN_IN} activeClassName="Mui-selected" aria-label="Sign In">
                 <ListItemText primary="Sign In" />
               </ListItem>

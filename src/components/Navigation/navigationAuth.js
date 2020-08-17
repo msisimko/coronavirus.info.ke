@@ -93,7 +93,7 @@ class NavigationAuthBase extends Component {
         {/* Left drawer */}
         <Drawer anchor="left" open={left} onClose={this.toggleDrawer('left', false)}>
           <div className={classes.leftDrawer} role="presentation" onKeyDown={this.toggleDrawer('left', false)}>
-            <List component="nav" subheader={<ListSubheader color="primary" disableSticky={true}>Menu</ListSubheader>}>
+            <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
               <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.HOME} activeClassName="Mui-selected" aria-label="Home">
                 <ListItemText primary="Home" />
               </ListItem>
@@ -110,7 +110,7 @@ class NavigationAuthBase extends Component {
         {/* Bottom drawer */}
         <Drawer anchor="bottom" open={bottom} onClose={this.toggleDrawer('bottom', false)}>
           <div className={classes.bottomDrawer} role="presentation" onClick={this.toggleDrawer('bottom', false)} onKeyDown={this.toggleDrawer('bottom', false)}>
-            <List component="nav" subheader={<ListSubheader color="primary">You are signed in to your account.</ListSubheader>}>
+            <List component="nav" subheader={<ListSubheader color="inherit">You are signed in to your account.</ListSubheader>}>
               <AuthUserContext.Consumer>
                 { authUser => authUser &&
                   <ListItem divider>
