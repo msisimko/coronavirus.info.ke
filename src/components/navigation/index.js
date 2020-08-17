@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import NavigationAuth from './navigationAuth';
 import NavigationNonAuth from './navigationNonAuth';
 
-import { AuthUserContext } from '../session';
+import { AuthUserContext } from '../../session';
 
 class Navigation extends Component {
   constructor(props) {

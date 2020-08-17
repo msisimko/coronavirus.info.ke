@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Navigation from './navigation';
-
+import Navigation from './components/navigation';
 import Separator from './components/Separator';
 
 import Account from './pages/Account';
@@ -114,7 +113,7 @@ class App extends Component {
             */}
           <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
 
-         <Separator />
+          <Separator />
 
           <Route path={ROUTES.ACCOUNT} component={Account} />
           <Route path={ROUTES.ACTION} component={Action} />

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,10 +17,15 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
+import FaceIcon from '@material-ui/icons/Face';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import * as ROUTES from '../constants/routes';
+import { withFirebase } from '../../firebase';
+
+import { AuthUserContext } from '../../session';
+
+import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
   menuButton: {
@@ -35,7 +42,7 @@ const styles = theme => ({
   },
 });
 
-class NavigationNonAuth extends Component {
+class NavigationAuthBase extends Component {
   constructor(props) {
     super(props);
 
@@ -61,10 +68,10 @@ class NavigationNonAuth extends Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, firebase, theme } = this.props;
 
     const { left, bottom } = this.state;
-
+    
     return(
       <React.Fragment>
         
@@ -85,21 +92,37 @@ class NavigationNonAuth extends Component {
 
         {/* Left drawer */}
         <Drawer anchor="left" open={left} onClose={this.toggleDrawer('left', false)}>
-          <div className={classes.leftDrawer} role="presentation" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
+          <div className={classes.leftDrawer} role="presentation" onKeyDown={this.toggleDrawer('left', false)}>
             <List component="nav" subheader={<ListSubheader color="primary" disableSticky={true}>Menu</ListSubheader>}>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
+              <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.HOME} activeClassName="Mui-selected" aria-label="Home">
                 <ListItemText primary="Home" />
+              </ListItem>
+              <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.ACCOUNT} activeClassName="Mui-selected" aria-label="Account">
+                <ListItemText primary="Account" />
+              </ListItem>
+              <ListItem button onClick={this.toggleDrawer('left', false)} component={NavLink} exact={true} to={ROUTES.SETTINGS} activeClassName="Mui-selected" aria-label="Settings">
+                <ListItemText primary="Settings" />
               </ListItem>
             </List>
           </div>
         </Drawer>
-        
+
         {/* Bottom drawer */}
         <Drawer anchor="bottom" open={bottom} onClose={this.toggleDrawer('bottom', false)}>
           <div className={classes.bottomDrawer} role="presentation" onClick={this.toggleDrawer('bottom', false)} onKeyDown={this.toggleDrawer('bottom', false)}>
-            <List component="nav" subheader={<ListSubheader color="primary">Sign in to your account.</ListSubheader>}>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.SIGN_IN} activeClassName="Mui-selected" aria-label="Sign In">
-                <ListItemText primary="Sign In" />
+            <List component="nav" subheader={<ListSubheader color="primary">You are signed in to your account.</ListSubheader>}>
+              <AuthUserContext.Consumer>
+                { authUser => authUser &&
+                  <ListItem divider>
+                    <ListItemIcon>
+                      <FaceIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={authUser.email} secondary={authUser.uid} />
+                  </ListItem>
+                }
+              </AuthUserContext.Consumer>
+              <ListItem button onClick={firebase.doSignOut} aria-label="Sign Out">
+                <ListItemText primary="Sign Out" />
               </ListItem>
             </List>
           </div>
@@ -110,4 +133,9 @@ class NavigationNonAuth extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NavigationNonAuth);
+const NavigationAuth = compose(
+  withStyles(styles, { withTheme: true }),
+  withFirebase,
+)(NavigationAuthBase);
+
+export default NavigationAuth;
