@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { compose } from 'recompose';
 
 import Navigation from './navigation';
+
+import Separator from './components/Separator';
 
 import Account from './pages/Account';
 import Action from './pages/Action';
@@ -22,20 +23,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // to customize the default theme & the ThemeProvider
 // component for injecting the theme into the application.
 // See: https://material-ui.com/customization/default-theme/
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { withAuthentication } from './session';
 
 import * as ROUTES from './constants/routes';
-
-const styles = theme => ({
-  top: {
-    height: theme.spacing(2),
-  },
-  bottom: {
-    height: theme.spacing(2),
-  },
-});
 
 // Using the createMuiTheme() method, we declare the light theme
 const light = createMuiTheme({
@@ -67,14 +59,15 @@ const dark = createMuiTheme({
   }
 });
 
-class AppBase extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // Get theme from localStorage, if none default to null
-      theme: localStorage.getItem('theme'),
+      theme: localStorage.getItem('theme'), // Get current theme from localStorage
     };
+
+    this.toggleTheme = this.toggleTheme.bind(this);
   }
 
   componentDidMount() {
@@ -88,8 +81,7 @@ class AppBase extends Component {
     }
   }
 
-  // Toggle the theme
-  toggleTheme = () => {
+  toggleTheme() {
     const { theme } = this.state;
 
     if (theme === 'light') {
@@ -104,8 +96,6 @@ class AppBase extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     const { theme } = this.state;
 
     return(
@@ -124,8 +114,7 @@ class AppBase extends Component {
             */}
           <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
 
-          {/* Provides standardized top padding throughout the website */}
-          <div className={classes.top} />
+         <Separator />
 
           <Route path={ROUTES.ACCOUNT} component={Account} />
           <Route path={ROUTES.ACTION} component={Action} />
@@ -136,8 +125,7 @@ class AppBase extends Component {
           <Route path={ROUTES.SIGN_IN} component={SignIn} />
           <Route path={ROUTES.SIGN_UP} component={SignUp} />
 
-          {/* Provides standardized bottom padding throughout the website */}
-          <div className={classes.bottom} />
+          <Separator />
 
         </Router>
       </ThemeProvider>
@@ -145,9 +133,4 @@ class AppBase extends Component {
   }
 }
 
-const App = compose(
-  withStyles(styles, { withTheme: true }),
-  withAuthentication,
-)(AppBase);
-
-export default App;
+export default withAuthentication(App);
