@@ -68,7 +68,7 @@ class NavigationNonAuth extends Component {
     return(
       <React.Fragment>
         
-        <AppBar position="static" elevation={0}>
+        <AppBar position="static" color="transparent" elevation={0}>
           <Toolbar>
             <IconButton edge="start" className={classes.menuButton} onClick={this.toggleDrawer('left', true)} color="inherit" aria-label="Menu">
               <MenuIcon />
