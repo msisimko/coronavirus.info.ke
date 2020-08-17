@@ -32,6 +32,12 @@ import * as ROUTES from './constants/routes';
 const light = createMuiTheme({
   palette: {
     type: 'light',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
   },
   overrides: {
     MuiFormHelperText: {
@@ -47,6 +53,12 @@ const light = createMuiTheme({
 const dark = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
   },
   overrides: {
     MuiFormHelperText: {
