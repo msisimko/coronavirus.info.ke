@@ -20,7 +20,7 @@ class Landing extends Component {
 
   render() {
     return(
-      <Container maxWidth="sm">
+      <Container maxWidth="lg" disableGutters>
         <Paper elevation={0} square>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>

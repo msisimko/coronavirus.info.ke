@@ -42,7 +42,7 @@ class Action extends Component {
         return <VerifyEmail actionCode={oobCode} />;
       default:
         return(
-          <Container maxWidth="sm">
+          <Container maxWidth="lg" disableGutters>
             <Paper elevation={0} square>
               <Box p={3}>
                 <Typography align="center" variant="h4" gutterBottom>

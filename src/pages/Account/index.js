@@ -6,7 +6,6 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,7 +16,7 @@ import { AuthUserContext, withAuthorization, withEmailVerification } from '../..
 class AccountBase extends Component {
   render() {
     return(
-      <Container maxWidth="sm">
+      <Container maxWidth="lg" disableGutters>
         <Paper elevation={0} square>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>
@@ -35,7 +34,7 @@ class AccountBase extends Component {
               { authUser => authUser &&
                 <React.Fragment>
                   <Grid container spacing={2}>
-                    <Grid item sm={4} xs={12}>
+                    <Grid item xs={12}>
                       <Box display="flex" justifyContent="center">
                         <Box>
                           {authUser.photoURL ? (
@@ -48,43 +47,22 @@ class AccountBase extends Component {
                         </Box>
                       </Box>
                     </Grid>
-                    <Grid item sm={8} xs={12}>
-                      {/* Visible on screen sizes SM, MD, LG & XL */}
-                      <Hidden xsDown>
-                        <Typography variant="h4" gutterBottom>
-                          <strong>{authUser.displayName}</strong>
+                    <Grid item xs={12}>
+                      <Typography align="center" variant="h4" gutterBottom>
+                        <strong>{authUser.displayName}</strong>
+                      </Typography>
+                      <Typography align="center" variant="h6" gutterBottom>
+                        <strong>{authUser.email}</strong>
+                      </Typography>
+                      {authUser.emailVerified ? (
+                        <Typography align="center" variant="body2" gutterBottom>
+                          Your email address is verified.
                         </Typography>
-                        <Typography variant="h6" gutterBottom>
-                          <strong>{authUser.email}</strong>
+                      ) : (
+                        <Typography align="center" variant="body2" gutterBottom>
+                          Please verify your email address.
                         </Typography>
-                        {authUser.emailVerified ? (
-                          <Typography variant="body2" gutterBottom>
-                            Your email address is verified.
-                          </Typography>
-                        ) : (
-                          <Typography variant="body2" gutterBottom>
-                            Please verify your email address.
-                          </Typography>
-                        )}
-                      </Hidden>
-                      {/* Visible on screen sizes XS only */}
-                      <Hidden smUp>
-                        <Typography align="center" variant="h4" gutterBottom>
-                          <strong>{authUser.displayName}</strong>
-                        </Typography>
-                        <Typography align="center" variant="h6" gutterBottom>
-                          <strong>{authUser.email}</strong>
-                        </Typography>
-                        {authUser.emailVerified ? (
-                          <Typography align="center" variant="body2" gutterBottom>
-                            Your email address is verified.
-                          </Typography>
-                        ) : (
-                          <Typography align="center" variant="body2" gutterBottom>
-                            Please verify your email address.
-                          </Typography>
-                        )}
-                      </Hidden>
+                      )}
                     </Grid>
                   </Grid>
                 </React.Fragment>
