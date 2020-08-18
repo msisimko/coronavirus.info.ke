@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
+import Separator from '../../../components/Separator';
+
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -44,7 +44,7 @@ class VerifyEmail extends Component {
     const success = !isLoading && !error;
 
     return(
-      <Container maxWidth="lg" disableGutters>
+      <React.Fragment>
         <Paper elevation={0} square>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>    
@@ -67,18 +67,20 @@ class VerifyEmail extends Component {
               </Typography>
             }
           </Box>
+        </Paper>
 
-          <Divider variant="middle" />
-          
-          {success &&
+        <Separator />
+        
+        {success &&
+          <Paper elevation={0} square>
             <Box p={3}>
               <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
                 Continue
               </Button>
             </Box>
-          }
-        </Paper>
-      </Container>
+          </Paper>
+        }
+      </React.Fragment>
     );
   }
 }

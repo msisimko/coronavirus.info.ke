@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 import { compose } from 'recompose';
 
+import Separator from '../../../components/Separator';
+
 import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../../../firebase';
+
+import * as ROUTES from '../../../constants/routes';
 
 const styles = theme => ({
   form: {
@@ -24,6 +32,7 @@ const INITIAL_STATE = {
   passwordTwo: '',
   success: null,
   error: null,
+  successful: true,
 };
 
 class ResetPasswordFormBase extends Component {
@@ -36,12 +45,16 @@ class ResetPasswordFormBase extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
- 
-  onChange = event => {
+  
+  componentDidMount () {
+    this.setState({ successful: false });
+  }
+
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { actionCode } = this.props;
 
     const { passwordOne } = this.state;
@@ -49,7 +62,7 @@ class ResetPasswordFormBase extends Component {
     this.props.firebase
       .doConfirmPasswordReset(actionCode, passwordOne)
       .then(() => {
-        let success = { code: 200, message: "Your password has been reset." };
+        const success = { code: 200, message: "Your password has been reset." };
         this.setState({ success });
       })
       .catch(error => {
@@ -59,7 +72,7 @@ class ResetPasswordFormBase extends Component {
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -72,7 +85,7 @@ class ResetPasswordFormBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { passwordOne, passwordTwo, success, error } = this.state;
+    const { passwordOne, passwordTwo, success, error, successful } = this.state;
 
     const isInvalid = passwordOne !== passwordTwo || 
                       passwordOne === '';
@@ -85,57 +98,78 @@ class ResetPasswordFormBase extends Component {
 
     return(
       <React.Fragment>
-        <form className={classes.form} onSubmit={this.onSubmit}>
-          <TextField
-            error={isError}
-            fullWidth
-            id="passwordOne"
-            label="Password"
-            margin="normal"
-            name="passwordOne"
-            onChange={this.onChange}
-            required
-            type="password"
-            value={passwordOne}
-            variant="filled"
-          />
-          <TextField
-            error={isError}
-            fullWidth
-            id="passwordTwo"
-            label="Confirm Password"
-            margin="normal"
-            name="passwordTwo"
-            onChange={this.onChange}
-            required
-            type="password"
-            value={passwordTwo}
-            variant="filled"
-          />
-          <Button
-            className={classes.submit}
-            color="primary"
-            disabled={isDisabled}
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-          >
-            Change Password
-          </Button>
-        </form>
+        <Paper elevation={0} square>
+          <Box p={3}>
+            <Typography align="center" variant="h4" gutterBottom>    
+              <strong>Password Reset</strong>
+            </Typography>
+
+            <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
+              <TextField
+                error={isError}
+                fullWidth
+                id="passwordOne"
+                label="Password"
+                margin="normal"
+                name="passwordOne"
+                onChange={(e) => this.onChange(e)}
+                required
+                type="password"
+                value={passwordOne}
+                variant="filled"
+              />
+              <TextField
+                error={isError}
+                fullWidth
+                id="passwordTwo"
+                label="Confirm Password"
+                margin="normal"
+                name="passwordTwo"
+                onChange={this.onChange}
+                required
+                type="password"
+                value={passwordTwo}
+                variant="filled"
+              />
+              <Button
+                className={classes.submit}
+                color="primary"
+                disabled={isDisabled}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+              >
+                Change Password
+              </Button>
+            </form>
+          </Box>
+        </Paper>
+        
+        <Separator show={successful} />
+
+        {/* Show continue button if password update is successful */}
+        {successful &&
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+                Continue
+              </Button>
+            </Box>
+          </Paper>
+        }
 
         {success &&
-          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
+          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="success">
               {success.message}
             </Alert>
           </Snackbar>
         }
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
               {error.message}
             </Alert>
           </Snackbar>
@@ -146,6 +180,7 @@ class ResetPasswordFormBase extends Component {
 }
 
 const ResetPasswordForm = compose(
+  withRouter,
   withStyles(styles, { withTheme: true }),
   withFirebase,
 )(ResetPasswordFormBase);

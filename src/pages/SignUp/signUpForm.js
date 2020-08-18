@@ -41,11 +41,11 @@ class SignUpFormBase extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
  
-  onChange = event => {
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { displayName, email, passwordOne } = this.state;
 
     this.props.firebase
@@ -70,7 +70,7 @@ class SignUpFormBase extends Component {
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -96,7 +96,7 @@ class SignUpFormBase extends Component {
 
     return (
       <React.Fragment>
-        <form className={classes.form} onSubmit={this.onSubmit}>
+        <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
             error={isError}
             fullWidth
@@ -104,7 +104,7 @@ class SignUpFormBase extends Component {
             label="Display Name"
             margin="normal"
             name="displayName"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             value={displayName}
             variant="filled"
@@ -117,7 +117,7 @@ class SignUpFormBase extends Component {
             label="Email Address"
             margin="normal"
             name="email"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             value={email}
             variant="filled"
@@ -130,7 +130,7 @@ class SignUpFormBase extends Component {
             label="Password"
             margin="normal"
             name="passwordOne"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordOne}
@@ -143,7 +143,7 @@ class SignUpFormBase extends Component {
             label="Confirm Password"
             margin="normal"
             name="passwordTwo"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordTwo}
@@ -163,8 +163,8 @@ class SignUpFormBase extends Component {
         </form>
 
         {error &&
-          <Snackbar autoHideDuration={2500} onClose={this.handleClose} open={isError}>
-            <Alert elevation={6} onClose={this.handleClose} severity="error" variant="filled">
+          <Snackbar autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)} open={isError}>
+            <Alert elevation={6} onClose={(e,r) => this.handleClose(e,r)} severity="error" variant="filled">
               {error.message}
             </Alert>
           </Snackbar>

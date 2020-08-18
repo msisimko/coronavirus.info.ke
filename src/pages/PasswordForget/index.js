@@ -6,7 +6,6 @@ import PasswordForgetLink from './passwordForgetLink';
 import { SignUpLink } from '../SignUp';
 
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -25,21 +24,19 @@ class PasswordForget extends React.Component {
 
   render() {
     return(
-      <Container maxWidth="lg" disableGutters>
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Forgot Password?</strong>
-            </Typography>
+      <Paper elevation={0} square>
+        <Box p={3}>
+          <Typography align="center" variant="h4" gutterBottom>    
+            <strong>Forgot Password?</strong>
+          </Typography>
 
-            {/* Password forget form */}
-            <PasswordForgetForm />
+          {/* Password forget form */}
+          <PasswordForgetForm />
 
-            {/* Sign up link */}
-            <SignUpLink />
-          </Box>
-        </Paper>
-      </Container>
+          {/* Sign up link */}
+          <SignUpLink />
+        </Box>
+      </Paper>
     )
   }
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
+import Separator from '../../components/Separator';
+
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -16,7 +16,7 @@ import { AuthUserContext, withAuthorization, withEmailVerification } from '../..
 class AccountBase extends Component {
   render() {
     return(
-      <Container maxWidth="lg" disableGutters>
+      <React.Fragment>
         <Paper elevation={0} square>
           <Box p={3}>
             <Typography align="center" variant="h4" gutterBottom>
@@ -26,9 +26,11 @@ class AccountBase extends Component {
               This page is only accessible to logged in users.
             </Typography>
           </Box>
+        </Paper>
 
-          <Divider variant="middle" />
+        <Separator />
           
+        <Paper elevation={0} square>
           <Box p={3}>
             <AuthUserContext.Consumer>
               { authUser => authUser &&
@@ -70,7 +72,7 @@ class AccountBase extends Component {
             </AuthUserContext.Consumer>
           </Box>
         </Paper>
-      </Container>
+      </React.Fragment>
     );
   }
 }

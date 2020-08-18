@@ -5,7 +5,6 @@ import ResetPassword from './ResetPassword';
 import VerifyEmail from './VerifyEmail';
 
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -42,18 +41,16 @@ class Action extends Component {
         return <VerifyEmail actionCode={oobCode} />;
       default:
         return(
-          <Container maxWidth="lg" disableGutters>
-            <Paper elevation={0} square>
-              <Box p={3}>
-                <Typography align="center" variant="h4" gutterBottom>
-                  <strong>Oops...</strong>
-                </Typography>
-                <Typography align="center" variant="body2" gutterBottom>
-                  Invalid action.
-                </Typography>
-              </Box>
-            </Paper>
-          </Container>
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>
+                <strong>Oops...</strong>
+              </Typography>
+              <Typography align="center" variant="body2" gutterBottom>
+                Invalid action.
+              </Typography>
+            </Box>
+          </Paper>
         );
     }
   }

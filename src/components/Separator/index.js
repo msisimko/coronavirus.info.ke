@@ -10,10 +10,20 @@ const styles = theme => ({
 
 class Separator extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, show } = this.props;
+
+    let visible = true; // Initialize visible variable as default TRUE
+
+    if (show === false) { // If this.props.show is set to FALSE
+      visible = false; // Change variable visible to FALSE
+    }
 
     return(
-      <div className={classes.separator} />
+      <React.Fragment>
+        { (visible) && (
+          <div className={classes.separator} />
+        ) }
+      </React.Fragment>
     );
   }
 }

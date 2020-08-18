@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import Navigation from './components/Navigation';
 import Separator from './components/Separator';
@@ -13,20 +14,29 @@ import Settings from './pages/Settings';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
-// CssBaseline component to kickstart an elegant,
-// consistent, and simple baseline to build upon
-// See: https://material-ui.com/components/css-baseline/
+import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Imports the createMuiTheme() method that allows us
 // to customize the default theme & the ThemeProvider
 // component for injecting the theme into the application.
 // See: https://material-ui.com/customization/default-theme/
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 
 import { withAuthentication } from './session';
 
 import * as ROUTES from './constants/routes';
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+  },
+});
 
 // Using the createMuiTheme() method, we declare the light theme
 const light = createMuiTheme({
@@ -38,6 +48,9 @@ const light = createMuiTheme({
     secondary: {
       main: '#dc004e',
     },
+    background: {
+      default: '#e6ecf0',
+    }
   },
   overrides: {
     MuiFormHelperText: {
@@ -70,7 +83,7 @@ const dark = createMuiTheme({
   }
 });
 
-class App extends Component {
+class AppBase extends Component {
   constructor(props) {
     super(props);
 
@@ -107,41 +120,55 @@ class App extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+    
     const { theme } = this.state;
 
     return(
       <ThemeProvider theme={theme === 'light' ? light : dark}>
-        <CssBaseline />
-        {/* The rest of the application */}
-        <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          {/* The rest of the application */}
+          <Router>
 
-          {/**
-            * Lifting State Up technique 
-            * 
-            * i.e. passing of function toggleTheme() as
-            * prop to be updated by Navigation element
-            *  
-            * More: https://reactjs.org/docs/lifting-state-up.html
-            */}
-          <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
+            {/**
+              * Lifting State Up technique 
+              * 
+              * i.e. passing of function toggleTheme() as
+              * prop to be updated by Navigation element
+              *  
+              * More: https://reactjs.org/docs/lifting-state-up.html
+              */}
+            <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
 
-          <Separator />
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Separator />
+              
+              <Container maxWidth="md" disableGutters>
+                <Route path={ROUTES.ACCOUNT} component={Account} />
+                <Route path={ROUTES.ACTION} component={Action} />
+                <Route path={ROUTES.HOME} component={Home} />
+                <Route exact path={ROUTES.LANDING} component={Landing} />
+                <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
+                <Route path={ROUTES.SETTINGS} component={Settings} />
+                <Route path={ROUTES.SIGN_IN} component={SignIn} />
+                <Route path={ROUTES.SIGN_UP} component={SignUp} />
+              </Container>
 
-          <Route path={ROUTES.ACCOUNT} component={Account} />
-          <Route path={ROUTES.ACTION} component={Action} />
-          <Route path={ROUTES.HOME} component={Home} />
-          <Route exact path={ROUTES.LANDING} component={Landing} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-          <Route path={ROUTES.SETTINGS} component={Settings} />
-          <Route path={ROUTES.SIGN_IN} component={SignIn} />
-          <Route path={ROUTES.SIGN_UP} component={SignUp} />
+              <Separator />
+            </main>
 
-          <Separator />
-
-        </Router>
+          </Router>
+        </div>
       </ThemeProvider>
     );
   }
 }
 
-export default withAuthentication(App);
+const App = compose(
+  withStyles(styles, { withTheme: true }),
+  withAuthentication,
+)(AppBase);
+
+export default App;

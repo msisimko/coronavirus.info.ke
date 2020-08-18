@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,6 +22,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -29,6 +33,13 @@ const styles = theme => ({
   },
   leftDrawer: {
     width: 250,
+    flexShrink: 0,
+  },
+  leftDrawerPaper: {
+    width: 250,
+  },
+  leftDrawerContainer: {
+    overflow: 'auto',
   },
   bottomDrawer: {
     width: 'auto',
@@ -43,16 +54,19 @@ class NavigationNonAuth extends Component {
       left: false,
       bottom: false,
     };
+
+    this.toggleTheme = this.toggleTheme.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
   // Toggle theme between light or dark
   // on:  src/app.js
   // via: src/navigation/index.js
-  toggleTheme = () => {
+  toggleTheme() {
     this.props.onHandleToggleTheme();
   }
 
-  toggleDrawer = (anchor, open) => (event) => {
+  toggleDrawer(anchor, open, event) {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -68,35 +82,52 @@ class NavigationNonAuth extends Component {
     return(
       <React.Fragment>
         
-        <AppBar position="static" color="transparent" elevation={0}>
+        <AppBar position="fixed" color="primary" className={classes.appBar} elevation={0}>
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} onClick={this.toggleDrawer('left', true)} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            <Hidden lgUp>
+              <IconButton edge="start" className={classes.menuButton} onClick={(e) => this.toggleDrawer('left', true, e)} color="inherit" aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
             <Typography variant="h6" className={classes.title}>React App</Typography>
             <IconButton onClick={this.toggleTheme} color="inherit" aria-label="Toggle Theme">
               {theme === 'light' ? <Brightness4Icon /> : <BrightnessHighIcon />}
             </IconButton>
-            <IconButton onClick={this.toggleDrawer('bottom', true)} color="inherit" aria-label="Sign In">
+            <IconButton edge="end" onClick={(e) => this.toggleDrawer('bottom', true, e)} color="inherit" aria-label="Sign In">
               <MoreVertIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
 
         {/* Left drawer */}
-        <Drawer anchor="left" open={left} onClose={this.toggleDrawer('left', false)}>
-          <div className={classes.leftDrawer} role="presentation" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
-            <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
-              <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
-                <ListItemText primary="Home" />
-              </ListItem>
-            </List>
-          </div>
-        </Drawer>
+        <Hidden mdDown>
+          <Drawer className={classes.leftDrawer} variant="permanent" classes={{ paper: classes.leftDrawerPaper, }}>
+            <Toolbar />
+            <div className={classes.leftDrawerContainer}>
+              <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </List>
+            </div>
+          </Drawer>
+        </Hidden>
+
+        <Hidden lgUp>
+          <Drawer anchor="left" open={left} onClose={(e) => this.toggleDrawer('left', false, e)}>
+            <div className={classes.leftDrawer} role="presentation" onClick={(e) => this.toggleDrawer('left', false, e)} onKeyDown={(e) => this.toggleDrawer('left', false, e)}>
+              <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </List>
+            </div>
+          </Drawer>
+        </Hidden>
         
         {/* Bottom drawer */}
-        <Drawer anchor="bottom" open={bottom} onClose={this.toggleDrawer('bottom', false)}>
-          <div className={classes.bottomDrawer} role="presentation" onClick={this.toggleDrawer('bottom', false)} onKeyDown={this.toggleDrawer('bottom', false)}>
+        <Drawer anchor="bottom" open={bottom} onClose={(e) => this.toggleDrawer('bottom', false, e)}>
+          <div className={classes.bottomDrawer} role="presentation" onClick={(e) => this.toggleDrawer('bottom', false, e)} onKeyDown={(e) => this.toggleDrawer('bottom', false, e)}>
             <List component="nav" subheader={<ListSubheader color="inherit">Sign in to your account.</ListSubheader>}>
               <ListItem button component={NavLink} exact={true} to={ROUTES.SIGN_IN} activeClassName="Mui-selected" aria-label="Sign In">
                 <ListItemText primary="Sign In" />

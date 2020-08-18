@@ -37,11 +37,11 @@ class UpdateProfileBase extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
  
-  onChange = event => {
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { displayName } = this.state;
  
     this.props.firebase
@@ -57,7 +57,7 @@ class UpdateProfileBase extends Component {
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -86,7 +86,7 @@ class UpdateProfileBase extends Component {
           <strong>Profile</strong>
         </Typography>
 
-        <form className={classes.form} onSubmit={this.onSubmit}>
+        <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
             error={isError}
             fullWidth
@@ -94,7 +94,7 @@ class UpdateProfileBase extends Component {
             label="Display Name"
             margin="normal"
             name="displayName"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             value={displayName}
             variant="filled"
@@ -113,16 +113,16 @@ class UpdateProfileBase extends Component {
         </form>
 
         {success &&
-          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
+          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="success">
               {success.message}
             </Alert>
           </Snackbar>
         }
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
               {error.message}
             </Alert>
           </Snackbar>

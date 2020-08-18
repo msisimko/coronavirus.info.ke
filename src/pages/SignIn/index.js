@@ -7,7 +7,6 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -26,24 +25,22 @@ class SignIn extends Component {
 
   render() {
     return(
-      <Container maxWidth="lg" disableGutters>
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Log In</strong>
-            </Typography>
+      <Paper elevation={0} square>
+        <Box p={3}>
+          <Typography align="center" variant="h4" gutterBottom>    
+            <strong>Log In</strong>
+          </Typography>
 
-            {/* Sign in form */}
-            <SignInForm />
-            
-            {/* Sign up link */}
-            <SignUpLink />
-            
-            {/* Password forget link */}
-            <PasswordForgetLink />
-          </Box>
-        </Paper>
-      </Container>
+          {/* Sign in form */}
+          <SignInForm />
+          
+          {/* Sign up link */}
+          <SignUpLink />
+          
+          {/* Password forget link */}
+          <PasswordForgetLink />
+        </Box>
+      </Paper>
     )
   }
 }

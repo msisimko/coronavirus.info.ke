@@ -6,7 +6,6 @@ import SignUpLink from './signUpLink';
 import { SignInLink } from '../SignIn';
 
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -25,21 +24,19 @@ class SignUp extends Component {
 
   render() {
     return(
-      <Container maxWidth="lg" disableGutters>
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Sign Up</strong>
-            </Typography>
-            
-            {/* Sign up form */}
-            <SignUpForm />
-            
-            {/* Sign in link */}
-            <SignInLink />
-          </Box>
-        </Paper>
-      </Container>
+      <Paper elevation={0} square>
+        <Box p={3}>
+          <Typography align="center" variant="h4" gutterBottom>    
+            <strong>Sign Up</strong>
+          </Typography>
+          
+          {/* Sign up form */}
+          <SignUpForm />
+          
+          {/* Sign in link */}
+          <SignInLink />
+        </Box>
+      </Paper>
     )
   }
 }

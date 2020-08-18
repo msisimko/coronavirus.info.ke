@@ -38,11 +38,11 @@ class UpdatePasswordBase extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
  
-  onChange = event => {
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
     const { passwordOne } = this.state;
  
     this.props.firebase
@@ -58,7 +58,7 @@ class UpdatePasswordBase extends Component {
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -88,7 +88,7 @@ class UpdatePasswordBase extends Component {
           <strong>Password</strong>
         </Typography>
         
-        <form className={classes.form} onSubmit={this.onSubmit}>
+        <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
             error={isError}
             fullWidth
@@ -96,7 +96,7 @@ class UpdatePasswordBase extends Component {
             label="Password"
             margin="normal"
             name="passwordOne"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordOne}
@@ -109,7 +109,7 @@ class UpdatePasswordBase extends Component {
             label="Confirm Password"
             margin="normal"
             name="passwordTwo"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordTwo}
@@ -129,16 +129,16 @@ class UpdatePasswordBase extends Component {
         </form>
 
         {success &&
-          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
+          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="success">
               {success.message}
             </Alert>
           </Snackbar>
         }
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
               {error.message}
             </Alert>
           </Snackbar>

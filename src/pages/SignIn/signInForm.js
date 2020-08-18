@@ -34,16 +34,16 @@ class SignInFormBase extends Component {
  
     this.state = { ...INITIAL_STATE };
 
-    this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
  
-  onChange = event => {
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
  
-  onSubmit = event => {
+  onSubmit(event) {
     const { email, password } = this.state;
  
     this.props.firebase
@@ -59,7 +59,7 @@ class SignInFormBase extends Component {
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -83,7 +83,7 @@ class SignInFormBase extends Component {
  
     return (
       <React.Fragment>
-        <form className={classes.form} onSubmit={this.onSubmit}>
+        <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
             error={isError}
             fullWidth
@@ -91,7 +91,7 @@ class SignInFormBase extends Component {
             label="Email Address"
             margin="normal"
             name="email"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             value={email}
             variant="filled"
@@ -103,7 +103,7 @@ class SignInFormBase extends Component {
             label="Password"
             margin="normal"
             name="password"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={password}
@@ -123,8 +123,8 @@ class SignInFormBase extends Component {
         </form>
 
         {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
+          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
+            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
               {error.message}
             </Alert>
           </Snackbar>
