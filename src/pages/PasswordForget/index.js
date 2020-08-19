@@ -5,7 +5,11 @@ import PasswordForgetLink from './passwordForgetLink';
 
 import { SignUpLink } from '../SignUp';
 
+import { Authentication as Sidebar } from '../../components/Sidebar';
+
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -24,19 +28,43 @@ class PasswordForget extends React.Component {
 
   render() {
     return(
-      <Paper elevation={0} square>
-        <Box p={3}>
-          <Typography align="center" variant="h4" gutterBottom>    
-            <strong>Forgot Password?</strong>
-          </Typography>
+      <Grid container spacing={2}>
 
-          {/* Password forget form */}
-          <PasswordForgetForm />
+        <Hidden smDown>
+          <Grid item md={6} xs={12}>
 
-          {/* Sign up link */}
-          <SignUpLink />
-        </Box>
-      </Paper>
+            <Sidebar />
+
+          </Grid>
+        </Hidden>
+
+        <Grid item md={6} xs={12}>
+          
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Forgot Password?</strong>
+              </Typography>
+
+              {/* Password forget form */}
+              <PasswordForgetForm />
+
+              {/* Sign up link */}
+              <SignUpLink />
+            </Box>
+          </Paper>
+
+        </Grid>
+
+        <Hidden mdUp>
+          <Grid item md={6} xs={12}>
+
+            <Sidebar />
+
+          </Grid>
+        </Hidden>
+        
+      </Grid>
     )
   }
 }

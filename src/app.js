@@ -35,6 +35,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
+    overflowX: 'hidden',
   },
 });
 
@@ -143,6 +144,7 @@ class AppBase extends Component {
 
             <main className={classes.content}>
               <div className={classes.toolbar} />
+              
               <Separator />
               
               <Container maxWidth="md" disableGutters>

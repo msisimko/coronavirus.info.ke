@@ -6,8 +6,10 @@ import UpdatePassword from './UpdatePassword';
 import UpdateProfile from './UpdateProfile';
 
 import Separator from '../../components/Separator';
+import { Main as Sidebar } from '../../components/Sidebar';
 
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,45 +18,54 @@ import { withAuthorization, withEmailVerification } from '../../session';
 class SettingsBase extends Component {
   render() {
     return(
-      <React.Fragment>
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>
-              <strong>Settings</strong>
-            </Typography>
-            <Typography align="center" variant="body2" gutterBottom>
-              This page is only accessible to logged in users.
-            </Typography>
-          </Box>
-        </Paper>
+      <Grid container spacing={2}>
+        <Grid item md={8} xs={12}>
 
-        <Separator />
-        
-        {/* Update profile form */}
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <UpdateProfile />
-          </Box>
-        </Paper>
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>
+                <strong>Settings</strong>
+              </Typography>
+              <Typography align="center" variant="body2" gutterBottom>
+                This page is only accessible to logged in users.
+              </Typography>
+            </Box>
+          </Paper>
 
-        <Separator />
+          <Separator />
+          
+          {/* Update profile form */}
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <UpdateProfile />
+            </Box>
+          </Paper>
 
-        {/* Update email form */}
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <UpdateEmail />
-          </Box>
-        </Paper>
-        
-        <Separator />
-        
-        {/* Update password form */}
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <UpdatePassword />
-          </Box>
-        </Paper>
-      </React.Fragment>
+          <Separator />
+
+          {/* Update email form */}
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <UpdateEmail />
+            </Box>
+          </Paper>
+          
+          <Separator />
+          
+          {/* Update password form */}
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <UpdatePassword />
+            </Box>
+          </Paper>
+
+        </Grid>
+        <Grid item md={4} xs={12}>
+
+          <Sidebar />
+
+        </Grid>
+      </Grid>
     );
   }
 }

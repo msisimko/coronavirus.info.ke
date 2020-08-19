@@ -5,7 +5,11 @@ import SignUpLink from './signUpLink';
 
 import { SignInLink } from '../SignIn';
 
+import { Authentication as Sidebar } from '../../components/Sidebar';
+
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -24,19 +28,43 @@ class SignUp extends Component {
 
   render() {
     return(
-      <Paper elevation={0} square>
-        <Box p={3}>
-          <Typography align="center" variant="h4" gutterBottom>    
-            <strong>Sign Up</strong>
-          </Typography>
-          
-          {/* Sign up form */}
-          <SignUpForm />
-          
-          {/* Sign in link */}
-          <SignInLink />
-        </Box>
-      </Paper>
+      <Grid container spacing={2}>
+        
+        <Hidden smDown>
+          <Grid item md={6} xs={12}>
+
+            <Sidebar />
+
+          </Grid>
+        </Hidden>
+
+        <Grid item md={6} xs={12}>
+
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Sign Up</strong>
+              </Typography>
+              
+              {/* Sign up form */}
+              <SignUpForm />
+              
+              {/* Sign in link */}
+              <SignInLink />
+            </Box>
+          </Paper>
+
+        </Grid>
+
+        <Hidden mdUp>
+          <Grid item md={6} xs={12}>
+
+            <Sidebar />
+
+          </Grid>
+        </Hidden>
+
+      </Grid>
     )
   }
 }
