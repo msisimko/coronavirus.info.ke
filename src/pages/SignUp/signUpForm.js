@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
+
+import { withSnackbar } from 'notistack';
 
 import { withFirebase } from '../../firebase';
 
@@ -27,7 +27,6 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
-  error: null,
 };
 
 class SignUpFormBase extends Component {
@@ -38,7 +37,6 @@ class SignUpFormBase extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
  
   onChange(event) {
@@ -46,6 +44,8 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit(event) {
+    const { enqueueSnackbar } = this.props;
+
     const { displayName, email, passwordOne } = this.state;
 
     this.props.firebase
@@ -64,41 +64,26 @@ class SignUpFormBase extends Component {
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
-        this.setState({ error });
+        enqueueSnackbar(error.message, { variant: 'error'});
       });
 
     event.preventDefault();
   }
 
-  handleClose(event, reason) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    const { error } = this.state;
-    // IF error, only clear error, ELSE, reset to initial state
-    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
-  }
-
   render() {
     const { classes } = this.props;
 
-    const { displayName, email, passwordOne, passwordTwo, error } = this.state;
+    const { displayName, email, passwordOne, passwordTwo } = this.state;
 
-    const isInvalid = displayName === '' ||
+    const isDisabled = displayName === '' ||
                       email === '' ||
                       passwordOne !== passwordTwo ||
                       passwordOne === '';
-
-    const isError = error !== null;
-
-    const isDisabled = isInvalid || isError;
 
     return (
       <React.Fragment>
         <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
-            error={isError}
             fullWidth
             id="displayName"
             label="Display Name"
@@ -110,7 +95,6 @@ class SignUpFormBase extends Component {
             variant="filled"
           />
           <TextField
-            error={isError}
             fullWidth
             id="email"
             helperText="You'll need to confirm that this email belongs to you."
@@ -123,7 +107,6 @@ class SignUpFormBase extends Component {
             variant="filled"
           />
           <TextField
-            error={isError}
             fullWidth
             id="passwordOne"
             helperText="Use 6 or more characters with a mix of letters, numbers &amp; symbols."
@@ -137,7 +120,6 @@ class SignUpFormBase extends Component {
             variant="filled"
           />
           <TextField
-            error={isError}
             fullWidth
             id="passwordTwo"
             label="Confirm Password"
@@ -161,14 +143,6 @@ class SignUpFormBase extends Component {
             Sign Up
           </Button>
         </form>
-
-        {error &&
-          <Snackbar autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)} open={isError}>
-            <Alert elevation={6} onClose={(e,r) => this.handleClose(e,r)} severity="error" variant="filled">
-              {error.message}
-            </Alert>
-          </Snackbar>
-        }
       </React.Fragment>
     );
   }
@@ -177,6 +151,7 @@ class SignUpFormBase extends Component {
 const SignUpForm = compose(
   withRouter,
   withStyles(styles, { withTheme: true }),
+  withSnackbar,
   withFirebase,
 )(SignUpFormBase);
 

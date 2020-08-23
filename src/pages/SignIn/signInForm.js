@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
+
+import { withSnackbar } from 'notistack';
 
 import { withFirebase } from '../../firebase';
 
@@ -25,7 +25,6 @@ const styles = theme => ({
 const INITIAL_STATE = {
   email: '',
   password: '',
-  error: null,
 };
 
 class SignInFormBase extends Component {
@@ -36,7 +35,6 @@ class SignInFormBase extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
  
   onChange(event) {
@@ -44,6 +42,8 @@ class SignInFormBase extends Component {
   }
  
   onSubmit(event) {
+    const { enqueueSnackbar } = this.props;
+
     const { email, password } = this.state;
  
     this.props.firebase
@@ -53,39 +53,24 @@ class SignInFormBase extends Component {
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
-        this.setState({ error });
+        enqueueSnackbar(error.message, { variant: 'error' });
       });
  
     event.preventDefault();
-  }
-
-  handleClose(event, reason) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    const { error } = this.state;
-    // IF error, only clear error, ELSE, reset to initial state
-    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
   }
  
   render() {
     const { classes } = this.props;
 
-    const { email, password, error } = this.state;
+    const { email, password } = this.state;
     
-    const isInvalid = email === '' ||
+    const isDisabled = email === '' ||
                       password === '';
-
-    const isError = error !== null;
-
-    const isDisabled = isInvalid || isError;
  
     return (
       <React.Fragment>
         <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
-            error={isError}
             fullWidth
             id="email"
             label="Email Address"
@@ -97,7 +82,6 @@ class SignInFormBase extends Component {
             variant="filled"
           />
           <TextField
-            error={isError}
             fullWidth
             id="password"
             label="Password"
@@ -121,14 +105,6 @@ class SignInFormBase extends Component {
             Sign In
           </Button>
         </form>
-
-        {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
-            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
-              {error.message}
-            </Alert>
-          </Snackbar>
-        }
       </React.Fragment>
     );
   }
@@ -137,6 +113,7 @@ class SignInFormBase extends Component {
 const SignInForm = compose(
   withRouter,
   withStyles(styles, { withTheme: true }),
+  withSnackbar,
   withFirebase,
 )(SignInFormBase);
  

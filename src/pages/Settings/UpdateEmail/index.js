@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
+
+import { withSnackbar } from 'notistack';
  
 import { withFirebase } from '../../../firebase';
 
@@ -22,8 +22,6 @@ const styles = theme => ({
 
 const INITIAL_STATE = {
   email: '',
-  success: null,
-  error: null,
 };
 
 class UpdateEmailBase extends Component {
@@ -42,6 +40,8 @@ class UpdateEmailBase extends Component {
   }
 
   onSubmit(event) {
+    const { enqueueSnackbar } = this.props;
+
     const { email } = this.state;
  
     this.props.firebase
@@ -50,11 +50,10 @@ class UpdateEmailBase extends Component {
         return this.props.firebase.doSendEmailVerification();
       })
       .then(() => {
-        let success = { code: 200, message: "Your email has been updated. Check inbox for verification email." };
-        this.setState({ success });
+        enqueueSnackbar("Your email has been updated. Check inbox for verification email.", { variant: 'success', onClose: this.handleClose });
       })
       .catch(error => {
-        this.setState({ error });
+        enqueueSnackbar(error.message, { variant: 'error'});
       });
  
     event.preventDefault();
@@ -65,23 +64,15 @@ class UpdateEmailBase extends Component {
       return;
     }
 
-    const { error } = this.state;
-    // IF error, only clear error, ELSE, reset to initial state
-    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
+    this.setState({ ...INITIAL_STATE });
   }
 
   render() {
     const { classes } = this.props;
 
-    const { email, success, error } = this.state;
+    const { email } = this.state;
  
-    const isInvalid = email === '';
-
-    const isSuccess = success !== null;
-
-    const isError = error !== null;
-
-    const isDisabled = isInvalid || isSuccess || isError;
+    const isDisabled = email === '';
  
     return (
       <React.Fragment>
@@ -91,7 +82,6 @@ class UpdateEmailBase extends Component {
 
         <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
-            error={isError}
             fullWidth
             id="email"
             helperText="You'll need to confirm that this email belongs to you."
@@ -115,22 +105,6 @@ class UpdateEmailBase extends Component {
             Update My Email
           </Button>
         </form>
-
-        {success &&
-          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
-            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="success">
-              {success.message}
-            </Alert>
-          </Snackbar>
-        }
-
-        {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={(e,r) => this.handleClose(e,r)}>
-            <Alert elevation={6} variant="filled" onClose={(e,r) => this.handleClose(e,r)} severity="error">
-              {error.message}
-            </Alert>
-          </Snackbar>
-        }
       </React.Fragment>
     );
   }
@@ -138,6 +112,7 @@ class UpdateEmailBase extends Component {
 
 const UpdateEmail = compose(
   withStyles(styles, { withTheme: true }),
+  withSnackbar,
   withFirebase,
 )(UpdateEmailBase);
  
