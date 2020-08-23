@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
+import Separator from '../../components/Separator';
+import { Main as Sidebar } from '../../components/Sidebar';
+
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,58 +17,42 @@ import { AuthUserContext, withAuthorization, withEmailVerification } from '../..
 class AccountBase extends Component {
   render() {
     return(
-      <Container maxWidth="sm">
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>
-              <strong>Account</strong>
-            </Typography>
-            <Typography align="center" variant="body2" gutterBottom>
-              This page is only accessible to logged in users.
-            </Typography>
-          </Box>
-
-          <Divider variant="middle" />
+      <Grid container spacing={2}>
+        <Grid item md={8} xs={12}>
           
-          <Box p={3}>
-            <AuthUserContext.Consumer>
-              { authUser => authUser &&
-                <React.Fragment>
-                  <Grid container spacing={2}>
-                    <Grid item sm={4} xs={12}>
-                      <Box display="flex" justifyContent="center">
-                        <Box>
-                          {authUser.photoURL ? (
-                            <Avatar style={{ width: '100px', height: '100px'}} alt={authUser.displayName} src={authUser.photoURL} />
-                          ) : (
-                            <Avatar style={{ width: '100px', height: '100px'}}>
-                              <PersonIcon style={{ fontSize: 60 }} />
-                            </Avatar>
-                          )}
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>
+                <strong>Account</strong>
+              </Typography>
+              <Typography align="center" variant="body2" gutterBottom>
+                This page is only accessible to logged in users.
+              </Typography>
+            </Box>
+          </Paper>
+
+          <Separator />
+            
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <AuthUserContext.Consumer>
+                { authUser => authUser &&
+                  <React.Fragment>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Box display="flex" justifyContent="center">
+                          <Box>
+                            {authUser.photoURL ? (
+                              <Avatar style={{ width: '100px', height: '100px'}} alt={authUser.displayName} src={authUser.photoURL} />
+                            ) : (
+                              <Avatar style={{ width: '100px', height: '100px'}}>
+                                <PersonIcon style={{ fontSize: 60 }} />
+                              </Avatar>
+                            )}
+                          </Box>
                         </Box>
-                      </Box>
-                    </Grid>
-                    <Grid item sm={8} xs={12}>
-                      {/* Visible on screen sizes SM, MD, LG & XL */}
-                      <Hidden xsDown>
-                        <Typography variant="h4" gutterBottom>
-                          <strong>{authUser.displayName}</strong>
-                        </Typography>
-                        <Typography variant="h6" gutterBottom>
-                          <strong>{authUser.email}</strong>
-                        </Typography>
-                        {authUser.emailVerified ? (
-                          <Typography variant="body2" gutterBottom>
-                            Your email address is verified.
-                          </Typography>
-                        ) : (
-                          <Typography variant="body2" gutterBottom>
-                            Please verify your email address.
-                          </Typography>
-                        )}
-                      </Hidden>
-                      {/* Visible on screen sizes XS only */}
-                      <Hidden smUp>
+                      </Grid>
+                      <Grid item xs={12}>
                         <Typography align="center" variant="h4" gutterBottom>
                           <strong>{authUser.displayName}</strong>
                         </Typography>
@@ -84,15 +68,21 @@ class AccountBase extends Component {
                             Please verify your email address.
                           </Typography>
                         )}
-                      </Hidden>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </React.Fragment>
-              }
-            </AuthUserContext.Consumer>
-          </Box>
-        </Paper>
-      </Container>
+                  </React.Fragment>
+                }
+              </AuthUserContext.Consumer>
+            </Box>
+          </Paper>
+
+        </Grid>
+        <Grid item md={4} xs={12}>
+          
+          <Sidebar />
+
+        </Grid>
+      </Grid>
     );
   }
 }

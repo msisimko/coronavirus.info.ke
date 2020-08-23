@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter, Link as RouterLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import ResetPasswordForm from './resetPasswordForm';
 
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -60,40 +57,36 @@ class ResetPasswordBase extends Component {
     const success = !isLoading && !error;
 
     return(
-      <Container maxWidth="sm">
+      <React.Fragment>
         <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>    
-              <strong>Password Reset</strong>
-            </Typography>
-          
-            {isLoading &&
+          {isLoading &&
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Password Reset</strong>
+              </Typography>
+
               <LinearProgress color="primary" />
-            }
+            </Box>
+          }
 
-            {success &&
-              // Reset password form 
-              <ResetPasswordForm actionCode={actionCode} />
-            }
+          {error &&
+            <Box p={3}>
+              <Typography align="center" variant="h4" gutterBottom>    
+                <strong>Password Reset</strong>
+              </Typography>
 
-            {error &&
               <Typography align="center" variant="body2" gutterBottom>
                 {error.message}
               </Typography>
-            }
-          </Box>
-
-          <Divider variant="middle" />
-              
-          {success &&
-            <Box p={3}>
-              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
-                Continue
-              </Button>
             </Box>
           }
         </Paper>
-      </Container>
+
+        {success &&
+          // Reset password form 
+          <ResetPasswordForm actionCode={actionCode} />
+        }
+      </React.Fragment>
     );
   }
 }

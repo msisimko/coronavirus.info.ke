@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
+
+import { withSnackbar } from 'notistack';
  
 import { withFirebase } from '../../../firebase';
 
@@ -23,8 +23,6 @@ const styles = theme => ({
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
-  success: null,
-  error: null,
 };
 
 class UpdatePasswordBase extends Component {
@@ -38,49 +36,42 @@ class UpdatePasswordBase extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
  
-  onChange = event => {
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit = event => {
+  onSubmit(event) {
+    const { enqueueSnackbar } = this.props;
+
     const { passwordOne } = this.state;
  
     this.props.firebase
       .doUpdatePassword(passwordOne)
       .then(() => {
-        let success = { code: 200, message: "Your password has been updated." };
-        this.setState({ success });
+        enqueueSnackbar("Your password has been updated.", { variant: 'success', onClose: this.handleClose });
       })
       .catch(error => {
-        this.setState({ error });
+        enqueueSnackbar(error.message, { variant: 'error'});
       });
  
     event.preventDefault();
   }
 
-  handleClose = (event, reason) => {
+  handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
 
-    const { error } = this.state;
-    // IF error, only clear error, ELSE, reset to initial state
-    error ? this.setState({ error: null }) : this.setState({ ...INITIAL_STATE });
+    this.setState({ ...INITIAL_STATE });
   }
 
   render() {
     const { classes } = this.props;
 
-    const { passwordOne, passwordTwo, success, error } = this.state;
+    const { passwordOne, passwordTwo } = this.state;
 
-    const isInvalid = passwordOne !== passwordTwo ||
+    const isDisabled = passwordOne !== passwordTwo ||
                       passwordOne === '';
-
-    const isSuccess = success !== null;
-
-    const isError = error !== null;
-
-    const isDisabled = isInvalid || isSuccess || isError;
  
     return (
       <React.Fragment>
@@ -88,28 +79,26 @@ class UpdatePasswordBase extends Component {
           <strong>Password</strong>
         </Typography>
         
-        <form className={classes.form} onSubmit={this.onSubmit}>
+        <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
           <TextField
-            error={isError}
             fullWidth
             id="passwordOne"
             label="Password"
             margin="normal"
             name="passwordOne"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordOne}
             variant="filled"
           />
           <TextField
-            error={isError}
             fullWidth
             id="passwordTwo"
             label="Confirm Password"
             margin="normal"
             name="passwordTwo"
-            onChange={this.onChange}
+            onChange={(e) => this.onChange(e)}
             required
             type="password"
             value={passwordTwo}
@@ -127,22 +116,6 @@ class UpdatePasswordBase extends Component {
             Update My Password
           </Button>
         </form>
-
-        {success &&
-          <Snackbar open={isSuccess} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="success">
-              {success.message}
-            </Alert>
-          </Snackbar>
-        }
-
-        {error &&
-          <Snackbar open={isError} autoHideDuration={2500} onClose={this.handleClose}>
-            <Alert elevation={6} variant="filled" onClose={this.handleClose} severity="error">
-              {error.message}
-            </Alert>
-          </Snackbar>
-        }
       </React.Fragment>
     );
   }
@@ -150,6 +123,7 @@ class UpdatePasswordBase extends Component {
 
 const UpdatePassword = compose(
   withStyles(styles, { withTheme: true }),
+  withSnackbar,
   withFirebase,
 )(UpdatePasswordBase);
  

@@ -39,7 +39,7 @@ const withEmailVerification = Component => {
       this.handleClose = this.handleClose.bind(this);
     }
 
-    onSendEmailVerification = () => {
+    onSendEmailVerification() {
       this.props.firebase
         .doSendEmailVerification()
         .then(() => this.setState({ isSent: true }))
@@ -48,7 +48,7 @@ const withEmailVerification = Component => {
         });
     }
 
-    handleClose = (event, reason) => {
+    handleClose(event, reason) {
       if (reason === 'clickaway') {
         return;
       }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import Navigation from './navigation';
+import Navigation from './components/Navigation';
+import Separator from './components/Separator';
 
 import Account from './pages/Account';
 import Action from './pages/Action';
@@ -13,9 +14,8 @@ import Settings from './pages/Settings';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
-// CssBaseline component to kickstart an elegant,
-// consistent, and simple baseline to build upon
-// See: https://material-ui.com/components/css-baseline/
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Imports the createMuiTheme() method that allows us
@@ -24,16 +24,21 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // See: https://material-ui.com/customization/default-theme/
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 
+import { SnackbarProvider } from 'notistack';
+
 import { withAuthentication } from './session';
 
 import * as ROUTES from './constants/routes';
 
 const styles = theme => ({
-  top: {
-    height: theme.spacing(2),
+  root: {
+    display: 'flex',
   },
-  bottom: {
-    height: theme.spacing(2),
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    overflowX: 'hidden',
   },
 });
 
@@ -41,6 +46,15 @@ const styles = theme => ({
 const light = createMuiTheme({
   palette: {
     type: 'light',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+    background: {
+      default: '#e6ecf0',
+    }
   },
   overrides: {
     MuiFormHelperText: {
@@ -56,6 +70,12 @@ const light = createMuiTheme({
 const dark = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
   },
   overrides: {
     MuiFormHelperText: {
@@ -72,9 +92,10 @@ class AppBase extends Component {
     super(props);
 
     this.state = {
-      // Get theme from localStorage, if none default to null
-      theme: localStorage.getItem('theme'),
+      theme: localStorage.getItem('theme'), // Get current theme from localStorage
     };
+
+    this.toggleTheme = this.toggleTheme.bind(this);
   }
 
   componentDidMount() {
@@ -88,8 +109,7 @@ class AppBase extends Component {
     }
   }
 
-  // Toggle the theme
-  toggleTheme = () => {
+  toggleTheme() {
     const { theme } = this.state;
 
     if (theme === 'light') {
@@ -105,41 +125,55 @@ class AppBase extends Component {
 
   render() {
     const { classes } = this.props;
-
+    
     const { theme } = this.state;
+
+    const notistackRef = React.createRef();
+    const onClickDismiss = key => () => { 
+        notistackRef.current.closeSnackbar(key);
+    }
 
     return(
       <ThemeProvider theme={theme === 'light' ? light : dark}>
-        <CssBaseline />
-        {/* The rest of the application */}
-        <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          {/* The rest of the application */}
+          <Router>
 
-          {/**
-            * Lifting State Up technique 
-            * 
-            * i.e. passing of function toggleTheme() as
-            * prop to be updated by Navigation element
-            *  
-            * More: https://reactjs.org/docs/lifting-state-up.html
-            */}
-          <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
+            {/**
+              * Lifting State Up technique 
+              * 
+              * i.e. passing of function toggleTheme() as
+              * prop to be updated by Navigation element
+              *  
+              * More: https://reactjs.org/docs/lifting-state-up.html
+              */}
+            <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
+            
 
-          {/* Provides standardized top padding throughout the website */}
-          <div className={classes.top} />
+            <SnackbarProvider preventDuplicate maxSnack={3} ref={notistackRef} action={(key) => ( <Button size="small" onClick={onClickDismiss(key)}>Dismiss</Button> )}> 
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                
+                <Separator />
+                
+                <Container maxWidth="md" disableGutters>
+                  <Route path={ROUTES.ACCOUNT} component={Account} />
+                  <Route path={ROUTES.ACTION} component={Action} />
+                  <Route path={ROUTES.HOME} component={Home} />
+                  <Route exact path={ROUTES.LANDING} component={Landing} />
+                  <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
+                  <Route path={ROUTES.SETTINGS} component={Settings} />
+                  <Route path={ROUTES.SIGN_IN} component={SignIn} />
+                  <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                </Container>
 
-          <Route path={ROUTES.ACCOUNT} component={Account} />
-          <Route path={ROUTES.ACTION} component={Action} />
-          <Route path={ROUTES.HOME} component={Home} />
-          <Route exact path={ROUTES.LANDING} component={Landing} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-          <Route path={ROUTES.SETTINGS} component={Settings} />
-          <Route path={ROUTES.SIGN_IN} component={SignIn} />
-          <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                <Separator />
+              </main>
+            </SnackbarProvider>
 
-          {/* Provides standardized bottom padding throughout the website */}
-          <div className={classes.bottom} />
-
-        </Router>
+          </Router>
+        </div>
       </ThemeProvider>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -20,15 +19,13 @@ class Landing extends Component {
 
   render() {
     return(
-      <Container maxWidth="sm">
-        <Paper elevation={0} square>
-          <Box p={3}>
-            <Typography align="center" variant="h4" gutterBottom>
-              <strong>Landing</strong>
-            </Typography>
-          </Box>
-        </Paper>
-      </Container>
+      <Paper elevation={0} square>
+        <Box p={3}>
+          <Typography align="center" variant="h4" gutterBottom>
+            <strong>Landing</strong>
+          </Typography>
+        </Box>
+      </Paper>
     );
   }
 }

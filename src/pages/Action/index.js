@@ -4,8 +4,10 @@ import RecoverEmail from './RecoverEmail';
 import ResetPassword from './ResetPassword';
 import VerifyEmail from './VerifyEmail';
 
+import { Actions as Sidebar} from '../../components/Sidebar';
+
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -35,25 +37,61 @@ class Action extends Component {
 
     switch (mode) {
       case 'recoverEmail':
-        return <RecoverEmail actionCode={oobCode} />;
+        return (
+          <Grid container spacing={2}>
+            <Grid item md={8} xs={12}>
+              <RecoverEmail actionCode={oobCode} />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <Sidebar />
+            </Grid>
+          </Grid>
+        );
       case 'resetPassword':
-        return <ResetPassword actionCode={oobCode} />;
+        return (
+          <Grid container spacing={2}>
+            <Grid item md={8} xs={12}>
+              <ResetPassword actionCode={oobCode} />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <Sidebar />
+            </Grid>
+          </Grid>
+        );
       case 'verifyEmail':
-        return <VerifyEmail actionCode={oobCode} />;
+        return (
+          <Grid container spacing={2}>
+            <Grid item md={8} xs={12}>
+              <VerifyEmail actionCode={oobCode} />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <Sidebar />
+            </Grid>
+          </Grid>
+        );
       default:
         return(
-          <Container maxWidth="sm">
-            <Paper elevation={0} square>
-              <Box p={3}>
-                <Typography align="center" variant="h4" gutterBottom>
-                  <strong>Oops...</strong>
-                </Typography>
-                <Typography align="center" variant="body2" gutterBottom>
-                  Invalid action.
-                </Typography>
-              </Box>
-            </Paper>
-          </Container>
+          <Grid container spacing={2}>
+            <Grid item md={8} xs={12}>
+              
+              <Paper elevation={0} square>
+                <Box p={3}>
+                  <Typography align="center" variant="h4" gutterBottom>
+                    <strong>Oops...</strong>
+                  </Typography>
+                  <Typography align="center" variant="body2" gutterBottom>
+                    Invalid action.
+                  </Typography>
+                </Box>
+              </Paper>
+              
+            </Grid>
+            <Grid item md={4} xs={12}>
+              
+              <Sidebar />
+
+            </Grid>
+          </Grid>          
         );
     }
   }
