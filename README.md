@@ -1,26 +1,14 @@
-# Boilerplate
-A boilerplate (template) for Progressive Web Apps built with [ReactJS](https://reactjs.org/) + [Create React App](https://create-react-app.dev/) + [Firebase](https://firebase.google.com/) + [Material-UI](https://material-ui.com/).
-
-### About
-This boilerplate implements the bare minimum of a Progressive Web Application integrated with Firebase & Material UI. 
-
-The boilerplate ONLY implements Firebase Authentication, including [Custom Email Action Handlers](https://firebase.google.com/docs/auth/custom-email-handler) i.e. 
-- Sign In
-- Sign Up
-- Email Address Verification (CEAH)
-- Email Address Update
-- Email Address Recovery (CEAH)
-- Password Forget
-- Password Reset (CEAH)
-- Password Update
-- Profile Update (Display Name only as of this version)
-
-The boilerplate also includes some strong authentication mechanisms that ensure a user is Signed In & has verified their email address before accessing restricted pages.
+# COVID-19 in Kenya
+This Progressive Web App has been built using the [Boilerplate](https://github.com/msisimko/boilerplate) template.
 
 ### Upcoming Features
 Features currently being worked on include:
-- Profile Update to include updating avatar
-- Customized Authorization implementation using Firebase's [Custom Claims](https://firebase.google.com/docs/auth/admin/custom-claims)
+- COVID-19 Overview
+- COVID-19 Trend (Graphs)
+- County Breakdown
+- Daily Updates
+- About COVID-19
+- Analytics Tool *
 
 ### Setup on Firebase
 1. Create a new Firebase project.

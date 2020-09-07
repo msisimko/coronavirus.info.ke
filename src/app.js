@@ -47,14 +47,11 @@ const light = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#1976d2',
+      main: '#1d3557',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#14213d',
     },
-    background: {
-      default: '#e6ecf0',
-    }
   },
   overrides: {
     MuiFormHelperText: {

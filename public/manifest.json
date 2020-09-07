@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "React App",
+  "short_name": "COVID-19",
+  "name": "COVID-19 in Kenya",
+  "description": "Get the latest updates on the Coronavirus Disease 2019 (COVID-19) outbreak in Kenya.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,6 +23,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#20232a",
-  "background_color": "#20232a"
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }
