@@ -7,6 +7,7 @@ import Separator from './components/Separator';
 
 import Account from './pages/Account';
 import Action from './pages/Action';
+import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import PasswordForget from './pages/PasswordForget';
@@ -157,6 +158,7 @@ class AppBase extends Component {
                 <Container maxWidth="md" disableGutters>
                   <Route path={ROUTES.ACCOUNT} component={Account} />
                   <Route path={ROUTES.ACTION} component={Action} />
+                  <Route path={ROUTES.DASHBOARD} component={Dashboard} />
                   <Route path={ROUTES.HOME} component={Home} />
                   <Route exact path={ROUTES.LANDING} component={Landing} />
                   <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
