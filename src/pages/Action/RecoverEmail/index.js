@@ -77,7 +77,7 @@ class RecoverEmail extends Component {
         {success &&
           <Paper elevation={0} square>
             <Box p={3}>
-              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.LANDING}>
+              <Button fullWidth size="large" color="primary" component={RouterLink} to={ROUTES.OVERVIEW}>
                 Continue
               </Button>
             </Box>

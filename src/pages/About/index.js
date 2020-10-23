@@ -8,7 +8,7 @@ import { AuthUserContext } from '../../session';
 
 import * as ROUTES from '../../constants/routes';
 
-class Landing extends Component {
+class About extends Component {
   static contextType = AuthUserContext;
   
   componentDidMount() {
@@ -22,7 +22,7 @@ class Landing extends Component {
       <Paper elevation={0} square>
         <Box p={3}>
           <Typography align="center" variant="h4" gutterBottom>
-            <strong>Landing</strong>
+            <strong>About</strong>
           </Typography>
         </Box>
       </Paper>
@@ -30,4 +30,4 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+export default About;
