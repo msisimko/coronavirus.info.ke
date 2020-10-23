@@ -4,19 +4,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import { AuthUserContext } from '../../session';
-
-import * as ROUTES from '../../constants/routes';
-
 class About extends Component {
-  static contextType = AuthUserContext;
-  
-  componentDidMount() {
-    // If signed in, redirect to Home
-    let authUser = this.context;
-    authUser && this.props.history.push(ROUTES.HOME);
-  }
-
   render() {
     return(
       <Paper elevation={0} square>
