@@ -1,4 +1,4 @@
-# COVID-19 in Kenya
+# COVID-19 in Kenya Tracker
 This Progressive Web App has been built using the [Boilerplate](https://github.com/msisimko/boilerplate) template.
 
 ### Upcoming Features
