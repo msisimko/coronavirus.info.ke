@@ -5,14 +5,19 @@ import { compose } from 'recompose';
 import Navigation from './components/Navigation';
 import Separator from './components/Separator';
 
+import About from './pages/About';
 import Account from './pages/Account';
 import Action from './pages/Action';
+import CountyStatistics from './pages/CountyStatistics';
+import DailyUpdates from './pages/DailyUpdates';
+import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
-import Landing from './pages/Landing';
+import Overview from './pages/Overview';
 import PasswordForget from './pages/PasswordForget';
 import Settings from './pages/Settings';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Trends from './pages/Trends';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -68,7 +73,7 @@ const dark = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#90caf9',
+      main: '#080808',
     },
     secondary: {
       main: '#f48fb1',
@@ -155,14 +160,19 @@ class AppBase extends Component {
                 <Separator />
                 
                 <Container maxWidth="md" disableGutters>
+                  <Route path={ROUTES.ABOUT} component={About} />
                   <Route path={ROUTES.ACCOUNT} component={Account} />
                   <Route path={ROUTES.ACTION} component={Action} />
+                  <Route path={ROUTES.COUNTY_STATISTICS} component={CountyStatistics} />
+                  <Route path={ROUTES.DAILY_UPDATES} component={DailyUpdates} />
+                  <Route path={ROUTES.DASHBOARD} component={Dashboard} />
                   <Route path={ROUTES.HOME} component={Home} />
-                  <Route exact path={ROUTES.LANDING} component={Landing} />
+                  <Route exact path={ROUTES.OVERVIEW} component={Overview} />
                   <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
                   <Route path={ROUTES.SETTINGS} component={Settings} />
                   <Route path={ROUTES.SIGN_IN} component={SignIn} />
                   <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                  <Route path={ROUTES.TRENDS} component={Trends} />
                 </Container>
 
                 <Separator />

@@ -1,8 +1,13 @@
+export const ABOUT = '/about';
 export const ACCOUNT = '/account';
 export const ACTION = '/action';
+export const COUNTY_STATISTICS = '/county-statistics';
+export const DAILY_UPDATES = '/daily-updates';
+export const DASHBOARD = '/dashboard';
 export const HOME = '/home';
-export const LANDING = '/';
+export const OVERVIEW = '/';
 export const PASSWORD_FORGET = '/pw-forget';
 export const SETTINGS = '/settings';
 export const SIGN_IN = '/sign-in';
 export const SIGN_UP = '/sign-up';
+export const TRENDS = '/trends';

@@ -105,8 +105,20 @@ class NavigationNonAuth extends Component {
             <Toolbar />
             <div className={classes.leftDrawerContainer}>
               <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
-                  <ListItemText primary="Home" />
+                <ListItem button component={NavLink} exact={true} to={ROUTES.OVERVIEW} activeClassName="Mui-selected" aria-label="Overview">
+                  <ListItemText primary="Overview" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY_UPDATES} activeClassName="Mui-selected" aria-label="Daily Updates">
+                  <ListItemText primary="Daily Updates" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
+                  <ListItemText primary="Trends" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.COUNTY_STATISTICS} activeClassName="Mui-selected" aria-label="County Statistics">
+                  <ListItemText primary="County Statistics" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.ABOUT} activeClassName="Mui-selected" aria-label="About COVID-19">
+                  <ListItemText primary="About COVID-19" />
                 </ListItem>
               </List>
             </div>
@@ -117,8 +129,20 @@ class NavigationNonAuth extends Component {
           <Drawer anchor="left" open={left} onClose={(e) => this.toggleDrawer('left', false, e)}>
             <div className={classes.leftDrawer} role="presentation" onClick={(e) => this.toggleDrawer('left', false, e)} onKeyDown={(e) => this.toggleDrawer('left', false, e)}>
               <List component="nav" subheader={<ListSubheader color="inherit" disableSticky={true}>Menu</ListSubheader>}>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.LANDING} activeClassName="Mui-selected" aria-label="Home">
-                  <ListItemText primary="Home" />
+                <ListItem button component={NavLink} exact={true} to={ROUTES.OVERVIEW} activeClassName="Mui-selected" aria-label="Overview">
+                  <ListItemText primary="Overview" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY_UPDATES} activeClassName="Mui-selected" aria-label="Daily Updates">
+                  <ListItemText primary="Daily Updates" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
+                  <ListItemText primary="Trends" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.COUNTY_STATISTICS} activeClassName="Mui-selected" aria-label="County Statistics">
+                  <ListItemText primary="County Statistics" />
+                </ListItem>
+                <ListItem button component={NavLink} exact={true} to={ROUTES.ABOUT} activeClassName="Mui-selected" aria-label="About COVID-19">
+                  <ListItemText primary="About COVID-19" />
                 </ListItem>
               </List>
             </div>

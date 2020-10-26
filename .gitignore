@@ -31,3 +31,8 @@ yarn-error.log*
 .firebaserc
 /.firebase
 firebase.json
+
+# debug logs
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
