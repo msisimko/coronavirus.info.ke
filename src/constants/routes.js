@@ -1,7 +1,6 @@
 export const ABOUT = '/about';
 export const ACCOUNT = '/account';
 export const ACTION = '/action';
-export const COUNTY_STATISTICS = '/county-statistics';
 export const DAILY_UPDATES = '/daily-updates';
 export const DASHBOARD = '/dashboard';
 export const HOME = '/home';

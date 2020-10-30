@@ -114,9 +114,6 @@ class NavigationNonAuth extends Component {
                 <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
                   <ListItemText primary="Trends" />
                 </ListItem>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.COUNTY_STATISTICS} activeClassName="Mui-selected" aria-label="County Statistics">
-                  <ListItemText primary="County Statistics" />
-                </ListItem>
                 <ListItem button component={NavLink} exact={true} to={ROUTES.ABOUT} activeClassName="Mui-selected" aria-label="About COVID-19">
                   <ListItemText primary="About COVID-19" />
                 </ListItem>
@@ -137,9 +134,6 @@ class NavigationNonAuth extends Component {
                 </ListItem>
                 <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
                   <ListItemText primary="Trends" />
-                </ListItem>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.COUNTY_STATISTICS} activeClassName="Mui-selected" aria-label="County Statistics">
-                  <ListItemText primary="County Statistics" />
                 </ListItem>
                 <ListItem button component={NavLink} exact={true} to={ROUTES.ABOUT} activeClassName="Mui-selected" aria-label="About COVID-19">
                   <ListItemText primary="About COVID-19" />

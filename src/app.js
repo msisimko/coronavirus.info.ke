@@ -8,7 +8,6 @@ import Separator from './components/Separator';
 import About from './pages/About';
 import Account from './pages/Account';
 import Action from './pages/Action';
-import CountyStatistics from './pages/CountyStatistics';
 import DailyUpdates from './pages/DailyUpdates';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
@@ -163,7 +162,6 @@ class AppBase extends Component {
                   <Route path={ROUTES.ABOUT} component={About} />
                   <Route path={ROUTES.ACCOUNT} component={Account} />
                   <Route path={ROUTES.ACTION} component={Action} />
-                  <Route path={ROUTES.COUNTY_STATISTICS} component={CountyStatistics} />
                   <Route path={ROUTES.DAILY_UPDATES} component={DailyUpdates} />
                   <Route path={ROUTES.DASHBOARD} component={Dashboard} />
                   <Route path={ROUTES.HOME} component={Home} />
