@@ -1,7 +1,7 @@
 export const ABOUT = '/about';
 export const ACCOUNT = '/account';
 export const ACTION = '/action';
-export const DAILY_UPDATES = '/daily-updates';
+export const DAILY = '/daily';
 export const DASHBOARD = '/dashboard';
 export const HOME = '/home';
 export const OVERVIEW = '/';

@@ -108,8 +108,8 @@ class NavigationNonAuth extends Component {
                 <ListItem button component={NavLink} exact={true} to={ROUTES.OVERVIEW} activeClassName="Mui-selected" aria-label="Overview">
                   <ListItemText primary="Overview" />
                 </ListItem>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY_UPDATES} activeClassName="Mui-selected" aria-label="Daily Updates">
-                  <ListItemText primary="Daily Updates" />
+                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY} activeClassName="Mui-selected" aria-label="Daily">
+                  <ListItemText primary="Daily" />
                 </ListItem>
                 <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
                   <ListItemText primary="Trends" />
@@ -129,8 +129,8 @@ class NavigationNonAuth extends Component {
                 <ListItem button component={NavLink} exact={true} to={ROUTES.OVERVIEW} activeClassName="Mui-selected" aria-label="Overview">
                   <ListItemText primary="Overview" />
                 </ListItem>
-                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY_UPDATES} activeClassName="Mui-selected" aria-label="Daily Updates">
-                  <ListItemText primary="Daily Updates" />
+                <ListItem button component={NavLink} exact={true} to={ROUTES.DAILY} activeClassName="Mui-selected" aria-label="Daily">
+                  <ListItemText primary="Daily" />
                 </ListItem>
                 <ListItem button component={NavLink} exact={true} to={ROUTES.TRENDS} activeClassName="Mui-selected" aria-label="Trends">
                   <ListItemText primary="Trends" />

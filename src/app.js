@@ -8,7 +8,7 @@ import Separator from './components/Separator';
 import About from './pages/About';
 import Account from './pages/Account';
 import Action from './pages/Action';
-import DailyUpdates from './pages/DailyUpdates';
+import Daily from './pages/Daily';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Overview from './pages/Overview';
@@ -162,7 +162,7 @@ class AppBase extends Component {
                   <Route path={ROUTES.ABOUT} component={About} />
                   <Route path={ROUTES.ACCOUNT} component={Account} />
                   <Route path={ROUTES.ACTION} component={Action} />
-                  <Route path={ROUTES.DAILY_UPDATES} component={DailyUpdates} />
+                  <Route path={ROUTES.DAILY} component={Daily} />
                   <Route path={ROUTES.DASHBOARD} component={Dashboard} />
                   <Route path={ROUTES.HOME} component={Home} />
                   <Route exact path={ROUTES.OVERVIEW} component={Overview} />
