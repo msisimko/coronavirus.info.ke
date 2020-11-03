@@ -33,31 +33,23 @@ class SettingsBase extends Component {
           </Paper>
 
           <Separator />
-          
-          {/* Update profile form */}
-          <Paper elevation={0} square>
-            <Box p={3}>
-              <UpdateProfile />
-            </Box>
-          </Paper>
 
-          <Separator />
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h5" gutterBottom>
+                <strong>Account Information</strong>
+              </Typography>
+            </Box>
+          </Paper>
+          
+          {/* Update profile component */}
+          <UpdateProfile />
 
-          {/* Update email form */}
-          <Paper elevation={0} square>
-            <Box p={3}>
-              <UpdateEmail />
-            </Box>
-          </Paper>
-          
-          <Separator />
-          
-          {/* Update password form */}
-          <Paper elevation={0} square>
-            <Box p={3}>
-              <UpdatePassword />
-            </Box>
-          </Paper>
+          {/* Update email component */}
+          <UpdateEmail />
+
+          {/* Update password component */}
+          <UpdatePassword />
 
         </Grid>
         <Grid item md={4} xs={12}>
