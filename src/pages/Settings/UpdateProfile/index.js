@@ -6,6 +6,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -105,31 +106,35 @@ class UpdateProfileBase extends Component {
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-            <TextField
-              fullWidth
-              id="displayName"
-              label="Display Name"
-              margin="normal"
-              name="displayName"
-              onChange={(e) => this.onChange(e)}
-              required
-              value={displayName}
-              variant="filled"
-              disabled={disabled}
-            />
-            <Button
-              className={classes.submit}
-              color="primary"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              disabled={disabled || disableButton}
-            >
-              Update My Profile
-            </Button>
-          </form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
+                <TextField
+                  fullWidth
+                  id="displayName"
+                  label="Display Name"
+                  margin="normal"
+                  name="displayName"
+                  onChange={(e) => this.onChange(e)}
+                  required
+                  value={displayName}
+                  variant="filled"
+                  disabled={disabled}
+                />
+                <Button
+                  className={classes.submit}
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  disabled={disabled || disableButton}
+                >
+                  Update My Profile
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
     );

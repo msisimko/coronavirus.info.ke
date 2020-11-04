@@ -6,6 +6,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -107,45 +108,49 @@ class UpdatePasswordBase extends Component {
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-            <TextField
-              fullWidth
-              id="passwordOne"
-              label="Password"
-              margin="normal"
-              name="passwordOne"
-              onChange={(e) => this.onChange(e)}
-              required
-              type="password"
-              value={passwordOne}
-              variant="filled"
-              disabled={disabled}
-            />
-            <TextField
-              fullWidth
-              id="passwordTwo"
-              label="Confirm Password"
-              margin="normal"
-              name="passwordTwo"
-              onChange={(e) => this.onChange(e)}
-              required
-              type="password"
-              value={passwordTwo}
-              variant="filled"
-              disabled={disabled}
-            />
-            <Button
-              className={classes.submit}
-              color="primary"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              disabled={disabled || disableButton}
-            >
-              Update My Password
-            </Button>
-          </form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
+                <TextField
+                  fullWidth
+                  id="passwordOne"
+                  label="Password"
+                  margin="normal"
+                  name="passwordOne"
+                  onChange={(e) => this.onChange(e)}
+                  required
+                  type="password"
+                  value={passwordOne}
+                  variant="filled"
+                  disabled={disabled}
+                />
+                <TextField
+                  fullWidth
+                  id="passwordTwo"
+                  label="Confirm Password"
+                  margin="normal"
+                  name="passwordTwo"
+                  onChange={(e) => this.onChange(e)}
+                  required
+                  type="password"
+                  value={passwordTwo}
+                  variant="filled"
+                  disabled={disabled}
+                />
+                <Button
+                  className={classes.submit}
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  disabled={disabled || disableButton}
+                >
+                  Update My Password
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
     );
