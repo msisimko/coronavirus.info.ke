@@ -8,8 +8,7 @@ import Separator from './components/Separator';
 import About from './pages/About';
 import Account from './pages/Account';
 import Action from './pages/Action';
-import CountyStatistics from './pages/CountyStatistics';
-import DailyUpdates from './pages/DailyUpdates';
+import Daily from './pages/Daily';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Overview from './pages/Overview';
@@ -28,6 +27,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // component for injecting the theme into the application.
 // See: https://material-ui.com/customization/default-theme/
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+
+import LuxonUtils from '@date-io/luxon';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -154,29 +157,30 @@ class AppBase extends Component {
             
 
             <SnackbarProvider preventDuplicate maxSnack={3} ref={notistackRef} action={(key) => ( <Button size="small" onClick={onClickDismiss(key)}>Dismiss</Button> )}> 
-              <main className={classes.content}>
-                <div className={classes.toolbar} />
-                
-                <Separator />
-                
-                <Container maxWidth="md" disableGutters>
-                  <Route path={ROUTES.ABOUT} component={About} />
-                  <Route path={ROUTES.ACCOUNT} component={Account} />
-                  <Route path={ROUTES.ACTION} component={Action} />
-                  <Route path={ROUTES.COUNTY_STATISTICS} component={CountyStatistics} />
-                  <Route path={ROUTES.DAILY_UPDATES} component={DailyUpdates} />
-                  <Route path={ROUTES.DASHBOARD} component={Dashboard} />
-                  <Route path={ROUTES.HOME} component={Home} />
-                  <Route exact path={ROUTES.OVERVIEW} component={Overview} />
-                  <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-                  <Route path={ROUTES.SETTINGS} component={Settings} />
-                  <Route path={ROUTES.SIGN_IN} component={SignIn} />
-                  <Route path={ROUTES.SIGN_UP} component={SignUp} />
-                  <Route path={ROUTES.TRENDS} component={Trends} />
-                </Container>
+              <MuiPickersUtilsProvider utils={LuxonUtils}>
+                <main className={classes.content}>
+                  <div className={classes.toolbar} />
+                  
+                  <Separator />
+                  
+                  <Container maxWidth="md" disableGutters>
+                    <Route path={ROUTES.ABOUT} component={About} />
+                    <Route path={ROUTES.ACCOUNT} component={Account} />
+                    <Route path={ROUTES.ACTION} component={Action} />
+                    <Route path={ROUTES.DAILY} component={Daily} />
+                    <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+                    <Route path={ROUTES.HOME} component={Home} />
+                    <Route exact path={ROUTES.OVERVIEW} component={Overview} />
+                    <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
+                    <Route path={ROUTES.SETTINGS} component={Settings} />
+                    <Route path={ROUTES.SIGN_IN} component={SignIn} />
+                    <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                    <Route path={ROUTES.TRENDS} component={Trends} />
+                  </Container>
 
-                <Separator />
-              </main>
+                  <Separator />
+                </main>
+              </MuiPickersUtilsProvider>
             </SnackbarProvider>
 
           </Router>

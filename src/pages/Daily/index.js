@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-class DailyUpdates extends Component {
+class Daily extends Component {
   render() {
     return(
       <Paper elevation={0} square>
@@ -18,4 +18,4 @@ class DailyUpdates extends Component {
   }
 }
 
-export default DailyUpdates;
+export default Daily;

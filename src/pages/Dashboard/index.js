@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
+import DailyUpdate from './DailyUpdate';
+import Counties from './Counties';
+import Sources from './Sources';
+
+import Separator from '../../components/Separator';
 import { Main as Sidebar } from '../../components/Sidebar';
 
 import Box from '@material-ui/core/Box';
@@ -26,6 +31,25 @@ class DashboardBase extends Component {
               </Typography>
             </Box>
           </Paper>
+
+          <Separator />
+
+          <Paper elevation={0} square>
+            <Box p={3}>
+              <Typography align="center" variant="h5" gutterBottom>
+                <strong>Statistics &amp; Metadata</strong>
+              </Typography>
+            </Box>
+          </Paper>
+
+          {/* Daily Update component */}
+          <DailyUpdate />
+
+          {/* Counties component */}
+          <Counties />
+
+          {/* Sources component */}
+          <Sources />
 
         </Grid>
         <Grid item md={4} xs={12}>
