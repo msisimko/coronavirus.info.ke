@@ -19,12 +19,10 @@ import { withFirebase } from '../../../firebase';
 
 const styles = theme => ({
   heading: {
-    fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
   },
   secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
   form: {
@@ -106,8 +104,8 @@ class UpdateEmailBase extends Component {
         <Accordion elevation={0} square>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
             <Box p={1}>
-              <Typography className={classes.heading}>Email</Typography>
-              <Typography className={classes.secondaryHeading}>Update your email address.</Typography>
+              <Typography className={classes.heading} variant="h6">Email</Typography>
+              <Typography className={classes.secondaryHeading} variant="subtitle1">Update your email address.</Typography>
             </Box>
           </AccordionSummary>
           <AccordionDetails>
