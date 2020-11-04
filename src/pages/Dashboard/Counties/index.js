@@ -12,17 +12,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
   heading: {
-    fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
   },
   secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
 });
 
-class DailyUpdate extends Component {
+class Counties extends Component {
   render() {
     const { classes } = this.props;
 
@@ -30,8 +28,8 @@ class DailyUpdate extends Component {
       <Accordion elevation={0} square>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2bh-content" id="panel2bh-header">
           <Box p={1}>
-            <Typography className={classes.heading}>Counties</Typography>
-            <Typography className={classes.secondaryHeading}>Add a new or delete an old county.</Typography>
+            <Typography className={classes.heading} variant="h6">Counties</Typography>
+            <Typography className={classes.secondaryHeading} variant="subtitle1">Add a new or delete an old county.</Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
@@ -45,4 +43,4 @@ class DailyUpdate extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(DailyUpdate);
+export default withStyles(styles, { withTheme: true })(Counties);
