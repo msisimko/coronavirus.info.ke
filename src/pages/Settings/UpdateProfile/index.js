@@ -97,43 +97,41 @@ class UpdateProfileBase extends Component {
     const disableButton = displayName === '';
  
     return (
-      <React.Fragment>
-        <Accordion elevation={0} square>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
-            <Box p={1}>
-              <Typography className={classes.heading} variant="h6">Profile</Typography>
-              <Typography className={classes.secondaryHeading} variant="subtitle1">Manage your display name.</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-              <TextField
-                fullWidth
-                id="displayName"
-                label="Display Name"
-                margin="normal"
-                name="displayName"
-                onChange={(e) => this.onChange(e)}
-                required
-                value={displayName}
-                variant="filled"
-                disabled={disabled}
-              />
-              <Button
-                className={classes.submit}
-                color="primary"
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                disabled={disabled || disableButton}
-              >
-                Update My Profile
-              </Button>
-            </form>
-          </AccordionDetails>
-        </Accordion>
-      </React.Fragment>
+      <Accordion elevation={0} square>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
+          <Box p={1}>
+            <Typography className={classes.heading} variant="h6">Profile</Typography>
+            <Typography className={classes.secondaryHeading} variant="subtitle1">Manage your display name.</Typography>
+          </Box>
+        </AccordionSummary>
+        <AccordionDetails>
+          <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
+            <TextField
+              fullWidth
+              id="displayName"
+              label="Display Name"
+              margin="normal"
+              name="displayName"
+              onChange={(e) => this.onChange(e)}
+              required
+              value={displayName}
+              variant="filled"
+              disabled={disabled}
+            />
+            <Button
+              className={classes.submit}
+              color="primary"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              disabled={disabled || disableButton}
+            >
+              Update My Profile
+            </Button>
+          </form>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }

@@ -100,45 +100,43 @@ class UpdateEmailBase extends Component {
     const disableButton = email === '';
  
     return (
-      <React.Fragment>
-        <Accordion elevation={0} square>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
-            <Box p={1}>
-              <Typography className={classes.heading} variant="h6">Email</Typography>
-              <Typography className={classes.secondaryHeading} variant="subtitle1">Update your email address.</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-              <TextField
-                fullWidth
-                id="email"
-                helperText="You'll need to confirm that this email belongs to you."
-                label="Email Address"
-                margin="normal"
-                name="email"
-                onChange={(e) => this.onChange(e)}
-                required
-                type="email"
-                value={email}
-                variant="filled"
-                disabled={disabled}
-              />
-              <Button
-                className={classes.submit}
-                color="primary"
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                disabled={disabled || disableButton}
-              >
-                Update My Email
-              </Button>
-            </form>
-          </AccordionDetails>
-        </Accordion>
-      </React.Fragment>
+      <Accordion elevation={0} square>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
+          <Box p={1}>
+            <Typography className={classes.heading} variant="h6">Email</Typography>
+            <Typography className={classes.secondaryHeading} variant="subtitle1">Update your email address.</Typography>
+          </Box>
+        </AccordionSummary>
+        <AccordionDetails>
+          <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
+            <TextField
+              fullWidth
+              id="email"
+              helperText="You'll need to confirm that this email belongs to you."
+              label="Email Address"
+              margin="normal"
+              name="email"
+              onChange={(e) => this.onChange(e)}
+              required
+              type="email"
+              value={email}
+              variant="filled"
+              disabled={disabled}
+            />
+            <Button
+              className={classes.submit}
+              color="primary"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              disabled={disabled || disableButton}
+            >
+              Update My Email
+            </Button>
+          </form>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }
