@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 
+import AddCounty from './addCounty';
+import ListCounties from './listCounties';
+
+import Separator from '../../../components/Separator';
+
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -29,14 +35,29 @@ class Counties extends Component {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2bh-content" id="panel2bh-header">
           <Box p={1}>
             <Typography className={classes.heading} variant="h6">Counties</Typography>
-            <Typography className={classes.secondaryHeading} variant="subtitle1">Add a new or delete an old county.</Typography>
+            <Typography className={classes.secondaryHeading} variant="subtitle1">Add or delete a county.</Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+
+              <AddCounty />
+
+              <Separator />
+
+              <Box color="primary.main">
+                <Typography variant="overline" gutterBottom>
+                  <strong>List of Counties</strong>
+                </Typography>
+              </Box>
+
+              <Separator />
+
+              <ListCounties />
+
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
     );

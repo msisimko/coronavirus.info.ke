@@ -134,6 +134,7 @@ class AppBase extends Component {
     const { theme } = this.state;
 
     const notistackRef = React.createRef();
+    
     const onClickDismiss = key => () => { 
         notistackRef.current.closeSnackbar(key);
     }
@@ -156,7 +157,7 @@ class AppBase extends Component {
             <Navigation theme={theme} onToggleTheme={this.toggleTheme} />
             
 
-            <SnackbarProvider preventDuplicate maxSnack={3} ref={notistackRef} action={(key) => ( <Button size="small" onClick={onClickDismiss(key)}>Dismiss</Button> )}> 
+            <SnackbarProvider preventDuplicate maxSnack={3} autoHideDuration={2500} disableWindowBlurListener={true} ref={notistackRef} action={(key) => ( <Button size="small" onClick={onClickDismiss(key)}>Dismiss</Button> )}> 
               <MuiPickersUtilsProvider utils={LuxonUtils}>
                 <main className={classes.content}>
                   <div className={classes.toolbar} />

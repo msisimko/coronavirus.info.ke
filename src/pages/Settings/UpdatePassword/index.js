@@ -110,33 +110,41 @@ class UpdatePasswordBase extends Component {
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              
               <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-                <TextField
-                  fullWidth
-                  id="passwordOne"
-                  label="Password"
-                  margin="normal"
-                  name="passwordOne"
-                  onChange={(e) => this.onChange(e)}
-                  required
-                  type="password"
-                  value={passwordOne}
-                  variant="filled"
-                  disabled={disabled}
-                />
-                <TextField
-                  fullWidth
-                  id="passwordTwo"
-                  label="Confirm Password"
-                  margin="normal"
-                  name="passwordTwo"
-                  onChange={(e) => this.onChange(e)}
-                  required
-                  type="password"
-                  value={passwordTwo}
-                  variant="filled"
-                  disabled={disabled}
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="passwordOne"
+                      label="Password"
+                      margin="normal"
+                      name="passwordOne"
+                      onChange={(e) => this.onChange(e)}
+                      required
+                      type="password"
+                      value={passwordOne}
+                      variant="filled"
+                      disabled={disabled}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="passwordTwo"
+                      label="Confirm Password"
+                      margin="normal"
+                      name="passwordTwo"
+                      onChange={(e) => this.onChange(e)}
+                      required
+                      type="password"
+                      value={passwordTwo}
+                      variant="filled"
+                      disabled={disabled}
+                    />
+                  </Grid>
+                </Grid>
+
                 <Button
                   className={classes.submit}
                   color="primary"
@@ -149,6 +157,7 @@ class UpdatePasswordBase extends Component {
                   Update My Password
                 </Button>
               </form>
+              
             </Grid>
           </Grid>
         </AccordionDetails>

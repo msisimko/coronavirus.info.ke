@@ -26,10 +26,10 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  allSources: [],
+  allCounties: [],
 }
 
-class ListSourcesBase extends Component {
+class ListCountiesBase extends Component {
   static contextType = AuthUserContext;
 
   constructor(props) {
@@ -42,14 +42,14 @@ class ListSourcesBase extends Component {
 
   componentDidMount() {
     this.listener = this.props.firebase
-                      .sources()
-                      .orderBy("createdOn", "desc")
+                      .counties()
+                      .orderBy("countyCode", "asc")
                       .onSnapshot((querySnapshot) => {
-                        let allSources = [];
+                        let allCounties = [];
                         querySnapshot.forEach((doc) => {
-                          allSources.push({ id: doc.id, name: doc.data().sourceName, createdBy: doc.data().createdBy });
+                          allCounties.push({ id: doc.id, name: doc.data().countyName, code: doc.data().countyCode, createdBy: doc.data().createdBy });
                         });
-                        this.setState({ allSources });
+                        this.setState({ allCounties });
                       });
   }
 
@@ -57,14 +57,14 @@ class ListSourcesBase extends Component {
     this.listener();
   }
 
-  handleDelete(source) {
+  handleDelete(county) {
     const { enqueueSnackbar } = this.props;
 
     this.props.firebase
-      .source(source.id)
+      .county(county.id)
       .delete()
       .then(() => {
-        enqueueSnackbar(`${source.name} has successfully been deleted.`, { variant: 'success' });
+        enqueueSnackbar(`${county.name} County has successfully been deleted.`, { variant: 'success' });
       })
       .catch(error => {
         enqueueSnackbar(error.message, { variant: 'error' });
@@ -74,7 +74,7 @@ class ListSourcesBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { allSources } = this.state;
+    const { allCounties } = this.state;
     
     const authUser = this.context;
 
@@ -83,30 +83,34 @@ class ListSourcesBase extends Component {
         <Grid item xs={12}>
           <TableContainer>
             <Table className={classes.table} aria-label="simple table">
-              <caption>A list of all the sources in the database. </caption>
+              <caption>A list of all the counties in the database. </caption>
               <TableHead>
                 <TableRow>
-                  <TableCell colSpan={2}>Source Name</TableCell>
+                  <TableCell>Code</TableCell>
+                  <TableCell colSpan={2}>County Name</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {allSources.length === 0 ? (
+                {allCounties.length === 0 ? (
                   <React.Fragment>
                     <TableRow key={0}>
-                      <TableCell colSpan={2}>
-                        <Box color="text.disabled">There are currently no sources in the database.</Box>
+                      <TableCell colSpan={3}>
+                        <Box color="text.disabled">There are currently no counties in the database.</Box>
                       </TableCell>
                     </TableRow>
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    {allSources.map((source) => (
-                      <TableRow key={source.id} hover>
+                    {allCounties.map((county) => (
+                      <TableRow key={county.id} hover>
+                        <TableCell>
+                          {county.code}
+                        </TableCell>
                         <TableCell component="th" scope="row">
-                          {source.name}
+                          {county.name}
                         </TableCell>
                         <TableCell align="right">
-                          <Button size="small" onClick={() => this.handleDelete(source)} disabled={authUser.uid !== source.createdBy}>Delete</Button>
+                          <Button size="small" onClick={() => this.handleDelete(county)} disabled={authUser.uid !== county.createdBy}>Delete</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -121,10 +125,10 @@ class ListSourcesBase extends Component {
   }
 }
 
-const ListSources = compose(
+const ListCounties = compose(
   withStyles(styles, { withTheme: true }),
   withSnackbar,
   withFirebase,
-)(ListSourcesBase);
+)(ListCountiesBase);
 
-export default ListSources;
+export default ListCounties;
