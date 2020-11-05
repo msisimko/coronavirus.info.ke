@@ -112,20 +112,20 @@ class AddSourceBase extends Component {
               variant="filled"
               disabled={disabled}
             />
-            </Grid>
           </Grid>
-          
-          <Button
-            className={classes.submit}
-            color="primary"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            disabled={disabled || disableButton}
-          >
-            Add Source
-          </Button>
+        </Grid>
+        
+        <Button
+          className={classes.submit}
+          color="primary"
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          disabled={disabled || disableButton}
+        >
+          Add Source
+        </Button>
       </form>
     );
   }

@@ -35,7 +35,7 @@ class Sources extends Component {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3bh-content" id="panel3bh-header">
           <Box p={1}>
             <Typography className={classes.heading} variant="h6">Sources</Typography>
-            <Typography className={classes.secondaryHeading} variant="subtitle1">Add a new or delete an old source of information.</Typography>
+            <Typography className={classes.secondaryHeading} variant="subtitle1">Add or delete a source.</Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
