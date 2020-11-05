@@ -108,19 +108,25 @@ class UpdateProfileBase extends Component {
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+
               <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-                <TextField
-                  fullWidth
-                  id="displayName"
-                  label="Display Name"
-                  margin="normal"
-                  name="displayName"
-                  onChange={(e) => this.onChange(e)}
-                  required
-                  value={displayName}
-                  variant="filled"
-                  disabled={disabled}
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="displayName"
+                      label="Display Name"
+                      margin="normal"
+                      name="displayName"
+                      onChange={(e) => this.onChange(e)}
+                      required
+                      value={displayName}
+                      variant="filled"
+                      disabled={disabled}
+                    />
+                  </Grid>
+                </Grid>
+
                 <Button
                   className={classes.submit}
                   color="primary"
@@ -133,6 +139,7 @@ class UpdateProfileBase extends Component {
                   Update My Profile
                 </Button>
               </form>
+              
             </Grid>
           </Grid>
         </AccordionDetails>

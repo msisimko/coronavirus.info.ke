@@ -111,21 +111,27 @@ class UpdateEmailBase extends Component {
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              
               <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
-                <TextField
-                  fullWidth
-                  id="email"
-                  helperText="You'll need to confirm that this email belongs to you."
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onChange={(e) => this.onChange(e)}
-                  required
-                  type="email"
-                  value={email}
-                  variant="filled"
-                  disabled={disabled}
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="email"
+                      helperText="You'll need to confirm that this email belongs to you."
+                      label="Email Address"
+                      margin="normal"
+                      name="email"
+                      onChange={(e) => this.onChange(e)}
+                      required
+                      type="email"
+                      value={email}
+                      variant="filled"
+                      disabled={disabled}
+                    />
+                  </Grid>
+                </Grid>
+
                 <Button
                   className={classes.submit}
                   color="primary"
@@ -138,6 +144,7 @@ class UpdateEmailBase extends Component {
                   Update My Email
                 </Button>
               </form>
+              
             </Grid>
           </Grid>
         </AccordionDetails>
