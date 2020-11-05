@@ -27,9 +27,9 @@ const styles = theme => ({
 const INITIAL_STATE = {
   countyName: '',
   countyCode: '',
+  countyCapital: '',
   countyArea: '',
   countyPopulation: '',
-  countyCapital: '',
   disabled: false,
 }
 
@@ -54,7 +54,7 @@ class AddCountyBase extends Component {
   onSubmit(event) {
     const { enqueueSnackbar } = this.props;
 
-    const { countyName, countyCode, countyArea, countyPopulation, countyCapital } = this.state;
+    const { countyName, countyCode, countyCapital, countyArea, countyPopulation } = this.state;
 
     const authUser = this.context;
 
@@ -65,9 +65,9 @@ class AddCountyBase extends Component {
       .add({
         countyName,
         countyCode: parseFloat(countyCode),
+        countyCapital,
         countyArea: parseFloat(countyArea),
         countyPopulation: parseFloat(countyPopulation),
-        countyCapital,
         createdOn: this.props.firebase.getServerTimestamp(),
         createdBy: authUser.uid,
         createdByName: authUser.displayName,
@@ -101,13 +101,13 @@ class AddCountyBase extends Component {
   render() {
     const { classes } = this.props;
 
-    const { countyName, countyCode, countyArea, countyPopulation, countyCapital, disabled } = this.state;
+    const { countyName, countyCode, countyCapital, countyArea, countyPopulation, disabled } = this.state;
 
     const disableButton = countyName === '' ||
-                          countyCode === '' ||
+                          countyCode === ''  ||
+                          countyCapital === ''||
                           countyArea === '' ||
-                          countyPopulation === '' ||
-                          countyCapital === '';
+                          countyPopulation === '';
 
     return(
       <form className={classes.form} onSubmit={(e) => this.onSubmit(e)}>
@@ -152,10 +152,25 @@ class AddCountyBase extends Component {
             />
           </Grid>
           <Grid item md={6} xs={12}>
+            <TextField
+              fullWidth
+              id="countyCapital"
+              label="County Capital"
+              margin="normal"
+              name="countyCapital"
+              onChange={(e) => this.onChange(e)}
+              required
+              value={countyCapital}
+              variant="filled"
+              disabled={disabled}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
             <NumberFormat 
               fullWidth
               id="countyArea"
-              label="County Area (Sq. KM)"
+              helperText="Area is in square kilometers."
+              label="County Area"
               margin="normal"
               name="countyArea"
               required
@@ -179,7 +194,8 @@ class AddCountyBase extends Component {
             <NumberFormat 
               fullWidth
               id="countyPopulation"
-              label="County Population (2019 Census)"
+              helperText="Population is as of the 2019 Census."
+              label="County Population"
               margin="normal"
               name="countyPopulation"
               required
@@ -197,20 +213,6 @@ class AddCountyBase extends Component {
                   },
                 });
               }}
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              fullWidth
-              id="countyCapital"
-              label="County Capital"
-              margin="normal"
-              name="countyCapital"
-              onChange={(e) => this.onChange(e)}
-              required
-              value={countyCapital}
-              variant="filled"
-              disabled={disabled}
             />
           </Grid>
         </Grid>
