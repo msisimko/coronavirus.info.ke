@@ -155,7 +155,7 @@ class AddCountyBase extends Component {
             <NumberFormat 
               fullWidth
               id="countyArea"
-              label="County Area"
+              label="County Area (Sq. KM)"
               margin="normal"
               name="countyArea"
               required
@@ -179,7 +179,7 @@ class AddCountyBase extends Component {
             <NumberFormat 
               fullWidth
               id="countyPopulation"
-              label="County Population"
+              label="County Population (2019 Census)"
               margin="normal"
               name="countyPopulation"
               required
