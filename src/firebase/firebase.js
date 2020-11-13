@@ -74,6 +74,14 @@ class Firebase {
   counties = () => this.db.collection('counties');
 
   county = id => this.db.collection('counties').doc(id);
+
+  drafts = () => this.db.collection('drafts');
+
+  draft = id => this.db.collection('drafts').doc(id);
+
+  posts = () => this.db.collection('posts');
+
+  post = id => this.db.collection('posts').doc(id);
 }
 
 export default Firebase;
